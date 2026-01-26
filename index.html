@@ -510,6 +510,49 @@ window.addEventListener("scroll",activateMenu)})</script>
 	<meta name="msapplication-TileImage"
 		content="https://aplia.com.br/wp-content/uploads/2025/06/cropped-Camada-21cas-270x270.png" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Slab:wght@400;700&display=swap"
+		rel="stylesheet">
+	<style>
+		/* Sticky Header Logic */
+		section[data-id="8fd051f"] {
+			position: fixed !important;
+			top: -150px;
+			width: 100%;
+			z-index: 9999;
+			transition: top 0.4s ease-in-out;
+			background-color: #fff;
+			/* Ensure visibility */
+			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+		}
+
+		section[data-id="8fd051f"].sticky-visible {
+			top: 0;
+		}
+
+		/* Fix for possible white space issues at top */
+		body {
+			margin-top: 0 !important;
+			padding-top: 0 !important;
+		}
+	</style>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			var header = document.querySelector('section[data-id="8fd051f"]');
+			window.addEventListener('scroll', function () {
+				if (window.scrollY > 100) {
+					header.classList.add('sticky-visible');
+				} else {
+					header.classList.remove('sticky-visible');
+				}
+			});
+
+			// Check initial position
+			if (window.scrollY > 100) {
+				header.classList.add('sticky-visible');
+			}
+		});
+	</script>
 </head>
 
 <body

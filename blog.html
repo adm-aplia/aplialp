@@ -13,17 +13,32 @@
     <style>
         /* Reusing some elementor variables */
         body {
-            font-family: "Helvetica", Sans-serif;
-            /* Fallback if not loaded */
+            /* Inherit Roboto */
             background-color: #ffffff;
             margin: 0;
+        }
+
+        /* Sticky Header Logic */
+        section[data-id="8fd051f"] {
+            position: fixed !important;
+            top: -150px;
+            width: 100%;
+            z-index: 9999;
+            transition: top 0.4s ease-in-out;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        section[data-id="8fd051f"].sticky-visible {
+            top: 0;
         }
 
         /* New Blog Styles */
         .blog-hero {
             background-color: #f9f9f9;
-            padding: 80px 20px;
+            padding: 120px 20px 80px;
             text-align: center;
+            margin-top: 0;
         }
 
         .blog-hero h1 {
@@ -315,6 +330,19 @@
         </section>
     </div>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var header = document.querySelector('section[data-id="8fd051f"]');
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > 100) {
+                    header.classList.add('sticky-visible');
+                } else {
+                    header.classList.remove('sticky-visible');
+                }
+            });
+            if (window.scrollY > 100) header.classList.add('sticky-visible');
+        });
+    </script>
 </body>
 
 </html>
