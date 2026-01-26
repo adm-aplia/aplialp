@@ -10,6 +10,16 @@
 		gtag('js', new Date());
 		gtag('config', 'AW-16734679755');
 	</script>
+	<!-- Google Tag Manager -->
+	<script>(function (w, d, s, l, i) {
+			w[l] = w[l] || []; w[l].push({
+				'gtm.start':
+					new Date().getTime(), event: 'gtm.js'
+			}); var f = d.getElementsByTagName(s)[0],
+				j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+					'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-PTN93NBN');</script>
+	<!-- End Google Tag Manager -->
 	<script
 		data-no-optimize="1">var litespeed_docref = sessionStorage.getItem("litespeed_docref"); litespeed_docref && (Object.defineProperty(document, "referrer", { get: function () { return litespeed_docref } }), sessionStorage.removeItem("litespeed_docref"));</script>
 	<meta charset="UTF-8">
@@ -595,6 +605,25 @@ window.addEventListener("scroll",activateMenu)})</script>
 		.elementor-element-ba39c58 .elementor-heading-title a {
 			font-size: 16px !important;
 		}
+
+		/* ============ FIX WHITE SPACE ============ */
+		/* Force hero section to not have excessive height */
+		section[data-id="8f6592e"] {
+			min-height: auto !important;
+			max-height: 700px !important;
+			overflow: hidden !important;
+		}
+
+		/* Ensure phone image container doesn't cause overflow */
+		.elementor-element-49767dd .elementor-widget-container {
+			max-height: 500px;
+			overflow: hidden;
+		}
+
+		.elementor-element-49767dd img {
+			max-height: 500px;
+			object-fit: contain;
+		}
 	</style>
 	<script>
 		document.addEventListener("DOMContentLoaded", function () {
@@ -617,6 +646,10 @@ window.addEventListener("scroll",activateMenu)})</script>
 
 <body
 	class="home wp-singular page-template page-template-elementor_canvas page page-id-14 wp-embed-responsive wp-theme-hello-elementor hello-elementor-default elementor-default elementor-template-canvas elementor-kit-6 elementor-page elementor-page-14">
+	<!-- Google Tag Manager (noscript) -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PTN93NBN" height="0" width="0"
+			style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- End Google Tag Manager (noscript) -->
 	<div data-elementor-type="wp-page" data-elementor-id="14" class="elementor elementor-14">
 		<section
 			class="elementor-section elementor-top-section elementor-element elementor-element-8fd051f elementor-section-boxed elementor-section-height-default elementor-section-height-default"
