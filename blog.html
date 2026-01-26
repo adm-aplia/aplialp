@@ -134,11 +134,189 @@
             color: #cf2e2e;
             font-weight: bold;
             text-decoration: none;
-            transition: color 0.2s;
+            transition: all 0.3s ease;
         }
 
         .read-more:hover {
             color: #a01e1e;
+            transform: translateX(5px);
+        }
+
+        /* ============ ANIMATIONS ============ */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .blog-card {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
+        }
+
+        .blog-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .blog-card:nth-child(1) {
+            transition-delay: 0.1s;
+        }
+
+        .blog-card:nth-child(2) {
+            transition-delay: 0.2s;
+        }
+
+        .blog-card:nth-child(3) {
+            transition-delay: 0.3s;
+        }
+
+        .blog-hero h1,
+        .blog-hero p {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .blog-hero h1 {
+            animation-delay: 0.2s;
+        }
+
+        .blog-hero p {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ============ GLASSMORPHISM HEADER ============ */
+        section[data-id="8fd051f"].sticky-visible {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px);
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 768px) {
+            .blog-hero {
+                padding: 100px 20px 60px;
+            }
+
+            .blog-hero h1 {
+                font-size: 32px;
+            }
+
+            .blog-hero p {
+                font-size: 16px;
+            }
+
+            .blog-grid {
+                gap: 20px;
+            }
+
+            .blog-card h3 {
+                font-size: 18px;
+            }
+
+            .elementor-col-33 {
+                width: 100% !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .blog-hero h1 {
+                font-size: 26px;
+            }
+
+            .blog-container {
+                padding: 40px 15px;
+            }
+        }
+
+        /* ============ MOBILE MENU ============ */
+        .mobile-menu-toggle {
+            display: none;
+            width: 30px;
+            height: 24px;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            z-index: 10001;
+        }
+
+        .mobile-menu-toggle span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background: #333;
+            border-radius: 3px;
+            position: absolute;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-toggle span:nth-child(1) {
+            top: 0;
+        }
+
+        .mobile-menu-toggle span:nth-child(2) {
+            top: 10px;
+        }
+
+        .mobile-menu-toggle span:nth-child(3) {
+            top: 20px;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg);
+            top: 10px;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .elementor-nav-menu--main {
+                position: fixed !important;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(10px);
+                display: flex !important;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transform: translateX(-100%);
+                transition: transform 0.4s ease;
+                z-index: 9998;
+            }
+
+            .elementor-nav-menu--main.mobile-open {
+                transform: translateX(0);
+            }
+
+            .elementor-nav-menu--main .elementor-nav-menu {
+                flex-direction: column !important;
+                gap: 30px;
+            }
+
+            .elementor-nav-menu--main .elementor-item {
+                font-size: 24px !important;
+            }
         }
     </style>
 </head>
@@ -354,6 +532,7 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
+            // Sticky header
             var header = document.querySelector('section[data-id="8fd051f"]');
             window.addEventListener('scroll', function () {
                 if (window.scrollY > 100) {
@@ -363,6 +542,40 @@
                 }
             });
             if (window.scrollY > 100) header.classList.add('sticky-visible');
+
+            // Animate blog cards on scroll
+            const cards = document.querySelectorAll('.blog-card');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            cards.forEach(card => observer.observe(card));
+
+            // Mobile hamburger menu
+            const hamburger = document.createElement('div');
+            hamburger.className = 'mobile-menu-toggle';
+            hamburger.innerHTML = '<span></span><span></span><span></span>';
+            document.body.appendChild(hamburger);
+
+            const navMenu = document.querySelector('.elementor-nav-menu--main');
+            hamburger.addEventListener('click', function () {
+                this.classList.toggle('active');
+                if (navMenu) navMenu.classList.toggle('mobile-open');
+                document.body.style.overflow = this.classList.contains('active') ? 'hidden' : '';
+            });
+
+            document.querySelectorAll('.elementor-nav-menu--main .elementor-item').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    if (navMenu) navMenu.classList.remove('mobile-open');
+                    document.body.style.overflow = '';
+                });
+            });
+
+            console.log('🚀 Blog animations loaded!');
         });
     </script>
 </body>

@@ -624,15 +624,468 @@ window.addEventListener("scroll",activateMenu)})</script>
 			max-height: 500px;
 			object-fit: contain;
 		}
+
+		/* ============ SCROLL ANIMATIONS ============ */
+		/* Elements that will animate on scroll */
+		.animate-on-scroll {
+			opacity: 0;
+			transform: translateY(40px);
+			transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+		}
+
+		.animate-on-scroll.visible {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		/* Staggered animation delays */
+		.animate-delay-1 {
+			transition-delay: 0.1s;
+		}
+
+		.animate-delay-2 {
+			transition-delay: 0.2s;
+		}
+
+		.animate-delay-3 {
+			transition-delay: 0.3s;
+		}
+
+		.animate-delay-4 {
+			transition-delay: 0.4s;
+		}
+
+		/* Fade in from left/right */
+		.animate-left {
+			opacity: 0;
+			transform: translateX(-50px);
+			transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+		}
+
+		.animate-right {
+			opacity: 0;
+			transform: translateX(50px);
+			transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+		}
+
+		.animate-left.visible,
+		.animate-right.visible {
+			opacity: 1;
+			transform: translateX(0);
+		}
+
+		/* Scale up animation */
+		.animate-scale {
+			opacity: 0;
+			transform: scale(0.9);
+			transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+		}
+
+		.animate-scale.visible {
+			opacity: 1;
+			transform: scale(1);
+		}
+
+		/* ============ HOVER EFFECTS ============ */
+		/* Buttons */
+		.elementor-button {
+			transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.elementor-button:hover {
+			transform: translateY(-3px) scale(1.02) !important;
+			box-shadow: 0 10px 30px rgba(234, 84, 95, 0.4) !important;
+		}
+
+		.elementor-button:active {
+			transform: translateY(0) scale(0.98) !important;
+		}
+
+		/* Nav menu items */
+		.elementor-nav-menu .elementor-item {
+			position: relative;
+			transition: color 0.3s ease !important;
+		}
+
+		.elementor-nav-menu .elementor-item::after {
+			content: '';
+			position: absolute;
+			bottom: -5px;
+			left: 50%;
+			width: 0;
+			height: 2px;
+			background: #EA545F;
+			transition: width 0.3s ease, left 0.3s ease;
+		}
+
+		.elementor-nav-menu .elementor-item:hover::after {
+			width: 100%;
+			left: 0;
+		}
+
+		/* Cards/Columns hover */
+		.elementor-inner-column {
+			transition: transform 0.4s ease, box-shadow 0.4s ease !important;
+		}
+
+		.elementor-inner-column:hover {
+			transform: translateY(-5px);
+		}
+
+		/* Images hover zoom */
+		.elementor-widget-image img {
+			transition: transform 0.5s ease !important;
+		}
+
+		.elementor-widget-image:hover img {
+			transform: scale(1.05);
+		}
+
+		/* ============ SMOOTH SCROLLING ============ */
+		html {
+			scroll-behavior: smooth;
+		}
+
+		/* ============ PARALLAX HERO ============ */
+		section[data-id="8f6592e"] {
+			position: relative;
+		}
+
+		.elementor-element-49767dd {
+			transition: transform 0.1s ease-out;
+		}
+
+		/* ============ RESPONSIVE DESIGN ============ */
+		/* Tablet */
+		@media (max-width: 1024px) {
+
+			.elementor-element-c64ab50 .elementor-widget-container,
+			.elementor-element-c64ab50 h2 {
+				font-size: 32px !important;
+			}
+
+			.elementor-element-8a3b9f8 .elementor-widget-container p {
+				font-size: 18px !important;
+			}
+
+			section[data-id="8f6592e"] {
+				max-height: none !important;
+				overflow: visible !important;
+			}
+		}
+
+		/* Mobile */
+		@media (max-width: 768px) {
+
+			.elementor-element-c64ab50 .elementor-widget-container,
+			.elementor-element-c64ab50 h2 {
+				font-size: 26px !important;
+				text-align: center !important;
+			}
+
+			.elementor-element-8a3b9f8 .elementor-widget-container p {
+				font-size: 16px !important;
+				text-align: center !important;
+			}
+
+			.elementor-heading-title.elementor-size-default {
+				font-size: 22px !important;
+			}
+
+			.elementor-widget-text-editor p {
+				font-size: 14px !important;
+			}
+
+			/* Stack columns vertically */
+			.elementor-col-50,
+			.elementor-col-33 {
+				width: 100% !important;
+			}
+
+			/* Center phone image on mobile */
+			.elementor-element-49767dd {
+				text-align: center;
+			}
+
+			.elementor-element-49767dd img {
+				max-width: 280px;
+				margin: 0 auto;
+			}
+
+			/* Hide spacers on mobile */
+			.elementor-widget-spacer {
+				display: none !important;
+			}
+
+			/* Mobile button full width */
+			.elementor-button-wrapper {
+				text-align: center !important;
+			}
+
+			.elementor-button {
+				width: 100% !important;
+				max-width: 280px !important;
+			}
+		}
+
+		/* Small Mobile */
+		@media (max-width: 480px) {
+
+			.elementor-element-c64ab50 .elementor-widget-container,
+			.elementor-element-c64ab50 h2 {
+				font-size: 22px !important;
+			}
+
+			.elementor-nav-menu .elementor-item {
+				font-size: 14px !important;
+			}
+		}
+
+		/* ============ MOBILE HAMBURGER MENU ============ */
+		.mobile-menu-toggle {
+			display: none;
+			width: 30px;
+			height: 24px;
+			position: relative;
+			cursor: pointer;
+			z-index: 10000;
+		}
+
+		.mobile-menu-toggle span {
+			display: block;
+			width: 100%;
+			height: 3px;
+			background: #333;
+			border-radius: 3px;
+			position: absolute;
+			transition: all 0.3s ease;
+		}
+
+		.mobile-menu-toggle span:nth-child(1) {
+			top: 0;
+		}
+
+		.mobile-menu-toggle span:nth-child(2) {
+			top: 10px;
+		}
+
+		.mobile-menu-toggle span:nth-child(3) {
+			top: 20px;
+		}
+
+		.mobile-menu-toggle.active span:nth-child(1) {
+			transform: rotate(45deg);
+			top: 10px;
+		}
+
+		.mobile-menu-toggle.active span:nth-child(2) {
+			opacity: 0;
+		}
+
+		.mobile-menu-toggle.active span:nth-child(3) {
+			transform: rotate(-45deg);
+			top: 10px;
+		}
+
+		@media (max-width: 768px) {
+			.mobile-menu-toggle {
+				display: block;
+				position: fixed;
+				top: 20px;
+				right: 20px;
+				z-index: 10001;
+			}
+
+			.elementor-nav-menu--main {
+				position: fixed !important;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100vh;
+				background: rgba(255, 255, 255, 0.98);
+				backdrop-filter: blur(10px);
+				display: flex !important;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				transform: translateX(-100%);
+				transition: transform 0.4s ease;
+				z-index: 9998;
+			}
+
+			.elementor-nav-menu--main.mobile-open {
+				transform: translateX(0);
+			}
+
+			.elementor-nav-menu--main .elementor-nav-menu {
+				flex-direction: column !important;
+				gap: 30px;
+			}
+
+			.elementor-nav-menu--main .elementor-item {
+				font-size: 24px !important;
+			}
+		}
+
+		/* ============ GLASSMORPHISM EFFECTS ============ */
+		section[data-id="8fd051f"].sticky-visible {
+			background: rgba(255, 255, 255, 0.95) !important;
+			backdrop-filter: blur(10px);
+			-webkit-backdrop-filter: blur(10px);
+		}
+
+		/* ============ GRADIENT TEXT EFFECT ============ */
+		.elementor-element-c64ab50 font[color="#EA545F"] {
+			background: linear-gradient(135deg, #EA545F 0%, #FF7B7B 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+		}
+
+		/* ============ GLOW EFFECT ON BUTTONS ============ */
+		.elementor-button::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: -100%;
+			width: 100%;
+			height: 100%;
+			background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+			transition: left 0.5s ease;
+		}
+
+		.elementor-button:hover::before {
+			left: 100%;
+		}
+
+		/* ============ CARD SHADOWS ============ */
+		.elementor-inner-column[data-settings*="background"] {
+			box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+			border-radius: 16px;
+			overflow: hidden;
+		}
+
+		.elementor-inner-column[data-settings*="background"]:hover {
+			box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+		}
+
+		/* ============ LOADING ANIMATION ============ */
+		@keyframes fadeInUp {
+			from {
+				opacity: 0;
+				transform: translateY(30px);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		.elementor-element-c64ab50 {
+			animation: fadeInUp 1s ease-out 0.2s both;
+		}
+
+		.elementor-element-8a3b9f8 {
+			animation: fadeInUp 1s ease-out 0.4s both;
+		}
+
+		.elementor-element-37c08da {
+			animation: fadeInUp 1s ease-out 0.6s both;
+		}
+
+		/* ============ PULSE ANIMATION FOR CTA ============ */
+		@keyframes pulse {
+
+			0%,
+			100% {
+				box-shadow: 0 0 0 0 rgba(234, 84, 95, 0.4);
+			}
+
+			50% {
+				box-shadow: 0 0 0 15px rgba(234, 84, 95, 0);
+			}
+		}
+
+		.elementor-element-37c08da .elementor-button {
+			animation: pulse 2s infinite;
+		}
+
+		/* ============ FLOATING ANIMATION FOR PHONE ============ */
+		@keyframes float {
+
+			0%,
+			100% {
+				transform: translateY(0);
+			}
+
+			50% {
+				transform: translateY(-15px);
+			}
+		}
+
+		.elementor-element-49767dd img {
+			animation: float 4s ease-in-out infinite;
+		}
 	</style>
 	<script>
 		document.addEventListener("DOMContentLoaded", function () {
+			// ============ STICKY HEADER ============
 			var header = document.querySelector('section[data-id="8fd051f"]');
+
+			// ============ SCROLL ANIMATION OBSERVER ============
+			const observerOptions = {
+				root: null,
+				rootMargin: '0px',
+				threshold: 0.1
+			};
+
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach(entry => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('visible');
+					}
+				});
+			}, observerOptions);
+
+			// Add animation classes to sections
+			document.querySelectorAll('.elementor-top-section').forEach((section, index) => {
+				if (index > 0) { // Skip header
+					section.classList.add('animate-on-scroll');
+					observer.observe(section);
+				}
+			});
+
+			// Add animation to inner columns (cards)
+			document.querySelectorAll('.elementor-inner-column').forEach((col, index) => {
+				col.classList.add('animate-on-scroll', 'animate-delay-' + ((index % 4) + 1));
+				observer.observe(col);
+			});
+
+			// ============ PARALLAX EFFECT ============
+			const phoneImage = document.querySelector('.elementor-element-49767dd');
+			const heroSection = document.querySelector('section[data-id="8f6592e"]');
+
+			// ============ SCROLL EVENT HANDLER ============
 			window.addEventListener('scroll', function () {
-				if (window.scrollY > 100) {
+				const scrollY = window.scrollY;
+
+				// Sticky header logic
+				if (scrollY > 100) {
 					header.classList.add('sticky-visible');
 				} else {
 					header.classList.remove('sticky-visible');
+				}
+
+				// Parallax effect for phone image
+				if (phoneImage && heroSection) {
+					const heroRect = heroSection.getBoundingClientRect();
+					if (heroRect.bottom > 0 && heroRect.top < window.innerHeight) {
+						const parallaxValue = scrollY * 0.3;
+						phoneImage.style.transform = `translateY(${-parallaxValue}px)`;
+					}
 				}
 			});
 
@@ -640,6 +1093,86 @@ window.addEventListener("scroll",activateMenu)})</script>
 			if (window.scrollY > 100) {
 				header.classList.add('sticky-visible');
 			}
+
+			// ============ SMOOTH SCROLL FOR ANCHORS ============
+			document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+				anchor.addEventListener('click', function (e) {
+					e.preventDefault();
+					const target = document.querySelector(this.getAttribute('href'));
+					if (target) {
+						target.scrollIntoView({
+							behavior: 'smooth',
+							block: 'start'
+						});
+					}
+				});
+			});
+
+			// ============ COUNTER ANIMATION ============
+			function animateCounter(element, target, duration) {
+				let start = 0;
+				const increment = target / (duration / 16);
+				const timer = setInterval(() => {
+					start += increment;
+					if (start >= target) {
+						element.textContent = target;
+						clearInterval(timer);
+					} else {
+						element.textContent = Math.floor(start);
+					}
+				}, 16);
+			}
+
+			// ============ TYPING EFFECT FOR HERO (Optional) ============
+			// Can be enabled if needed
+
+			// ============ MOBILE HAMBURGER MENU ============
+			// Create hamburger menu button
+			const hamburger = document.createElement('div');
+			hamburger.className = 'mobile-menu-toggle';
+			hamburger.innerHTML = '<span></span><span></span><span></span>';
+			document.body.appendChild(hamburger);
+
+			const navMenu = document.querySelector('.elementor-nav-menu--main');
+
+			hamburger.addEventListener('click', function () {
+				this.classList.toggle('active');
+				if (navMenu) {
+					navMenu.classList.toggle('mobile-open');
+				}
+				document.body.style.overflow = this.classList.contains('active') ? 'hidden' : '';
+			});
+
+			// Close menu when clicking a link
+			document.querySelectorAll('.elementor-nav-menu--main .elementor-item').forEach(link => {
+				link.addEventListener('click', () => {
+					hamburger.classList.remove('active');
+					if (navMenu) {
+						navMenu.classList.remove('mobile-open');
+					}
+					document.body.style.overflow = '';
+				});
+			});
+
+			// ============ REVEAL ON SCROLL ============
+			const revealElements = document.querySelectorAll('.elementor-widget-heading, .elementor-widget-text-editor, .elementor-widget-button');
+			const revealObserver = new IntersectionObserver((entries) => {
+				entries.forEach(entry => {
+					if (entry.isIntersecting) {
+						entry.target.style.opacity = '1';
+						entry.target.style.transform = 'translateY(0)';
+					}
+				});
+			}, { threshold: 0.1 });
+
+			revealElements.forEach(el => {
+				el.style.opacity = '0';
+				el.style.transform = 'translateY(20px)';
+				el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+				revealObserver.observe(el);
+			});
+
+			console.log('🚀 Aplia animations loaded!');
 		});
 	</script>
 </head>
