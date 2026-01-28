@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Como automatizar agendamento de consultas pelo WhatsApp | Blog Aplia</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Passo a passo para configurar um assistente que agenda consultas automaticamente pelo WhatsApp, sem você precisar responder manualmente." />
+
+    <!-- Favicon -->
+    <link rel="icon" href="https://aplia.com.br/wp-content/uploads/2025/06/cropped-Camada-21cas-32x32.png"
+        sizes="32x32" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:url"
+        content="https://aplia.com.br/blog/como-automatizar-agendamento-de-consultas-pelo-whatsapp.html" />
+    <meta property="og:title" content="Como automatizar agendamento de consultas pelo WhatsApp" />
+    <meta property="og:description"
+        content="Configure um assistente que agenda consultas automaticamente, sem responder manualmente." />
+    <meta property="og:image" content="https://aplia.com.br/assets/img/favicon-og.png" />
+
+    <!-- Canonical -->
+    <link rel="canonical"
+        href="https://aplia.com.br/blog/como-automatizar-agendamento-de-consultas-pelo-whatsapp.html" />
+
+    <!-- Schema.org Article -->
+    <script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "Article",
+		"headline": "Como automatizar agendamento de consultas pelo WhatsApp",
+		"description": "Passo a passo para configurar um assistente que agenda consultas automaticamente pelo WhatsApp.",
+		"author": {"@type": "Organization", "name": "Aplia"},
+		"publisher": {"@type": "Organization", "name": "Aplia", "logo": {"@type": "ImageObject", "url": "https://aplia.com.br/assets/img/favicon-og.png"}},
+		"datePublished": "2026-01-28",
+		"dateModified": "2026-01-28",
+		"mainEntityOfPage": "https://aplia.com.br/blog/como-automatizar-agendamento-de-consultas-pelo-whatsapp.html"
+	}
+	</script>
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #EA545F;
+            --primary-dark: #d43d48;
+            --dark: #1a1a2e;
+            --dark-secondary: #232342;
+            --light: #ffffff;
+            --gray: #6c757d;
+            --shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            --radius: 16px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.8;
+        }
+
+        header {
+            background: var(--light);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 35px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--light);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .article-header {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--dark-secondary) 100%);
+            padding: 4rem 0;
+            color: var(--light);
+        }
+
+        .article-header .container {
+            max-width: 800px;
+        }
+
+        .breadcrumb {
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .breadcrumb a {
+            color: var(--light);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .article-header h1 {
+            font-size: 2.5rem;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 2rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .article-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .article-content h2 {
+            font-size: 1.75rem;
+            margin: 2.5rem 0 1rem;
+            color: var(--dark);
+        }
+
+        .article-content h3 {
+            font-size: 1.35rem;
+            margin: 2rem 0 0.75rem;
+            color: var(--dark);
+        }
+
+        .article-content p {
+            margin-bottom: 1.5rem;
+            color: #444;
+            font-size: 1.1rem;
+        }
+
+        .article-content ul,
+        .article-content ol {
+            margin: 1.5rem 0;
+            padding-left: 2rem;
+        }
+
+        .article-content li {
+            margin-bottom: 0.75rem;
+            color: #444;
+        }
+
+        .highlight-box {
+            background: rgba(234, 84, 95, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 var(--radius) var(--radius) 0;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .step-box {
+            background: var(--dark);
+            color: var(--light);
+            padding: 2rem;
+            border-radius: var(--radius);
+            margin: 1.5rem 0;
+        }
+
+        .step-box h4 {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .step-box p {
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--dark-secondary) 100%);
+            padding: 3rem;
+            border-radius: var(--radius);
+            text-align: center;
+            color: var(--light);
+            margin: 3rem 0;
+        }
+
+        .cta-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--light);
+        }
+
+        .cta-box p {
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+            color: var(--light);
+        }
+
+        footer {
+            background: var(--dark);
+            color: var(--light);
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        footer p {
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .article-header h1 {
+                font-size: 1.75rem;
+            }
+
+            .article-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">
+                    <img src="../assets/img/aplia-logo.png" alt="Aplia">
+                </a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Início</a></li>
+                    <li><a href="../index.html#como">Como funciona</a></li>
+                    <li><a href="../index.html#price">Preços</a></li>
+                    <li><a href="../blog.html" style="color: var(--primary);">Blog</a></li>
+                    <li><a href="../index.html#faq">FAQ</a></li>
+                </ul>
+                <a href="../index.html#price" class="btn-primary">Começar</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="article-header">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="../index.html">Início</a> / <a href="../blog.html">Blog</a> / Automação
+            </div>
+            <h1>Como automatizar agendamento de consultas pelo WhatsApp</h1>
+            <div class="article-meta">
+                <span><i class="far fa-clock"></i> 7 min de leitura</span>
+                <span><i class="far fa-calendar"></i> 28 de janeiro de 2026</span>
+            </div>
+        </div>
+    </section>
+
+    <article class="article-content">
+        <p>Você ainda responde manualmente cada mensagem de paciente querendo marcar consulta? Isso consome tempo, gera
+            erros e faz você perder pacientes quando não consegue responder rápido.</p>
+
+        <p>Neste artigo, vou te mostrar <strong>como automatizar o agendamento de consultas pelo WhatsApp</strong> de
+            forma simples, para que seus pacientes possam marcar consultas sozinhos, a qualquer hora.</p>
+
+        <h2>Por que automatizar o agendamento?</h2>
+
+        <p>Antes de ir para o "como", vamos entender o "por quê":</p>
+
+        <ul>
+            <li><strong>Economia de tempo:</strong> Uma secretária gasta em média 15 minutos por agendamento.
+                Automatizado, leva segundos.</li>
+            <li><strong>Disponibilidade 24/7:</strong> Pacientes podem marcar consultas às 23h ou domingo de manhã.</li>
+            <li><strong>Menos erros:</strong> Sem anotações manuais, sem horários duplicados, sem esquecimentos.</li>
+            <li><strong>Mais conversões:</strong> Resposta imediata = mais pacientes que efetivamente marcam.</li>
+        </ul>
+
+        <h2>Passo a passo para automatizar seu agendamento</h2>
+
+        <div class="step-box">
+            <h4><span class="step-number">1</span>Escolha uma ferramenta de automação</h4>
+            <p>Você precisa de um sistema que conecte ao seu WhatsApp e gerencie a agenda. Existem várias opções no
+                mercado, como a Aplia, que é especializada em profissionais da saúde.</p>
+        </div>
+
+        <div class="step-box">
+            <h4><span class="step-number">2</span>Configure sua agenda</h4>
+            <p>Informe seus horários de atendimento, duração de cada consulta, dias disponíveis e intervalos entre
+                consultas. O sistema usará essas informações para oferecer horários aos pacientes.</p>
+        </div>
+
+        <div class="step-box">
+            <h4><span class="step-number">3</span>Personalize as mensagens</h4>
+            <p>Configure as boas-vindas, perguntas sobre planos de saúde, tipos de consulta e confirmações. O ideal é
+                que pareça uma conversa natural, não um robô.</p>
+        </div>
+
+        <div class="step-box">
+            <h4><span class="step-number">4</span>Conecte ao WhatsApp</h4>
+            <p>Escaneie um QR Code para conectar seu número de WhatsApp ao sistema. A partir daí, as mensagens serão
+                respondidas automaticamente.</p>
+        </div>
+
+        <div class="step-box">
+            <h4><span class="step-number">5</span>Integre com sua agenda</h4>
+            <p>Conecte ao Google Agenda ou ao sistema que você já usa. Assim, quando uma consulta for marcada, ela
+                aparece automaticamente na sua agenda.</p>
+        </div>
+
+        <h2>O que um bom sistema de agendamento deve fazer?</h2>
+
+        <p>Ao escolher uma ferramenta, verifique se ela oferece:</p>
+
+        <ul>
+            <li>✅ Integração com WhatsApp (não apenas link para site)</li>
+            <li>✅ Sincronização com Google Agenda ou calendários</li>
+            <li>✅ Lembretes automáticos de consulta</li>
+            <li>✅ Reconhecimento de áudio (pacientes que preferem falar)</li>
+            <li>✅ Atendimento 24 horas</li>
+            <li>✅ Estatísticas de atendimento</li>
+        </ul>
+
+        <div class="highlight-box">
+            <p><strong>Dica:</strong> Evite sistemas genéricos de chatbot. Sistemas especializados em saúde já vêm
+                configurados para perguntar sobre convênios, procedimentos e outras questões específicas.</p>
+        </div>
+
+        <h2>Quanto custa automatizar?</h2>
+
+        <p>Os custos variam de R$200 a R$900 por mês, dependendo das funcionalidades. Compare com o salário de uma
+            secretária (R$2.000+) e o custo de perder pacientes por não atender a tempo.</p>
+
+        <p>Na prática, a maioria dos consultórios recupera o investimento no primeiro mês, só com os pacientes que
+            teriam perdido por demora no atendimento.</p>
+
+        <div class="cta-box">
+            <h3>Pronto para automatizar?</h3>
+            <p>A Aplia é uma assistente de IA especializada em clínicas e consultórios. Configure em minutos e comece a
+                agendar consultas automaticamente.</p>
+            <a href="../index.html#price" class="btn-primary">Ver planos da Aplia</a>
+        </div>
+
+        <h2>Conclusão</h2>
+
+        <p>Automatizar o agendamento de consultas pelo WhatsApp não é mais um luxo — é necessidade. Pacientes esperam
+            respostas rápidas, e quem não oferece, perde para a concorrência.</p>
+
+        <p>O processo é simples: escolha uma ferramenta, configure sua agenda, personalize as mensagens e conecte ao
+            WhatsApp. Em poucos minutos, você terá um assistente trabalhando 24 horas por dia para você.</p>
+    </article>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 Aplia. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -2,582 +2,393 @@
 <html dir="ltr" lang="pt-BR">
 
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16734679755"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'AW-16734679755');
-    </script>
-    <!-- Google Tag Manager -->
-    <script>(function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-PTN93NBN');</script>
-    <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
-    <title>Blog - Aplia</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <link data-optimized="2" rel="stylesheet" href="assets/css/style.css" />
+    <title>Blog | Aplia - Dicas de Atendimento para Clínicas e Consultórios</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Dicas práticas para melhorar o atendimento do seu consultório, automatizar agendamentos e nunca mais perder pacientes." />
+
+    <!-- Favicon -->
     <link rel="icon" href="https://aplia.com.br/wp-content/uploads/2025/06/cropped-Camada-21cas-32x32.png"
         sizes="32x32" />
+    <link rel="apple-touch-icon" href="assets/img/aplia-logo.png" />
 
-    <!-- Custom Style for Blog Grid -->
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://aplia.com.br/blog.html" />
+    <meta property="og:title" content="Blog Aplia - Dicas para Clínicas e Consultórios" />
+    <meta property="og:description"
+        content="Dicas práticas para melhorar o atendimento do seu consultório e nunca mais perder pacientes." />
+    <meta property="og:image" content="https://aplia.com.br/assets/img/favicon-og.png" />
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://aplia.com.br/blog.html" />
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        /* Reusing some elementor variables */
-        body {
-            /* Inherit Roboto */
-            background-color: #ffffff;
+        :root {
+            --primary: #EA545F;
+            --primary-dark: #d43d48;
+            --dark: #1a1a2e;
+            --dark-secondary: #232342;
+            --light: #ffffff;
+            --gray: #6c757d;
+            --gray-light: #f8f9fa;
+            --shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            --radius: 16px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        /* Sticky Header Logic */
-        section[data-id="8fd051f"] {
-            position: fixed !important;
-            top: -150px;
-            width: 100%;
-            z-index: 9999;
-            transition: top 0.4s ease-in-out;
-            background-color: #fff;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.7;
         }
 
-        section[data-id="8fd051f"].sticky-visible {
+        /* Header */
+        header {
+            background: var(--light);
+            padding: 1rem 0;
+            position: sticky;
             top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
         }
 
-        /* New Blog Styles */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 35px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--light);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Blog Hero */
         .blog-hero {
-            background-color: #f9f9f9;
-            padding: 120px 20px 80px;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--dark-secondary) 100%);
+            padding: 5rem 0;
             text-align: center;
-            margin-top: 0;
+            color: var(--light);
         }
 
         .blog-hero h1 {
-            color: #cf2e2e;
-            /* Using Site Red */
-            font-size: 48px;
-            margin-bottom: 10px;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
         }
 
         .blog-hero p {
-            color: #666;
-            font-size: 20px;
+            font-size: 1.1rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        .blog-container {
-            max-width: 1140px;
-            margin: 0 auto;
-            padding: 60px 20px;
+        /* Blog Grid */
+        .blog-section {
+            padding: 4rem 0;
         }
 
         .blog-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
         }
 
         .blog-card {
-            border: 1px solid #eee;
-            border-radius: 12px;
+            background: var(--light);
+            border-radius: var(--radius);
             overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            background: #fff;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .blog-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
         }
 
-        .blog-card-img {
+        .blog-card img {
             width: 100%;
             height: 200px;
             object-fit: cover;
-            background-color: #ddd;
         }
 
         .blog-card-content {
-            padding: 24px;
+            padding: 1.5rem;
         }
 
-        .blog-card-category {
-            color: #0d6efd;
-            font-size: 12px;
-            font-weight: bold;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-            display: block;
+        .blog-category {
+            display: inline-block;
+            background: rgba(234, 84, 95, 0.1);
+            color: var(--primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
         }
 
-        .blog-card h3 {
-            margin: 0 0 12px;
-            font-size: 22px;
-            color: #333;
+        .blog-card h2 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            color: var(--dark);
+            line-height: 1.4;
+        }
+
+        .blog-card h2 a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        .blog-card h2 a:hover {
+            color: var(--primary);
         }
 
         .blog-card p {
-            color: #666;
-            line-height: 1.6;
-            font-size: 15px;
-            margin-bottom: 20px;
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--gray);
         }
 
         .read-more {
-            display: inline-block;
-            color: #cf2e2e;
-            font-weight: bold;
+            color: var(--primary);
+            font-weight: 600;
             text-decoration: none;
-            transition: all 0.3s ease;
         }
 
         .read-more:hover {
-            color: #a01e1e;
-            transform: translateX(5px);
+            text-decoration: underline;
         }
 
-        /* ============ ANIMATIONS ============ */
-        html {
-            scroll-behavior: smooth;
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: var(--light);
+            padding: 3rem 0;
+            text-align: center;
         }
 
-        .blog-card {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
+        footer p {
+            opacity: 0.7;
         }
 
-        .blog-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .blog-card:nth-child(1) {
-            transition-delay: 0.1s;
-        }
-
-        .blog-card:nth-child(2) {
-            transition-delay: 0.2s;
-        }
-
-        .blog-card:nth-child(3) {
-            transition-delay: 0.3s;
-        }
-
-        .blog-hero h1,
-        .blog-hero p {
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.8s ease forwards;
-        }
-
-        .blog-hero h1 {
-            animation-delay: 0.2s;
-        }
-
-        .blog-hero p {
-            animation-delay: 0.4s;
-        }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* ============ GLASSMORPHISM HEADER ============ */
-        section[data-id="8fd051f"].sticky-visible {
-            background: rgba(255, 255, 255, 0.95) !important;
-            backdrop-filter: blur(10px);
-        }
-
-        /* ============ RESPONSIVE ============ */
+        /* Responsive */
         @media (max-width: 768px) {
-            .blog-hero {
-                padding: 100px 20px 60px;
+            .nav-links {
+                display: none;
             }
 
             .blog-hero h1 {
-                font-size: 32px;
-            }
-
-            .blog-hero p {
-                font-size: 16px;
+                font-size: 1.75rem;
             }
 
             .blog-grid {
-                gap: 20px;
-            }
-
-            .blog-card h3 {
-                font-size: 18px;
-            }
-
-            .elementor-col-33 {
-                width: 100% !important;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .blog-hero h1 {
-                font-size: 26px;
-            }
-
-            .blog-container {
-                padding: 40px 15px;
-            }
-        }
-
-        /* ============ MOBILE MENU ============ */
-        .mobile-menu-toggle {
-            display: none;
-            width: 30px;
-            height: 24px;
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            cursor: pointer;
-            z-index: 10001;
-        }
-
-        .mobile-menu-toggle span {
-            display: block;
-            width: 100%;
-            height: 3px;
-            background: #333;
-            border-radius: 3px;
-            position: absolute;
-            transition: all 0.3s ease;
-        }
-
-        .mobile-menu-toggle span:nth-child(1) {
-            top: 0;
-        }
-
-        .mobile-menu-toggle span:nth-child(2) {
-            top: 10px;
-        }
-
-        .mobile-menu-toggle span:nth-child(3) {
-            top: 20px;
-        }
-
-        .mobile-menu-toggle.active span:nth-child(1) {
-            transform: rotate(45deg);
-            top: 10px;
-        }
-
-        .mobile-menu-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .mobile-menu-toggle.active span:nth-child(3) {
-            transform: rotate(-45deg);
-            top: 10px;
-        }
-
-        @media (max-width: 768px) {
-            .mobile-menu-toggle {
-                display: block;
-            }
-
-            .elementor-nav-menu--main {
-                position: fixed !important;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100vh;
-                background: rgba(255, 255, 255, 0.98);
-                backdrop-filter: blur(10px);
-                display: flex !important;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                transform: translateX(-100%);
-                transition: transform 0.4s ease;
-                z-index: 9998;
-            }
-
-            .elementor-nav-menu--main.mobile-open {
-                transform: translateX(0);
-            }
-
-            .elementor-nav-menu--main .elementor-nav-menu {
-                flex-direction: column !important;
-                gap: 30px;
-            }
-
-            .elementor-nav-menu--main .elementor-item {
-                font-size: 24px !important;
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 
-<body
-    class="home page-template page-template-elementor_canvas elementor-default elementor-template-canvas elementor-kit-6 elementor-page elementor-page-14">
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PTN93NBN" height="0" width="0"
-            style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-
-    <!-- HEADER (Copied from index.html) -->
-    <div data-elementor-type="wp-page" data-elementor-id="14" class="elementor elementor-14">
-        <section
-            class="elementor-section elementor-top-section elementor-element elementor-element-8fd051f elementor-section-boxed elementor-section-height-default elementor-section-height-default"
-            data-id="8fd051f" data-element_type="section"
-            data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;sticky&quot;:&quot;top&quot;,&quot;sticky_on&quot;:[&quot;desktop&quot;,&quot;tablet&quot;,&quot;mobile&quot;],&quot;sticky_offset&quot;:0,&quot;sticky_effects_offset&quot;:0}">
-            <div class="elementor-container elementor-column-gap-default">
-                <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-6901e15"
-                    data-id="6901e15" data-element_type="column">
-                    <div class="elementor-widget-wrap elementor-element-populated">
-                        <section
-                            class="elementor-section elementor-inner-section elementor-element elementor-element-d8435ab elementor-section-boxed elementor-section-height-default elementor-section-height-default"
-                            data-id="d8435ab" data-element_type="section">
-                            <div class="elementor-container elementor-column-gap-default">
-                                <div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-a8e99b2"
-                                    data-id="a8e99b2" data-element_type="column">
-                                    <div class="elementor-widget-wrap elementor-element-populated">
-                                        <div class="elementor-element elementor-element-973f83c elementor-widget elementor-widget-image"
-                                            data-id="973f83c" data-element_type="widget"
-                                            data-widget_type="image.default">
-                                            <div class="elementor-widget-container">
-                                                <a href="index.html">
-                                                    <img src="assets/img/hero.jpg" width="841" height="274"
-                                                        class="attachment-full size-full" alt="" />
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-245f75e"
-                                    data-id="245f75e" data-element_type="column">
-                                    <div class="elementor-widget-wrap elementor-element-populated">
-                                        <div class="elementor-element elementor-element-581009d elementor-nav-menu__align-center elementor-nav-menu--stretch elementor-nav-menu--dropdown-tablet elementor-nav-menu__text-align-aside elementor-nav-menu--toggle elementor-nav-menu--burger elementor-widget elementor-widget-nav-menu"
-                                            data-id="581009d" data-element_type="widget"
-                                            data-widget_type="nav-menu.default">
-                                            <div class="elementor-widget-container">
-                                                <nav
-                                                    class="elementor-nav-menu--main elementor-nav-menu__container elementor-nav-menu--layout-horizontal e--pointer-underline e--animation-fade">
-                                                    <ul id="menu-1-581009d" class="elementor-nav-menu">
-                                                        <li class="menu-item"><a href="index.html#inicio"
-                                                                class="elementor-item">Início</a></li>
-                                                        <li class="menu-item"><a href="index.html#como"
-                                                                class="elementor-item">Como funciona</a></li>
-                                                        <li class="menu-item"><a href="index.html#price"
-                                                                class="elementor-item">Preços</a></li>
-                                                        <li class="menu-item"><a href="index.html#faq"
-                                                                class="elementor-item">FAQ</a></li>
-                                                        <li class="menu-item"><a href="blog.html"
-                                                                class="elementor-item elementor-item-active"
-                                                                style="color: #cf2e2e;">Blog</a></li>
-                                                    </ul>
-                                                </nav>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-456808c"
-                                    data-id="456808c" data-element_type="column">
-                                    <div class="elementor-widget-wrap elementor-element-populated">
-                                        <section
-                                            class="elementor-section elementor-inner-section elementor-element elementor-element-2553dcf elementor-section-boxed elementor-section-height-default elementor-section-height-default"
-                                            data-id="2553dcf" data-element_type="section">
-                                            <div class="elementor-container elementor-column-gap-default">
-                                                <div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-96fab11"
-                                                    data-id="96fab11" data-element_type="column">
-                                                    <div class="elementor-widget-wrap elementor-element-populated">
-                                                        <div class="elementor-element elementor-element-ba39c58 elementor-widget elementor-widget-heading"
-                                                            data-id="ba39c58" data-element_type="widget"
-                                                            data-widget_type="heading.default">
-                                                            <div class="elementor-widget-container">
-                                                                <h2
-                                                                    class="elementor-heading-title elementor-size-default">
-                                                                    <a href="https://app.aplia.com.br/"
-                                                                        target="_blank">Começar</a>
-                                                                </h2>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </section>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- BLOG HERO -->
-    <div class="blog-hero">
-        <h1>Blog da Aplia</h1>
-        <p>Notícias, novidades e dicas para sua clínica.</p>
-    </div>
-
-    <!-- BLOG GRID -->
-    <div class="blog-container">
-        <div class="blog-grid">
-
-            <!-- Post 1 -->
-            <article class="blog-card">
-                <img src="assets/img/hero.jpg" alt="IA na Saúde" class="blog-card-img" style="object-position: left;">
-                <div class="blog-card-content">
-                    <span class="blog-card-category">Tecnologia</span>
-                    <h3>Como a IA está revolucionando o atendimento médico</h3>
-                    <p>Descubra como assistentes virtuais estão ajudando médicos a economizarem tempo e focarem no que
-                        realmente importa: o paciente.</p>
-                    <a href="post-modelo.html" class="read-more">Ler mais →</a>
-                </div>
-            </article>
-
-            <!-- Post 2 -->
-            <article class="blog-card">
-                <div
-                    style="background-color: #7bdcb5; height: 200px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 40px;">
-                    📅</div>
-                <div class="blog-card-content">
-                    <span class="blog-card-category">Gestão</span>
-                    <h3>5 Dicas para reduzir faltas em consultas</h3>
-                    <p>Aprenda estratégias simples e automatizadas para garantir que seus pacientes compareçam ou
-                        remarquem com antecedência.</p>
-                    <a href="post-modelo.html" class="read-more">Ler mais →</a>
-                </div>
-            </article>
-
-            <!-- Post 3 -->
-            <article class="blog-card">
-                <div
-                    style="background-color: #8ed1fc; height: 200px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 40px;">
-                    💬</div>
-                <div class="blog-card-content">
-                    <span class="blog-card-category">Novidades</span>
-                    <h3>Nova integração com Google Agenda</h3>
-                    <p>Agora a Aplia sincroniza diretamente com sua agenda do Google. Veja como ativar essa
-                        funcionalidade em poucos cliques.</p>
-                    <a href="post-modelo.html" class="read-more">Ler mais →</a>
-                </div>
-            </article>
-
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">
+                    <img src="assets/img/aplia-logo.png" alt="Aplia">
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="index.html#como">Como funciona</a></li>
+                    <li><a href="index.html#price">Preços</a></li>
+                    <li><a href="blog.html" style="color: var(--primary);">Blog</a></li>
+                    <li><a href="index.html#faq">FAQ</a></li>
+                </ul>
+                <a href="index.html#price" class="btn-primary">Começar</a>
+            </nav>
         </div>
-    </div>
+    </header>
 
-    <!-- FOOTER (Copied from index.html) -->
-    <div data-elementor-type="wp-page" data-elementor-id="14" class="elementor elementor-14">
-        <section
-            class="elementor-section elementor-top-section elementor-element elementor-element-526aa1e elementor-section-boxed elementor-section-height-default elementor-section-height-default"
-            data-id="526aa1e" data-element_type="section"
-            data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-            <div class="elementor-container elementor-column-gap-default">
-                <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-3a4c8f4"
-                    data-id="3a4c8f4" data-element_type="column">
-                    <div class="elementor-widget-wrap elementor-element-populated">
-                        <section
-                            class="elementor-section elementor-inner-section elementor-element elementor-element-bef0d5f elementor-section-boxed elementor-section-height-default elementor-section-height-default"
-                            data-id="bef0d5f" data-element_type="section">
-                            <div class="elementor-container elementor-column-gap-default">
-                                <div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-7392af1"
-                                    data-id="7392af1" data-element_type="column">
-                                    <div class="elementor-widget-wrap elementor-element-populated">
-                                        <div class="elementor-element elementor-element-77f6e29 elementor-widget elementor-widget-image"
-                                            data-id="77f6e29" data-element_type="widget"
-                                            data-widget_type="image.default">
-                                            <div class="elementor-widget-container">
-                                                <a href="https://aplia.com.br/">
-                                                    <img src="assets/img/footer-logo.png" width="622" height="210"
-                                                        class="attachment-full size-full" alt="" /> </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-72b18cb"
-                                    data-id="72b18cb" data-element_type="column">
-                                    <div class="elementor-widget-wrap elementor-element-populated">
-                                        <div class="elementor-element elementor-element-d531d58 elementor-nav-menu__align-center elementor-nav-menu--dropdown-tablet elementor-nav-menu__text-align-aside elementor-nav-menu--toggle elementor-nav-menu--burger elementor-widget elementor-widget-nav-menu"
-                                            data-id="d531d58" data-element_type="widget">
-                                            <!-- Footer Menu removed for simplicity, using text below -->
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-d531d58"
-                                    data-id="d531d58" data-element_type="column">
-                                    <div class="elementor-widget-wrap elementor-element-populated">
-                                        <div class="elementor-element elementor-element-69fdd95 elementor-widget__width-initial elementor-widget elementor-widget-text-editor"
-                                            data-id="69fdd95" data-element_type="widget"
-                                            data-widget_type="text-editor.default">
-                                            <div class="elementor-widget-container">
-                                                <p style="text-align: right;">© 2025 Aplia. Todos os direitos reservados
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
+    <section class="blog-hero">
+        <div class="container">
+            <h1>Blog Aplia</h1>
+            <p>Dicas práticas para melhorar o atendimento do seu consultório e nunca mais perder pacientes</p>
+        </div>
+    </section>
+
+    <section class="blog-section">
+        <div class="container">
+            <div class="blog-grid">
+                <!-- Artigo 1 -->
+                <article class="blog-card">
+                    <img src="assets/img/blog/artigo1.jpg" alt="Consultório médico perdendo pacientes">
+                    <div class="blog-card-content">
+                        <span class="blog-category">Gestão</span>
+                        <h2><a href="blog/como-parar-de-perder-pacientes-por-demora-no-atendimento.html">Como parar de
+                                perder pacientes por demora no atendimento</a></h2>
+                        <p>Descubra por que 75% dos profissionais da saúde perdem pacientes por falhas no atendimento e
+                            como resolver isso.</p>
+                        <div class="blog-meta">
+                            <span>5 min de leitura</span>
+                            <a href="blog/como-parar-de-perder-pacientes-por-demora-no-atendimento.html"
+                                class="read-more">Ler artigo →</a>
+                        </div>
                     </div>
-                </div>
+                </article>
+
+                <!-- Artigo 2 -->
+                <article class="blog-card">
+                    <img src="assets/img/blog/artigo2.jpg" alt="WhatsApp para consultório médico">
+                    <div class="blog-card-content">
+                        <span class="blog-category">Automação</span>
+                        <h2><a href="blog/como-automatizar-agendamento-de-consultas-pelo-whatsapp.html">Como automatizar
+                                agendamento de consultas pelo WhatsApp</a></h2>
+                        <p>Passo a passo para configurar um assistente que agenda consultas automaticamente, sem você
+                            precisar responder.</p>
+                        <div class="blog-meta">
+                            <span>7 min de leitura</span>
+                            <a href="blog/como-automatizar-agendamento-de-consultas-pelo-whatsapp.html"
+                                class="read-more">Ler artigo →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Artigo 3 -->
+                <article class="blog-card">
+                    <img src="assets/img/blog/artigo3.jpg" alt="Atendimento 24 horas consultório">
+                    <div class="blog-card-content">
+                        <span class="blog-category">Atendimento</span>
+                        <h2><a href="blog/seu-consultorio-atende-fora-do-horario-comercial.html">Seu consultório atende
+                                fora do horário comercial? Deveria!</a></h2>
+                        <p>60% das marcações acontecem fora do horário comercial. Veja como não perder esses pacientes.
+                        </p>
+                        <div class="blog-meta">
+                            <span>4 min de leitura</span>
+                            <a href="blog/seu-consultorio-atende-fora-do-horario-comercial.html" class="read-more">Ler
+                                artigo →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Artigo 4 -->
+                <article class="blog-card">
+                    <img src="assets/img/blog/artigo4.jpg" alt="Secretária virtual para médicos">
+                    <div class="blog-card-content">
+                        <span class="blog-category">Tecnologia</span>
+                        <h2><a href="blog/secretaria-virtual-para-consultorio-medico-vale-a-pena.html">Secretária
+                                virtual para consultório médico: vale a pena?</a></h2>
+                        <p>Comparamos custos, benefícios e quando faz sentido ter uma assistente virtual no seu
+                            consultório.</p>
+                        <div class="blog-meta">
+                            <span>6 min de leitura</span>
+                            <a href="blog/secretaria-virtual-para-consultorio-medico-vale-a-pena.html"
+                                class="read-more">Ler artigo →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Artigo 5 -->
+                <article class="blog-card">
+                    <img src="assets/img/blog/artigo5.jpg" alt="Paciente não aparece na consulta">
+                    <div class="blog-card-content">
+                        <span class="blog-category">Gestão</span>
+                        <h2><a href="blog/como-reduzir-faltas-de-pacientes-nas-consultas.html">Como reduzir faltas de
+                                pacientes nas consultas</a></h2>
+                        <p>Lembretes automáticos podem reduzir em até 40% as faltas. Aprenda a implementar no seu
+                            consultório.</p>
+                        <div class="blog-meta">
+                            <span>5 min de leitura</span>
+                            <a href="blog/como-reduzir-faltas-de-pacientes-pelo-whatsapp.html" class="read-more">Ler
+                                artigo →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Artigo 6 -->
+                <article class="blog-card">
+                    <img src="assets/img/blog/artigo6.jpg" alt="IA na saúde">
+                    <div class="blog-card-content">
+                        <span class="blog-category">Tendências</span>
+                        <h2><a href="blog/inteligencia-artificial-para-clinicas-o-que-muda-em-2026.html">Inteligência
+                                artificial para clínicas: o que muda em 2026</a></h2>
+                        <p>As principais tendências de IA na saúde e como se preparar para o futuro do atendimento
+                            médico.</p>
+                        <div class="blog-meta">
+                            <span>8 min de leitura</span>
+                            <a href="blog/inteligencia-artificial-para-clinicas-o-que-muda-em-2026.html"
+                                class="read-more">Ler artigo →</a>
+                        </div>
+                    </div>
+                </article>
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Sticky header
-            var header = document.querySelector('section[data-id="8fd051f"]');
-            window.addEventListener('scroll', function () {
-                if (window.scrollY > 100) {
-                    header.classList.add('sticky-visible');
-                } else {
-                    header.classList.remove('sticky-visible');
-                }
-            });
-            if (window.scrollY > 100) header.classList.add('sticky-visible');
-
-            // Animate blog cards on scroll
-            const cards = document.querySelectorAll('.blog-card');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-            cards.forEach(card => observer.observe(card));
-
-            // Mobile hamburger menu
-            const hamburger = document.createElement('div');
-            hamburger.className = 'mobile-menu-toggle';
-            hamburger.innerHTML = '<span></span><span></span><span></span>';
-            document.body.appendChild(hamburger);
-
-            const navMenu = document.querySelector('.elementor-nav-menu--main');
-            hamburger.addEventListener('click', function () {
-                this.classList.toggle('active');
-                if (navMenu) navMenu.classList.toggle('mobile-open');
-                document.body.style.overflow = this.classList.contains('active') ? 'hidden' : '';
-            });
-
-            document.querySelectorAll('.elementor-nav-menu--main .elementor-item').forEach(link => {
-                link.addEventListener('click', () => {
-                    hamburger.classList.remove('active');
-                    if (navMenu) navMenu.classList.remove('mobile-open');
-                    document.body.style.overflow = '';
-                });
-            });
-
-            console.log('🚀 Blog animations loaded!');
-        });
-    </script>
+    <footer>
+        <div class="container">
+            <p>© 2026 Aplia. Todos os direitos reservados.</p>
+        </div>
+    </footer>
 </body>
 
 </html>
