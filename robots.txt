@@ -1,0 +1,12 @@
+# Robots.txt para Aplia
+# https://aplia.com.br
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://aplia.com.br/sitemap.xml
+
+# Bloqueia arquivos desnecessários
+Disallow: /.git/
+Disallow: /.github/
