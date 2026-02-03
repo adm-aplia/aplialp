@@ -1055,7 +1055,8 @@
 					<li><a href="blog.html">Blog</a></li>
 					<li><a href="#faq">FAQ</a></li>
 				</ul>
-				<a href="https://app.aplia.com.br/" target="_blank" class="btn btn-primary">Começar</a>
+				<a href="https://app.aplia.com.br/" target="_blank" class="btn btn-primary"
+					onclick="gtag('event', 'cta_header', {'event_category': 'signup', 'event_label': 'header'}); fbq('trackCustom', 'ClickComecar');">Começar</a>
 				<div class="mobile-toggle" id="mobileToggle">
 					<span></span>
 					<span></span>
@@ -1074,11 +1075,13 @@
 				</p>
 				<div class="hero-buttons">
 					<a href="https://wa.me/551151973902?text=ol%C3%A1%20gostaria%20de%20marcar%20uma%20consulta"
-						class="btn btn-primary">
+						class="btn btn-primary"
+						onclick="gtag('event', 'teste_paciente', {'event_category': 'lead', 'event_label': 'whatsapp_demo'}); fbq('trackCustom', 'TestePaciente');">
 						<i class="fab fa-whatsapp" style="margin-right: 8px;"></i> Teste como paciente
 					</a>
 					<a href="https://wa.me/551148635695?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20a%20Aplia"
-						class="btn btn-outline">
+						class="btn btn-outline"
+						onclick="gtag('event', 'fale_conosco', {'event_category': 'lead', 'event_label': 'whatsapp_comercial'}); fbq('trackCustom', 'FaleConosco');">
 						<i class="fab fa-whatsapp" style="margin-right: 8px;"></i> Fale conosco
 					</a>
 				</div>
@@ -1244,7 +1247,9 @@
 						<li><i class="fas fa-check"></i> Estatísticas Detalhadas</li>
 						<li><i class="fas fa-check"></i> Suporte por e-mail</li>
 					</ul>
-					<a href="https://app.aplia.com.br/" class="btn btn-primary">Escolher plano</a>
+					<a href="https://app.aplia.com.br/" class="btn btn-primary"
+						onclick="gtag('event', 'escolher_plano_essencial', {'event_category': 'signup', 'event_label': 'plano_essencial', 'value': 249}); fbq('trackCustom', 'EscolherPlanoEssencial', {value: 249, currency: 'BRL'});">Escolher
+						plano</a>
 				</div>
 				<div class="pricing-card popular fade-in">
 					<h3>Profissional</h3>
@@ -1262,7 +1267,9 @@
 						<li><i class="fas fa-check"></i> Estatísticas Detalhadas</li>
 						<li><i class="fas fa-check"></i> Suporte prioritário</li>
 					</ul>
-					<a href="https://app.aplia.com.br/" class="btn btn-primary">Escolher plano</a>
+					<a href="https://app.aplia.com.br/" class="btn btn-primary"
+						onclick="gtag('event', 'escolher_plano_profissional', {'event_category': 'signup', 'event_label': 'plano_profissional', 'value': 399}); fbq('trackCustom', 'EscolherPlanoProfissional', {value: 399, currency: 'BRL'});">Escolher
+						plano</a>
 				</div>
 				<div class="pricing-card fade-in">
 					<h3>Enterprise</h3>
@@ -1279,7 +1286,9 @@
 						<li><i class="fas fa-check"></i> Integração Google Agenda</li>
 						<li><i class="fas fa-check"></i> Suporte por e-mail</li>
 					</ul>
-					<a href="https://app.aplia.com.br/" class="btn btn-primary">Escolher plano</a>
+					<a href="https://app.aplia.com.br/" class="btn btn-primary"
+						onclick="gtag('event', 'escolher_plano_enterprise', {'event_category': 'signup', 'event_label': 'plano_enterprise', 'value': 899}); fbq('trackCustom', 'EscolherPlanoEnterprise', {value: 899, currency: 'BRL'});">Escolher
+						plano</a>
 				</div>
 			</div>
 		</div>

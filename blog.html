@@ -319,7 +319,8 @@
                     <li><a href="blog.html" style="color: var(--primary);">Blog</a></li>
                     <li><a href="index.html#faq">FAQ</a></li>
                 </ul>
-                <a href="index.html#price" class="btn-primary">Começar</a>
+                <a href="index.html#price" class="btn-primary"
+                    onclick="gtag('event', 'cta_header', {'event_category': 'signup', 'event_label': 'header_blog'}); fbq('trackCustom', 'ClickComecar');">Começar</a>
             </nav>
         </div>
     </header>
