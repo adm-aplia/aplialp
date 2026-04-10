@@ -44,14 +44,13 @@
 
 
 	<meta charset="UTF-8">
-	<title>Aplia - Assistentes de IA para Profissionais da Saúde</title>
+	<title>Secretária Virtual com IA para Clínicas | Aplia Saúde</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description"
-		content="A inteligência artificial no WhatsApp que cuida do agendamento e das dúvidas dos seus pacientes 24/7." />
+	<meta name="description" content="Zere as faltas de pacientes e automatize agendamentos via WhatsApp e Google Agenda. Agente de IA para clínicas em conformidade com o CFM 2454/2026 e LGPD.">
+	<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 
 	<!-- Favicon -->
-	<link rel="icon" href="https://aplia.com.br/wp-content/uploads/2025/06/cropped-Camada-21cas-32x32.png"
-		sizes="32x32" />
+	<link rel="icon" href="assets/img/favicon.png" type="image/png" />
 	<link rel="apple-touch-icon" href="assets/img/aplia-logo.png" />
 
 	<!-- Open Graph / Facebook -->
@@ -77,53 +76,56 @@
 	<!-- Canonical URL -->
 	<link rel="canonical" href="https://aplia.com.br/" />
 
-	<!-- Schema.org JSON-LD Structured Data -->
+	<!-- Schema.org JSON-LD Structured Data (Geo-SEO & Software) -->
 	<script type="application/ld+json">
 	{
 		"@context": "https://schema.org",
-		"@type": "Organization",
-		"name": "Aplia",
-		"url": "https://aplia.com.br",
-		"logo": "https://aplia.com.br/assets/img/favicon-og.png",
-		"description": "Assistentes de IA para Profissionais da Saúde. Inteligência artificial no WhatsApp para agendamento de consultas 24/7.",
-		"foundingDate": "2024",
-		"contactPoint": {
-			"@type": "ContactPoint",
-			"email": "contato@aplia.com.br",
-			"contactType": "customer service",
-			"availableLanguage": "Portuguese"
-		},
-		"sameAs": [
-			"https://wa.me/551151973902"
-		]
-	}
-	</script>
-	<script type="application/ld+json">
-	{
-		"@context": "https://schema.org",
-		"@type": "SoftwareApplication",
-		"name": "Aplia",
-		"applicationCategory": "BusinessApplication",
-		"operatingSystem": "Web, WhatsApp",
-		"description": "Assistente de IA para agendamento de consultas médicas via WhatsApp. Automatiza o atendimento de clínicas e consultórios 24/7.",
-		"offers": {
-			"@type": "AggregateOffer",
-			"lowPrice": "249",
-			"highPrice": "899",
-			"priceCurrency": "BRL",
-			"offerCount": "3"
-		},
-		"aggregateRating": {
-			"@type": "AggregateRating",
-			"ratingValue": "4.8",
-			"reviewCount": "150"
-		},
-		"featureList": [
-			"Agendamento automático via WhatsApp",
-			"Integração com Google Agenda",
-			"Lembretes automáticos de consultas",
-			"Atendimento 24/7",
-			"Estatísticas detalhadas"
+		"@graph": [
+			{
+				"@type": "SoftwareApplication",
+				"name": "Aplia Saúde",
+				"applicationCategory": "BusinessApplication",
+				"operatingSystem": "Web, WhatsApp",
+				"description": "Zere as faltas de pacientes e automatize agendamentos via WhatsApp e Google Agenda. Agente de IA para clínicas em conformidade com o CFM 2454/2026 e LGPD.",
+				"url": "https://aplia.com.br",
+				"image": "https://aplia.com.br/assets/img/favicon-og.png",
+				"offers": {
+					"@type": "AggregateOffer",
+					"lowPrice": "249",
+					"highPrice": "899",
+					"priceCurrency": "BRL",
+					"offerCount": "3"
+				},
+				"aggregateRating": {
+					"@type": "AggregateRating",
+					"ratingValue": "4.8",
+					"reviewCount": "150"
+				},
+				"featureList": [
+					"Agendamento automático via WhatsApp",
+					"Integração com Google Agenda",
+					"Lembretes automáticos de consultas",
+					"Atendimento 24/7",
+					"Estatísticas detalhadas"
+				]
+			},
+			{
+				"@type": "LocalBusiness",
+				"name": "Aplia Saúde",
+				"image": "https://aplia.com.br/assets/img/favicon-og.png",
+				"telephone": "+551151973902",
+				"url": "https://aplia.com.br",
+				"address": {
+					"@type": "PostalAddress",
+					"addressLocality": "São Paulo",
+					"addressRegion": "SP",
+					"addressCountry": "BR"
+				},
+				"priceRange": "$$",
+				"sameAs": [
+					"https://wa.me/551151973902"
+				]
+			}
 		]
 	}
 	</script>
@@ -1036,7 +1038,7 @@
 		<div class="container">
 			<nav class="nav">
 				<a href="#inicio" class="logo">
-					<img src="assets/img/aplia-logo.png" alt="Aplia">
+					<img src="assets/img/aplia-logo.png" alt="Logotipo da Aplia Saúde - Secretária Virtual com IA">
 				</a>
 				<ul class="nav-links" id="navLinks">
 					<li><a href="#inicio" class="active">Início</a></li>
@@ -1077,7 +1079,7 @@
 				</div>
 			</div>
 			<div class="hero-image fade-in">
-				<img src="assets/img/phone.png" alt="Aplia no WhatsApp">
+				<img src="assets/img/phone.png" alt="Assistente virtual Aplia atendendo paciente no WhatsApp" fetchpriority="high">
 			</div>
 		</div>
 	</section>
@@ -1186,26 +1188,26 @@
 			<div class="steps-grid">
 				<div class="step-card fade-in">
 					<div class="step-number">1</div>
-					<img src="assets/img/step1.png" alt="Escolha o plano">
+					<img src="assets/img/step1.png" alt="Passo 1: Escolha o plano do sistema Aplia Saúde" loading="lazy">
 					<h3>Escolha o plano</h3>
 					<p>Escolha o plano ideal e crie sua conta no nosso site em poucos minutos.</p>
 				</div>
 				<div class="step-card fade-in">
 					<div class="step-number">2</div>
-					<img src="assets/img/step2.png" alt="Preencha o questionário">
+					<img src="assets/img/step2.png" alt="Passo 2: Preencha o questionário para personalização da IA" loading="lazy">
 					<h3>Preencha o questionário</h3>
 					<p>Informe os dados do seu consultório, como horário de atendimento, planos de saúde atendidos e
 						procedimentos.</p>
 				</div>
 				<div class="step-card fade-in">
 					<div class="step-number">3</div>
-					<img src="assets/img/step3.png" alt="Conecte-se ao WhatsApp">
+					<img src="assets/img/step3.png" alt="Passo 3: Conecte o WhatsApp e a agenda da sua clínica" loading="lazy">
 					<h3>Conecte-se ao WhatsApp!</h3>
 					<p>Leia o QR Code para integrar a IA ao seu número de atendimento.</p>
 				</div>
 				<div class="step-card fade-in">
 					<div class="step-number">4</div>
-					<img src="assets/img/step4.png" alt="Pronto para usar">
+					<img src="assets/img/step4.png" alt="Passo 4: Tudo pronto para zerar as faltas dos seus pacientes" loading="lazy">
 					<h3>Pronto para usar!</h3>
 					<p>A IA começa agendar consultas, enviar lembretes, confirmar presenças e responder aos pacientes
 						24/7.</p>
@@ -1410,7 +1412,7 @@
 		<div class="container">
 			<div class="footer-grid">
 				<div class="footer-brand">
-					<img src="assets/img/footer-logo.png" alt="Aplia">
+					<img src="assets/img/footer-logo.png" alt="Logotipo do rodapé da Aplia Saúde" loading="lazy">
 					<p>A inteligência artificial que cuida do agendamento e das dúvidas dos seus pacientes 24/7.</p>
 				</div>
 				<div class="footer-links">
