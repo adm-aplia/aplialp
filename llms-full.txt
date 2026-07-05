@@ -1,0 +1,5 @@
+# Aplia Saúde - Conteúdo Completo do Blog (AI-Friendly)
+
+Este arquivo reúne todos os artigos do blog da Aplia Saúde em texto limpo, facilitando a indexação e o consumo por agentes de inteligência artificial (GEO).
+
+---

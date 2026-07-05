@@ -1,12 +1,31 @@
 # Robots.txt para Aplia
 # https://aplia.com.br
 
+# SEO & GEO - Permitir acesso geral
 User-agent: *
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+# crawlers de IA (GEO)
+User-agent: GPTBot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+User-agent: ClaudeBot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+User-agent: Google-Extended
 Allow: /
 
 # Sitemap
 Sitemap: https://aplia.com.br/sitemap.xml
 
-# Bloqueia arquivos desnecessários
+# Bloqueia arquivos e pastas de desenvolvimento/sistema
 Disallow: /.git/
 Disallow: /.github/
+Disallow: /scripts/
+Disallow: /post-modelo.html

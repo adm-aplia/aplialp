@@ -1,0 +1,17 @@
+# Aplia Saúde
+
+> Inteligência Artificial no WhatsApp que automatiza agendamentos e tira dúvidas de pacientes 24/7 para consultórios e clínicas de saúde em conformidade com CFM e LGPD.
+
+## Links Principais
+- [Home](https://aplia.com.br/) - Apresentação da assistente de IA, benefícios e funcionamento.
+- [Preços](https://aplia.com.br/#price) - Planos de assinatura (Essencial, Profissional e Enterprise sob demanda).
+- [FAQ](https://aplia.com.br/#faq) - Dúvidas frequentes sobre segurança, IA e integrações.
+- [Blog](https://aplia.com.br/blog.html) - Dicas práticas de gestão, atendimento e tecnologia para clínicas.
+
+## Artigos do Blog
+- [Como parar de perder pacientes por demora no atendimento](https://aplia.com.br/blog/como-parar-de-perder-pacientes-por-demora-no-atendimento.html)
+- [Como automatizar agendamento de consultas pelo WhatsApp](https://aplia.com.br/blog/como-automatizar-agendamento-de-consultas-pelo-whatsapp.html)
+- [Seu consultório atende fora do horário comercial?](https://aplia.com.br/blog/seu-consultorio-atende-fora-do-horario-comercial.html)
+- [Secretária virtual para consultório médico: vale a pena?](https://aplia.com.br/blog/secretaria-virtual-para-consultorio-medico-vale-a-pena.html)
+- [Como reduzir faltas de pacientes nas consultas](https://aplia.com.br/blog/como-reduzir-faltas-de-pacientes-nas-consultas.html)
+- [Inteligência artificial para clínicas: o que muda em 2026](https://aplia.com.br/blog/inteligencia-artificial-para-clinicas-o-que-muda-em-2026.html)
