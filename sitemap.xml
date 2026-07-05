@@ -42,4 +42,28 @@
 		<changefreq>weekly</changefreq>
 		<priority>0.6</priority>
 	</url>
+	<url>
+		<loc>https://aplia.com.br/blog/seu-consultorio-atende-fora-do-horario-comercial.html</loc>
+		<lastmod>2026-07-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.6</priority>
+	</url>
+	<url>
+		<loc>https://aplia.com.br/blog/secretaria-virtual-para-consultorio-medico-vale-a-pena.html</loc>
+		<lastmod>2026-07-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.6</priority>
+	</url>
+	<url>
+		<loc>https://aplia.com.br/blog/como-reduzir-faltas-de-pacientes-nas-consultas.html</loc>
+		<lastmod>2026-07-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.6</priority>
+	</url>
+	<url>
+		<loc>https://aplia.com.br/blog/inteligencia-artificial-para-clinicas-o-que-muda-em-2026.html</loc>
+		<lastmod>2026-07-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.6</priority>
+	</url>
 </urlset>

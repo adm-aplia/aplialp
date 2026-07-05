@@ -203,10 +203,22 @@ def create_blog_post_file(post_data):
     end_idx = html.find(content_end)
     
     if start_idx != -1 and end_idx != -1:
+        # Define a imagem do post (usa a pré-definida ou a padrão baseada na categoria)
+        category_images = {
+            "Gestão": "../assets/img/blog/artigo5.webp",
+            "Automação": "../assets/img/blog/artigo2.webp",
+            "Atendimento": "../assets/img/blog/artigo3.webp",
+            "Tecnologia": "../assets/img/blog/artigo4.webp",
+            "Tendências": "../assets/img/blog/artigo6.webp"
+        }
+        post_image = post_data.get("image")
+        if not post_image:
+            post_image = category_images.get(post_data.get("category"), "../assets/img/blog/artigo2.webp")
+            
         new_content_block = f"""    <div class="post-content">
         <a href="../blog.html" class="back-link">← Voltar para o Blog</a>
 
-        <img src="../assets/img/hero.webp" alt="{post_data["title"]}" width="841" height="274">
+        <img src="{post_image}" alt="{post_data["title"]}" style="width:100%; border-radius: 16px; margin-bottom: 2rem;" width="1024" height="1024">
 
         {post_data["content_html"]}
 
@@ -275,11 +287,24 @@ def update_blog_index(post_data):
         print("[!] Erro: Não foi possível encontrar a tag <div class=\"blog-grid\"> em blog.html")
         return
         
-    # Cria o card do novo post
+    # Define a imagem do post para o index (blog.html)
+    category_images_index = {
+        "Gestão": "assets/img/blog/artigo5.webp",
+        "Automação": "assets/img/blog/artigo2.webp",
+        "Atendimento": "assets/img/blog/artigo3.webp",
+        "Tecnologia": "assets/img/blog/artigo4.webp",
+        "Tendências": "assets/img/blog/artigo6.webp"
+    }
+    card_image = post_data.get("image")
+    if card_image:
+        card_image = card_image.replace('../', '')  # Remove prefixo relativo de pasta
+    else:
+        card_image = category_images_index.get(post_data.get("category"), "assets/img/blog/artigo2.webp")
+
     new_card = f"""
                 <!-- Artigo: {post_data["title"]} -->
                 <article class="blog-card">
-                    <img src="assets/img/hero.webp" alt="{post_data["title"]}" loading="lazy" width="841" height="274">
+                    <img src="{card_image}" alt="{post_data["title"]}" loading="lazy" width="1024" height="1024">
                     <div class="blog-card-content">
                         <span class="blog-category">{post_data["category"]}</span>
                         <h2><a href="blog/{post_data["slug"]}.html">{post_data["title"]}</a></h2>

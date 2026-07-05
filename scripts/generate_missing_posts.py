@@ -12,28 +12,32 @@ MISSING_POSTS = [
         "description": "60% das marcações acontecem fora do horário comercial. Veja como não perder esses pacientes.",
         "category": "Atendimento",
         "read_time": "4 min de leitura",
-        "slug": "seu-consultorio-atende-fora-do-horario-comercial"
+        "slug": "seu-consultorio-atende-fora-do-horario-comercial",
+        "image": "../assets/img/blog/artigo3.webp"
     },
     {
         "title": "Secretária virtual para consultório médico: vale a pena?",
         "description": "Comparamos custos, benefícios e quando faz sentido ter uma assistente virtual no seu consultório.",
         "category": "Tecnologia",
         "read_time": "6 min de leitura",
-        "slug": "secretaria-virtual-para-consultorio-medico-vale-a-pena"
+        "slug": "secretaria-virtual-para-consultorio-medico-vale-a-pena",
+        "image": "../assets/img/blog/artigo4.webp"
     },
     {
         "title": "Como reduzir faltas de pacientes nas consultas",
         "description": "Lembretes automáticos podem reduzir em até 40% as faltas. Aprenda a implementar no seu consultório.",
         "category": "Gestão",
         "read_time": "5 min de leitura",
-        "slug": "como-reduzir-faltas-de-pacientes-nas-consultas"
+        "slug": "como-reduzir-faltas-de-pacientes-nas-consultas",
+        "image": "../assets/img/blog/artigo5.webp"
     },
     {
         "title": "Inteligência artificial para clínicas: o que muda em 2026",
         "description": "As principais tendências de IA na saúde e como se preparar para o futuro do atendimento médico.",
         "category": "Tendências",
         "read_time": "8 min de leitura",
-        "slug": "inteligencia-artificial-para-clinicas-o-que-muda-em-2026"
+        "slug": "inteligencia-artificial-para-clinicas-o-que-muda-em-2026",
+        "image": "../assets/img/blog/artigo6.webp"
     }
 ]
 
@@ -104,6 +108,7 @@ Gere a resposta em formato JSON estrito, sem formatação markdown (como ```json
             post_data["category"] = post_info["category"]
             post_data["read_time"] = post_info["read_time"]
             post_data["slug"] = post_info["slug"]
+            post_data["image"] = post_info["image"]
             
             return post_data
     except Exception as e:
