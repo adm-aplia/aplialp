@@ -163,72 +163,54 @@ def create_blog_post_file(post_data):
     now = datetime.now()
     date_str = f"{now.day} de {months[now.month - 1]} de {now.year}"
     
-    # 1. Substituições de caminhos relativos de ativos e links
-    html = html.replace('href="assets/css/style.css"', 'href="../assets/css/style.css"')
-    html = html.replace('href="assets/img/favicon.png"', 'href="../assets/img/favicon.png"')
-    html = html.replace('src="assets/img/hero.webp"', 'src="../assets/img/hero.webp"')
-    html = html.replace('src="assets/img/aplia-logo.webp"', 'src="../assets/img/aplia-logo.webp"')
-    html = html.replace('src="assets/img/footer-logo.webp"', 'src="../assets/img/footer-logo.webp"')
-    
-    # Substituir links do menu e CTA para voltar um nível
-    html = html.replace('href="index.html', 'href="../index.html')
-    html = html.replace('href="blog.html"', 'href="../blog.html"')
-    
-    # 2. Substituições de Metadados e SEO
+    # Define a imagem do post (usa a pré-definida ou a padrão baseada na categoria)
+    category_images = {
+        "Gestão": "../assets/img/blog/artigo5.webp",
+        "Automação": "../assets/img/blog/artigo2.webp",
+        "Atendimento": "../assets/img/blog/artigo3.webp",
+        "Tecnologia": "../assets/img/blog/artigo4.webp",
+        "Tendências": "../assets/img/blog/artigo6.webp"
+    }
+    post_image = post_data.get("image")
+    if not post_image:
+        post_image = category_images.get(post_data.get("category"), "../assets/img/blog/artigo2.webp")
+
+    # 1. Substituições de Metadados e SEO
     html = re.sub(r'<title>.*?</title>', f'<title>{post_data["title"]} | Blog Aplia</title>', html)
     
     meta_desc_regex = r'<meta name="description" content=".*?"\s*/?>'
     new_meta_desc = f'<meta name="description" content="{post_data["meta_description"]}" />'
     html = re.sub(meta_desc_regex, new_meta_desc, html)
     
-    # Open Graph Tags se existirem
-    html = html.replace('property="og:title" content="Aplia - Assistentes de IA para Profissionais da Saúde"', f'property="og:title" content="{post_data["title"]}"')
-    html = html.replace('property="og:description" content="A inteligência artificial no WhatsApp que cuida do agendamento e das dúvidas dos seus pacientes 24/7."', f'property="og:description" content="{post_data["meta_description"]}"')
-    html = html.replace('property="og:url" content="https://aplia.com.br/"', f'property="og:url" content="https://aplia.com.br/blog/{post_data["slug"]}.html"')
-    html = html.replace('property="og:type" content="website"', 'property="og:type" content="article"')
-    
-    # 3. Post Hero
-    hero_pattern = r'<div class="post-hero">.*?<h1>.*?</h1>.*?<div class="post-meta">.*?</div>.*?</div>'
-    new_hero = f"""<div class="post-hero">
-        <h1>{post_data["title"]}</h1>
-        <div class="post-meta">Publicado em {date_str} | Categoria: {post_data["category"]} | {post_data["read_time"]}</div>
-    </div>"""
-    html = re.sub(hero_pattern, new_hero, html, flags=re.DOTALL)
-    
-    # 4. Post Content
-    content_start = '    <div class="post-content">'
-    content_end = '    </div>\n\n    <!-- FOOTER -->'
-    
-    start_idx = html.find(content_start)
-    end_idx = html.find(content_end)
-    
-    if start_idx != -1 and end_idx != -1:
-        # Define a imagem do post (usa a pré-definida ou a padrão baseada na categoria)
-        category_images = {
-            "Gestão": "../assets/img/blog/artigo5.webp",
-            "Automação": "../assets/img/blog/artigo2.webp",
-            "Atendimento": "../assets/img/blog/artigo3.webp",
-            "Tecnologia": "../assets/img/blog/artigo4.webp",
-            "Tendências": "../assets/img/blog/artigo6.webp"
-        }
-        post_image = post_data.get("image")
-        if not post_image:
-            post_image = category_images.get(post_data.get("category"), "../assets/img/blog/artigo2.webp")
-            
-        new_content_block = f"""    <div class="post-content">
-        <a href="../blog.html" class="back-link">← Voltar para o Blog</a>
+    # Open Graph Tags e Canonical
+    html = html.replace('content="https://aplia.com.br/blog/slug-placeholder.html"', f'content="https://aplia.com.br/blog/{post_data["slug"]}.html"')
+    html = html.replace('content="Title Placeholder"', f'content="{post_data["title"]}"')
+    html = html.replace('content="Description Placeholder"', f'content="{post_data["meta_description"]}"')
+    html = html.replace('href="https://aplia.com.br/blog/slug-placeholder.html"', f'href="https://aplia.com.br/blog/{post_data["slug"]}.html"')
 
-        <img src="{post_image}" alt="{post_data["title"]}" style="width:100%; border-radius: 16px; margin-bottom: 2rem;" width="1024" height="1024">
+    # 2. Post Header (Título, categoria, leitura e data)
+    html = html.replace('<span class="post-category-label">Categoria</span>', post_data["category"])
+    html = html.replace('Título do Artigo', post_data["title"])
+    html = html.replace('5 min de leitura', post_data["read_time"])
+    html = html.replace('Data de Publicação', date_str)
 
-        {post_data["content_html"]}
+    # 3. Post Main Image and Content Body
+    html = html.replace('src="assets/img/blog/artigo2.webp" alt="Capa do Artigo"', f'src="{post_image}" alt="{post_data["title"]}"')
+    html = html.replace('<!-- Content goes here -->', post_data["content_html"])
 
-        <p><strong>Quer levar essa tecnologia para sua clínica?</strong> <a href="../index.html">Conheça os planos da
-                Aplia</a> e comece hoje mesmo.</p>
-    </div>"""
-        html = html[:start_idx] + new_content_block + html[end_idx + len(content_end) - 23:] # compensa o fechamento de div e tags
-    else:
-        # Fallback de substituição se a estrutura mudar um pouco
-        print("[!] Aviso: Não foi possível identificar as tags exatas do container do post. Fazendo substituição geral de parágrafos.")
+    # 4. Substituições de caminhos relativos de ativos e links de navegação do template
+    html = html.replace('href="assets/css/style.css"', 'href="../assets/css/style.css"')
+    html = html.replace('href="assets/img/favicon.png"', 'href="../assets/img/favicon.png"')
+    html = html.replace('href="assets/img/favicon.png"', 'href="../assets/img/favicon.png"') # lida com apple-touch-icon
+    html = html.replace('src="assets/img/aplia-logo.webp"', 'src="../assets/img/aplia-logo.webp"')
+    html = html.replace('src="assets/img/footer-logo.webp"', 'src="../assets/img/footer-logo.webp"')
+    
+    # Links do menu para voltar um nível
+    html = html.replace('href="index.html"', 'href="../index.html"')
+    html = html.replace('href="index.html#como"', 'href="../index.html#como"')
+    html = html.replace('href="index.html#price"', 'href="../index.html#price"')
+    html = html.replace('href="index.html#faq"', 'href="../index.html#faq"')
+    html = html.replace('href="blog.html"', 'href="../blog.html"')
     
     # 5. Adiciona dados estruturados JSON-LD (SEO e GEO)
     date_published_iso = now.strftime("%Y-%m-%d")
