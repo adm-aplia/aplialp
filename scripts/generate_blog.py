@@ -166,9 +166,9 @@ def create_blog_post_file(post_data):
     # 1. Substituições de caminhos relativos de ativos e links
     html = html.replace('href="assets/css/style.css"', 'href="../assets/css/style.css"')
     html = html.replace('href="assets/img/favicon.png"', 'href="../assets/img/favicon.png"')
-    html = html.replace('src="assets/img/hero.jpg"', 'src="../assets/img/hero.jpg"')
-    html = html.replace('src="assets/img/aplia-logo.png"', 'src="../assets/img/aplia-logo.png"')
-    html = html.replace('src="assets/img/footer-logo.png"', 'src="../assets/img/footer-logo.png"')
+    html = html.replace('src="assets/img/hero.webp"', 'src="../assets/img/hero.webp"')
+    html = html.replace('src="assets/img/aplia-logo.webp"', 'src="../assets/img/aplia-logo.webp"')
+    html = html.replace('src="assets/img/footer-logo.webp"', 'src="../assets/img/footer-logo.webp"')
     
     # Substituir links do menu e CTA para voltar um nível
     html = html.replace('href="index.html', 'href="../index.html')
@@ -206,7 +206,7 @@ def create_blog_post_file(post_data):
         new_content_block = f"""    <div class="post-content">
         <a href="../blog.html" class="back-link">← Voltar para o Blog</a>
 
-        <img src="../assets/img/hero.jpg" alt="{post_data["title"]}">
+        <img src="../assets/img/hero.webp" alt="{post_data["title"]}" width="841" height="274">
 
         {post_data["content_html"]}
 
@@ -236,7 +236,7 @@ def create_blog_post_file(post_data):
         "name": "Aplia Saúde",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://aplia.com.br/assets/img/aplia-logo.png"
+          "url": "https://aplia.com.br/assets/img/aplia-logo.webp"
         }
       },
       "mainEntityOfPage": {
@@ -279,7 +279,7 @@ def update_blog_index(post_data):
     new_card = f"""
                 <!-- Artigo: {post_data["title"]} -->
                 <article class="blog-card">
-                    <img src="assets/img/hero.jpg" alt="{post_data["title"]}">
+                    <img src="assets/img/hero.webp" alt="{post_data["title"]}" loading="lazy" width="841" height="274">
                     <div class="blog-card-content">
                         <span class="blog-category">{post_data["category"]}</span>
                         <h2><a href="blog/{post_data["slug"]}.html">{post_data["title"]}</a></h2>
