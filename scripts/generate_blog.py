@@ -444,6 +444,11 @@ def commit_and_push(post_title):
     import subprocess
     print("[*] Commitando e enviando alterações para o GitHub...")
     try:
+        # Se estiver rodando no GitHub Actions, configura o usuário do git
+        if os.environ.get('GITHUB_ACTIONS'):
+            subprocess.run(["git", "config", "user.name", "github-actions[bot]"], check=True)
+            subprocess.run(["git", "config", "user.email", "github-actions[bot]@users.noreply.github.com"], check=True)
+            
         subprocess.run(["git", "add", "."], check=True)
         status = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True)
         if not status.stdout.strip():
