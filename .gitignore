@@ -1,0 +1,12 @@
+# Configuração de Ambiente
+.env
+.env.local
+.env.*
+
+# Arquivos de log e execução
+*.log
+blog_generation.log
+
+# Arquivos de Sistema
+.DS_Store
+Thumbs.db
