@@ -61,6 +61,38 @@ O artigo DEVE ter os seguintes metadados pré-definidos:
 
 Escreva o conteúdo detalhado do artigo focado em como clínicas e profissionais da saúde se beneficiam desse tema. Use linguagem profissional, persuasiva e natural, direcionada a médicos, dentistas, psicólogos e gestores de clínicas no Brasil.
 
+O conteúdo HTML gerado em "content_html" DEVE ser altamente estilizado e visualmente atraente, utilizando exatamente as seguintes estruturas CSS pré-existentes na folha de estilo da página:
+
+1. Destaques Visuais (Highlight Boxes):
+   Use a estrutura abaixo para destacar dados estatísticos, frases de impacto ou conceitos fundamentais:
+   <div class="highlight-box">
+       <p><b>Texto em negrito de destaque:</b> Descrição detalhada do destaque.</p>
+   </div>
+
+2. Passo a Passo Visual (Step Boxes):
+   Para listas de processos, tutoriais ou etapas, utilize obrigatoriamente a estrutura de cards de etapas:
+   <div class="step-box">
+       <h4><span class="step-number">1</span> Título do Passo 1</h4>
+       <p>Explicação detalhada sobre esta etapa de forma clara e objetiva.</p>
+   </div>
+   <div class="step-box">
+       <h4><span class="step-number">2</span> Título do Passo 2</h4>
+       <p>Explicação detalhada...</p>
+   </div>
+
+3. Listas Estilizadas:
+   Em listas tradicionais (<ul> e <li>), comece cada item com um termo em negrito para facilitar a leitura dinâmica. Exemplo:
+   <ul>
+       <li><b>Economia de tempo:</b> Explicação...</li>
+       <li><b>Disponibilidade 24/7:</b> Explicação...</li>
+   </ul>
+
+4. Títulos e Subtítulos:
+   Use <h2> para títulos de seções principais e <h3> para subseções.
+
+5. Parágrafos:
+   Use parágrafos <p> normais para o texto corrido. Divida o texto em parágrafos de no máximo 3 ou 4 linhas para facilitar a leitura rápida.
+
 Certifique-se de:
 1. Incluir dados ou estatísticas realistas sobre atendimento de saúde no Brasil (ex: percentual de faltas, taxas de conversão de leads, estatísticas de uso do WhatsApp por pacientes, referências regulatórias como resoluções do CFM como o CFM 2454/2026 ou conformidade LGPD).
 2. Buscar a validação e confirmação de dados simulando ou citando fontes reais de mercado.
@@ -73,7 +105,7 @@ Gere a resposta em formato JSON estrito, sem formatação markdown (como ```json
   "category": "{post_info['category']}",
   "read_time": "{post_info['read_time']}",
   "slug": "{post_info['slug']}",
-  "content_html": "O conteúdo completo do artigo formatado em HTML. Use parágrafos <p>, cabeçalhos <h2> para subtítulos, listas <ul> e <li> se necessário. Não inclua a tag <h1> nem tags estruturais como <html>, <body>. Seja profundo, com pelo menos 5 parágrafos de conteúdo rico e focado no tema. E inclua a seção de referências e fontes no final do HTML."
+  "content_html": "O conteúdo HTML completo e altamente estilizado seguindo as instruções acima..."
 }}
 """
 
