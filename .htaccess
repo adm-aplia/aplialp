@@ -1,17 +1,19 @@
 # Ativa a engine de reescrita do Apache
 RewriteEngine On
 
-# 1. Remove a extensão .html dos arquivos na barra de endereço (redirecionamento 301)
-# Evita conteúdo duplicado e limpa a URL se o usuário digitar .html diretamente
-RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/([^.]+)\.html [NC]
-RewriteRule ^ %1 [R=301,L]
+# 1. Se acessar o diretório /blog ou /blog/, serve o arquivo blog.html da raiz
+# Isso corrige o erro 403 Forbidden da pasta blog/
+RewriteRule ^blog/?$ blog.html [L]
 
 # 2. Remove index.html da URL (redirecionamento 301)
 RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/index\.html [NC]
 RewriteRule ^index\.html$ / [R=301,L]
 
-# 3. Serve internamente o arquivo .html se ele existir no servidor
-# Mas mantém a URL limpa (sem .html) visível na barra de endereços
+# 3. Remove a extensão .html dos arquivos na barra de endereço (redirecionamento 301)
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/([^.]+)\.html [NC]
+RewriteRule ^ %1 [R=301,L]
+
+# 4. Serve internamente o arquivo .html se ele existir no servidor
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^(.*?)/?$ $1.html [L]
