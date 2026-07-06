@@ -138,4 +138,10 @@
 		<changefreq>weekly</changefreq>
 		<priority>0.6</priority>
 	</url>
+	<url>
+		<loc>https://aplia.com.br/blog/secretaria-virtual-para-consultorio-medico-vale-a-pena</loc>
+		<lastmod>2026-07-06</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.6</priority>
+	</url>
 </urlset>
