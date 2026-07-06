@@ -87,8 +87,8 @@ def choose_topic():
     return random.choice(DEFAULT_TOPICS)
 
 def generate_post_with_gemini(topic, api_key):
-    """Consome a API do Gemini 2.5 Flash para gerar o conteúdo do post em formato JSON."""
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={api_key}"
+    """Consome a API do Gemini 2.5 Pro para gerar o conteúdo do post em formato JSON."""
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key={api_key}"
     
     prompt = f"""
 Você é um especialista em marketing médico e SEO/GEO local para o mercado brasileiro.
