@@ -46,7 +46,7 @@ def generate_specific_post(api_key, post_info):
     import urllib.error
     import json
     
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key={api_key}"
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-pro-preview:generateContent?key={api_key}"
     
     prompt = f"""
 Você é um especialista em marketing médico e SEO/GEO local para o mercado brasileiro.
