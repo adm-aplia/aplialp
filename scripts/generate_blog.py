@@ -183,10 +183,10 @@ def create_blog_post_file(post_data):
     html = re.sub(meta_desc_regex, new_meta_desc, html)
     
     # Open Graph Tags e Canonical
-    html = html.replace('content="https://aplia.com.br/blog/slug-placeholder.html"', f'content="https://aplia.com.br/blog/{post_data["slug"]}.html"')
+    html = html.replace('content="https://aplia.com.br/blog/slug-placeholder.html"', f'content="https://aplia.com.br/blog/{post_data["slug"]}"')
     html = html.replace('content="Title Placeholder"', f'content="{post_data["title"]}"')
     html = html.replace('content="Description Placeholder"', f'content="{post_data["meta_description"]}"')
-    html = html.replace('href="https://aplia.com.br/blog/slug-placeholder.html"', f'href="https://aplia.com.br/blog/{post_data["slug"]}.html"')
+    html = html.replace('href="https://aplia.com.br/blog/slug-placeholder.html"', f'href="https://aplia.com.br/blog/{post_data["slug"]}"')
 
     # 2. Post Header (Título, categoria, leitura e data)
     html = html.replace('<span class="post-category-label">Categoria</span>', post_data["category"])
@@ -205,12 +205,12 @@ def create_blog_post_file(post_data):
     html = html.replace('src="assets/img/aplia-logo.webp"', 'src="../assets/img/aplia-logo.webp"')
     html = html.replace('src="assets/img/footer-logo.webp"', 'src="../assets/img/footer-logo.webp"')
     
-    # Links do menu para voltar um nível
-    html = html.replace('href="index.html"', 'href="../index.html"')
-    html = html.replace('href="index.html#como"', 'href="../index.html#como"')
-    html = html.replace('href="index.html#price"', 'href="../index.html#price"')
-    html = html.replace('href="index.html#faq"', 'href="../index.html#faq"')
-    html = html.replace('href="blog.html"', 'href="../blog.html"')
+    # Links do menu para caminhos limpos absolutos
+    html = html.replace('href="index.html"', 'href="/"')
+    html = html.replace('href="index.html#como"', 'href="/#como"')
+    html = html.replace('href="index.html#price"', 'href="/#price"')
+    html = html.replace('href="index.html#faq"', 'href="/#faq"')
+    html = html.replace('href="blog.html"', 'href="/blog"')
     
     # 5. Adiciona dados estruturados JSON-LD (SEO e GEO)
     date_published_iso = now.strftime("%Y-%m-%d")
@@ -235,7 +235,7 @@ def create_blog_post_file(post_data):
       },
       "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": f"https://aplia.com.br/blog/{post_data['slug']}.html"
+        "@id": f"https://aplia.com.br/blog/{post_data['slug']}"
       }
     }
     json_ld_str = json.dumps(schema_data, indent=2, ensure_ascii=False)
@@ -289,11 +289,11 @@ def update_blog_index(post_data):
                     <img src="{card_image}" alt="{post_data["title"]}" loading="lazy" width="1024" height="1024">
                     <div class="blog-card-content">
                         <span class="blog-category">{post_data["category"]}</span>
-                        <h2><a href="blog/{post_data["slug"]}.html">{post_data["title"]}</a></h2>
+                        <h2><a href="blog/{post_data["slug"]}">{post_data["title"]}</a></h2>
                         <p>{post_data["meta_description"]}</p>
                         <div class="blog-meta">
                             <span>{post_data["read_time"]}</span>
-                            <a href="blog/{post_data["slug"]}.html" class="read-more">Ler artigo →</a>
+                            <a href="blog/{post_data["slug"]}" class="read-more">Ler artigo →</a>
                         </div>
                     </div>
                 </article>
@@ -320,7 +320,7 @@ def update_sitemap(slug):
     
     # Prepara a nova entrada
     new_url = f"""\t<url>
-\t\t<loc>https://aplia.com.br/blog/{slug}.html</loc>
+\t\t<loc>https://aplia.com.br/blog/{slug}</loc>
 \t\t<lastmod>{now_date}</lastmod>
 \t\t<changefreq>weekly</changefreq>\n\t\t<priority>0.6</priority>
 \t</url>
@@ -345,7 +345,7 @@ def update_llms_txt(post_data):
     with open(llms_path, 'r', encoding='utf-8') as f:
         content = f.read()
         
-    new_link = f'- [{post_data["title"]}](https://aplia.com.br/blog/{post_data["slug"]}.html)\n'
+    new_link = f'- [{post_data["title"]}](https://aplia.com.br/blog/{post_data["slug"]})\n'
     
     # Adiciona no final do arquivo (ou sob a seção correspondente)
     if content.endswith('\n'):
@@ -415,11 +415,16 @@ def update_llms_full_txt():
             desc_match = re.search(r'<meta name="description" content="(.*?)"', html_content)
             description = desc_match.group(1) if desc_match else ""
             
-            post_url = f"https://aplia.com.br/blog/{filename}"
+            post_url = f"https://aplia.com.br/blog/{filename.replace('.html', '')}"
             
-            start_tag = '<div class="post-content">'
-            end_tag = '    </div>\n\n    <!-- FOOTER -->'
-            
+            # Suporta tanto o modelo antigo de div quanto o novo com <article>
+            if '<article class="article-content">' in html_content:
+                start_tag = '<article class="article-content">'
+                end_tag = '</article>'
+            else:
+                start_tag = '<div class="post-content">'
+                end_tag = '    </div>\n\n    <!-- FOOTER -->'
+                
             start_idx = html_content.find(start_tag)
             end_idx = html_content.find(end_tag, start_idx)
             

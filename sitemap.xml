@@ -2,90 +2,66 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 	<url>
 		<loc>https://aplia.com.br/</loc>
-		<lastmod>2026-01-28</lastmod>
+		<lastmod>2026-07-05</lastmod>
 		<changefreq>weekly</changefreq>
 		<priority>1.0</priority>
 	</url>
 	<url>
-		<loc>https://aplia.com.br/blog.html</loc>
-		<lastmod>2026-01-28</lastmod>
+		<loc>https://aplia.com.br/blog</loc>
+		<lastmod>2026-07-05</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
-		<loc>https://aplia.com.br/blog/secretaria-virtual-para-consultorio-medico-vale-a-pena.html</loc>
+		<loc>https://aplia.com.br/blog/como-parar-de-perder-pacientes-por-demora-no-atendimento</loc>
+		<lastmod>2026-01-28</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.6</priority>
+	</url>
+	<url>
+		<loc>https://aplia.com.br/blog/como-automatizar-agendamento-de-consultas-pelo-whatsapp</loc>
+		<lastmod>2026-01-28</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.6</priority>
+	</url>
+	<url>
+		<loc>https://aplia.com.br/blog/seu-consultorio-atende-fora-do-horario-comercial</loc>
 		<lastmod>2026-07-05</lastmod>
 		<changefreq>weekly</changefreq>
 		<priority>0.6</priority>
 	</url>
 	<url>
-		<loc>https://aplia.com.br/blog/como-reduzir-faltas-de-pacientes-nas-consultas.html</loc>
+		<loc>https://aplia.com.br/blog/secretaria-virtual-para-consultorio-medico-vale-a-pena</loc>
 		<lastmod>2026-07-05</lastmod>
 		<changefreq>weekly</changefreq>
 		<priority>0.6</priority>
 	</url>
 	<url>
-		<loc>https://aplia.com.br/blog/seu-consultorio-atende-fora-do-horario-comercial.html</loc>
+		<loc>https://aplia.com.br/blog/como-reduzir-faltas-de-pacientes-nas-consultas</loc>
 		<lastmod>2026-07-05</lastmod>
 		<changefreq>weekly</changefreq>
 		<priority>0.6</priority>
 	</url>
 	<url>
-		<loc>https://aplia.com.br/blog/inteligencia-artificial-para-clinicas-o-que-muda-em-2026.html</loc>
+		<loc>https://aplia.com.br/blog/inteligencia-artificial-para-clinicas-o-que-muda-em-2026</loc>
 		<lastmod>2026-07-05</lastmod>
 		<changefreq>weekly</changefreq>
 		<priority>0.6</priority>
 	</url>
 	<url>
-		<loc>https://aplia.com.br/blog/inteligencia-artificial-para-clinicas-o-que-muda-em-2026.html</loc>
+		<loc>https://aplia.com.br/blog/seu-consultorio-atende-fora-do-horario-comercial</loc>
 		<lastmod>2026-07-05</lastmod>
 		<changefreq>weekly</changefreq>
 		<priority>0.6</priority>
 	</url>
 	<url>
-		<loc>https://aplia.com.br/blog/seu-consultorio-atende-fora-do-horario-comercial.html</loc>
+		<loc>https://aplia.com.br/blog/secretaria-virtual-para-consultorio-medico-vale-a-pena</loc>
 		<lastmod>2026-07-05</lastmod>
 		<changefreq>weekly</changefreq>
 		<priority>0.6</priority>
 	</url>
 	<url>
-		<loc>https://aplia.com.br/blog/secretaria-virtual-para-consultorio-medico-vale-a-pena.html</loc>
-		<lastmod>2026-07-05</lastmod>
-		<changefreq>weekly</changefreq>
-		<priority>0.6</priority>
-	</url>
-	<url>
-		<loc>https://aplia.com.br/blog/como-reduzir-faltas-de-pacientes-nas-consultas.html</loc>
-		<lastmod>2026-07-05</lastmod>
-		<changefreq>weekly</changefreq>
-		<priority>0.6</priority>
-	</url>
-	<url>
-		<loc>https://aplia.com.br/blog/inteligencia-artificial-para-clinicas-o-que-muda-em-2026.html</loc>
-		<lastmod>2026-07-05</lastmod>
-		<changefreq>weekly</changefreq>
-		<priority>0.6</priority>
-	</url>
-	<url>
-		<loc>https://aplia.com.br/blog/seu-consultorio-atende-fora-do-horario-comercial.html</loc>
-		<lastmod>2026-07-05</lastmod>
-		<changefreq>weekly</changefreq>
-		<priority>0.6</priority>
-	</url>
-	<url>
-		<loc>https://aplia.com.br/blog/secretaria-virtual-para-consultorio-medico-vale-a-pena.html</loc>
-		<lastmod>2026-07-05</lastmod>
-		<changefreq>weekly</changefreq>
-		<priority>0.6</priority>
-	</url>
-	<url>
-		<loc>https://aplia.com.br/blog/como-reduzir-faltas-de-pacientes-nas-consultas.html</loc>
-		<lastmod>2026-07-05</lastmod>
-		<changefreq>weekly</changefreq>
-		<priority>0.6</priority>
-	</url>
-	<url>
-		<loc>https://aplia.com.br/blog/inteligencia-artificial-para-clinicas-o-que-muda-em-2026.html</loc>
+		<loc>https://aplia.com.br/blog/inteligencia-artificial-para-clinicas-o-que-muda-em-2026</loc>
 		<lastmod>2026-07-05</lastmod>
 		<changefreq>weekly</changefreq>
 		<priority>0.6</priority>
