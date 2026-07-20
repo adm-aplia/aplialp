@@ -150,4 +150,10 @@
 		<changefreq>weekly</changefreq>
 		<priority>0.6</priority>
 	</url>
+	<url>
+		<loc>https://aplia.com.br/blog/secretaria-virtual-ia-futuro-atendimento-medico-rio-de-janeiro</loc>
+		<lastmod>2026-07-20</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.6</priority>
+	</url>
 </urlset>
