@@ -2,6 +2,8 @@
 <html dir="ltr" lang="pt-BR">
 
 <head>
+	<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<!-- Meta Pixel Code -->
 	<script>
 		!function (f, b, e, v, n, t, s) {
@@ -40,9 +42,6 @@
 		gtag('config', 'G-J5DQTE8K6Y');
 	</script>
 	<!-- End Google Analytics tag -->
-
-
-	<meta charset="UTF-8">
 	<title>Secretária Virtual com IA para Clínicas | Aplia Saúde</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="Zere as faltas de pacientes e automatize agendamentos via WhatsApp e Google Agenda. Agente de IA para clínicas em conformidade com o CFM 2454/2026 e LGPD.">
@@ -1025,6 +1024,454 @@
 			opacity: 1;
 			transform: translateY(0);
 		}
+
+		/* ============ LEAD QUALIFICATION MODAL (APLIA BRAND) ============ */
+		.test-modal-overlay {
+			position: fixed;
+			inset: 0;
+			z-index: 2000;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 1.25rem;
+			opacity: 0;
+			visibility: hidden;
+			transition: opacity 0.25s ease, visibility 0.25s ease;
+		}
+
+		.test-modal-overlay.active {
+			opacity: 1;
+			visibility: visible;
+		}
+
+		.test-modal-backdrop {
+			position: absolute;
+			inset: 0;
+			background: rgba(26, 26, 46, 0.75);
+			backdrop-filter: blur(10px);
+			-webkit-backdrop-filter: blur(10px);
+		}
+
+		.consultor-modal-shell {
+			position: relative;
+			background: var(--light);
+			border: 1px solid rgba(0, 0, 0, 0.06);
+			border-radius: var(--radius);
+			box-shadow: var(--shadow-lg);
+			width: 100%;
+			max-width: 530px;
+			max-height: 90vh;
+			overflow-y: auto;
+			padding: 2.25rem 2.25rem;
+			z-index: 10;
+			font-family: 'Outfit', sans-serif;
+			transform: scale(0.96) translateY(12px);
+			transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		.consultor-modal-shell::-webkit-scrollbar {
+			width: 6px;
+		}
+
+		.consultor-modal-shell::-webkit-scrollbar-track {
+			background: transparent;
+		}
+
+		.consultor-modal-shell::-webkit-scrollbar-thumb {
+			background: #CBD5E1;
+			border-radius: 10px;
+		}
+
+		.test-modal-overlay.active .consultor-modal-shell {
+			transform: scale(1) translateY(0);
+		}
+
+		.modal-close {
+			position: absolute;
+			top: 1.25rem;
+			right: 1.25rem;
+			width: 36px;
+			height: 36px;
+			border-radius: 50%;
+			border: 1px solid #E2E8F0;
+			background: var(--gray-light);
+			color: var(--gray);
+			font-size: 1.35rem;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+			transition: var(--transition);
+			line-height: 1;
+			font-family: 'Outfit', sans-serif;
+		}
+
+		.modal-close:hover {
+			background: var(--primary);
+			color: var(--light);
+			border-color: var(--primary);
+		}
+
+		.modal-badge {
+			display: inline-block;
+			font-family: 'Outfit', sans-serif;
+			font-size: 0.75rem;
+			font-weight: 700;
+			text-transform: uppercase;
+			letter-spacing: 0.06em;
+			color: var(--primary);
+			background: rgba(234, 84, 95, 0.08);
+			padding: 0.35rem 0.95rem;
+			border-radius: 50px;
+			margin-bottom: 1rem;
+		}
+
+		.qualification-progress {
+			margin-bottom: 1.5rem;
+		}
+
+		.qualification-progress-track {
+			width: 100%;
+			height: 6px;
+			background: #F1F5F9;
+			border-radius: 10px;
+			overflow: hidden;
+		}
+
+		.qualification-progress-track .js-step-progress {
+			display: block;
+			height: 100%;
+			background: var(--gradient);
+			border-radius: 10px;
+			transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		.qualification-step {
+			animation: modalStepFade 0.25s ease-out;
+		}
+
+		@keyframes modalStepFade {
+			from {
+				opacity: 0;
+				transform: translateY(6px);
+			}
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		.qualification-step-heading {
+			display: flex;
+			align-items: flex-start;
+			gap: 0.9rem;
+			margin-bottom: 1.25rem;
+		}
+
+		.qualification-step-number {
+			width: 34px;
+			height: 34px;
+			border-radius: 50%;
+			background: rgba(234, 84, 95, 0.1);
+			color: var(--primary);
+			font-family: 'Outfit', sans-serif;
+			font-weight: 700;
+			font-size: 0.95rem;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-shrink: 0;
+			margin-top: 2px;
+		}
+
+		.qualification-step-kicker {
+			display: block;
+			font-size: 0.75rem;
+			text-transform: uppercase;
+			letter-spacing: 0.06em;
+			font-weight: 700;
+			color: var(--gray);
+			margin-bottom: 0.2rem;
+		}
+
+		.qualification-step-heading h3 {
+			font-size: 1.25rem;
+			font-weight: 700;
+			color: var(--dark);
+			line-height: 1.3;
+		}
+
+		.qualification-step input[type="text"],
+		.qualification-step input[type="email"],
+		.qualification-step input[type="tel"] {
+			width: 100%;
+			padding: 0.95rem 1.15rem;
+			border: 1.5px solid #E2E8F0;
+			border-radius: 12px;
+			font-size: 1rem;
+			font-family: 'Outfit', sans-serif;
+			color: var(--dark);
+			margin-bottom: 1.5rem;
+			transition: var(--transition);
+			background: var(--light);
+		}
+
+		.qualification-step input[type="text"]:focus,
+		.qualification-step input[type="email"]:focus,
+		.qualification-step input[type="tel"]:focus {
+			outline: none;
+			border-color: var(--primary);
+			box-shadow: 0 0 0 3px rgba(234, 84, 95, 0.18);
+		}
+
+		.qualification-options {
+			display: flex;
+			flex-direction: column;
+			gap: 0.55rem;
+			margin-bottom: 1.25rem;
+		}
+
+		/* Interactive Quiz Card */
+		.quiz-card {
+			display: flex;
+			align-items: center;
+			gap: 0.95rem;
+			padding: 0.72rem 1.05rem;
+			border: 1.5px solid #E2E8F0;
+			border-radius: 14px;
+			background: var(--light);
+			cursor: pointer;
+			transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+			position: relative;
+			user-select: none;
+			text-align: left;
+		}
+
+		.quiz-card:hover {
+			border-color: #CBD5E1;
+			background: #F8FAFC;
+			transform: translateY(-2px);
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+		}
+
+		.quiz-card:has(input:checked),
+		.quiz-card.selected {
+			border-color: var(--primary);
+			background: linear-gradient(135deg, rgba(234, 84, 95, 0.04) 0%, rgba(254, 114, 91, 0.08) 100%);
+			box-shadow: 0 4px 16px rgba(234, 84, 95, 0.12);
+			transform: translateY(-1px);
+		}
+
+		.quiz-card input[type="radio"],
+		.quiz-card input[type="checkbox"] {
+			position: absolute;
+			opacity: 0;
+			pointer-events: none;
+		}
+
+		.quiz-card-key {
+			width: 28px;
+			height: 28px;
+			border-radius: 8px;
+			background: #F1F5F9;
+			border: 1px solid #E2E8F0;
+			color: #64748B;
+			font-family: 'Outfit', sans-serif;
+			font-size: 0.78rem;
+			font-weight: 700;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-shrink: 0;
+			transition: all 0.2s ease;
+		}
+
+		.quiz-card:hover .quiz-card-key {
+			border-color: #CBD5E1;
+			color: var(--dark);
+		}
+
+		.quiz-card:has(input:checked) .quiz-card-key,
+		.quiz-card.selected .quiz-card-key {
+			background: var(--gradient);
+			border-color: transparent;
+			color: #FFFFFF;
+			transform: scale(1.05);
+			box-shadow: 0 2px 8px rgba(234, 84, 95, 0.25);
+		}
+
+		.quiz-card-body {
+			display: flex;
+			flex-direction: column;
+			gap: 2px;
+			flex: 1;
+			text-align: left;
+		}
+
+		.quiz-card-title {
+			font-family: 'Outfit', sans-serif;
+			font-size: 0.95rem;
+			font-weight: 600;
+			color: var(--dark);
+			line-height: 1.3;
+		}
+
+		.quiz-card-desc {
+			font-family: 'Outfit', sans-serif;
+			font-size: 0.78rem;
+			font-weight: 400;
+			color: var(--gray);
+			line-height: 1.3;
+		}
+
+		.quiz-card-check {
+			width: 22px;
+			height: 22px;
+			border-radius: 50%;
+			border: 1.5px solid #CBD5E1;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: transparent;
+			font-size: 0.65rem;
+			transition: all 0.2s ease;
+			flex-shrink: 0;
+			background: #FFFFFF;
+		}
+
+		.quiz-card:has(input[type="checkbox"]:checked) .quiz-card-check,
+		.quiz-card:has(input[type="radio"]:checked) .quiz-card-check,
+		.quiz-card.selected .quiz-card-check {
+			background: var(--primary);
+			border-color: var(--primary);
+			color: #FFFFFF;
+			transform: scale(1.08);
+		}
+
+		/* Input field with icon */
+		.quiz-input-group {
+			position: relative;
+			width: 100%;
+			margin-bottom: 1.25rem;
+		}
+
+		.quiz-input-icon {
+			position: absolute;
+			left: 1.15rem;
+			top: 50%;
+			transform: translateY(-50%);
+			color: var(--gray);
+			font-size: 1.1rem;
+			pointer-events: none;
+			transition: color 0.2s;
+			z-index: 2;
+		}
+
+		.quiz-input-group input {
+			padding-left: 3rem !important;
+			margin-bottom: 0 !important;
+		}
+
+		.quiz-input-group:focus-within .quiz-input-icon {
+			color: var(--primary);
+		}
+
+		.qualification-actions {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 1rem;
+			margin-top: 0.75rem;
+		}
+
+		.qualification-next,
+		.qualification-submit {
+			background: var(--gradient);
+			color: var(--light);
+			border: none;
+			padding: 0.8rem 1.8rem;
+			font-size: 0.95rem;
+			font-weight: 600;
+			font-family: 'Outfit', sans-serif;
+			border-radius: 50px;
+			cursor: pointer;
+			display: inline-flex;
+			align-items: center;
+			gap: 0.5rem;
+			transition: var(--transition);
+			box-shadow: 0 4px 15px rgba(234, 84, 95, 0.4);
+			margin-left: auto;
+		}
+
+		.qualification-next:hover,
+		.qualification-submit:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 6px 20px rgba(234, 84, 95, 0.6);
+		}
+
+		.qualification-back {
+			background: transparent;
+			border: none;
+			color: var(--gray);
+			font-size: 0.9rem;
+			font-weight: 500;
+			font-family: 'Outfit', sans-serif;
+			cursor: pointer;
+			padding: 0.5rem 0.75rem;
+			transition: color 0.15s;
+		}
+
+		.qualification-back:hover {
+			color: var(--dark);
+		}
+
+		.modal-privacy-note {
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+			font-size: 0.78rem;
+			color: var(--gray);
+			font-family: 'Outfit', sans-serif;
+			margin-top: 1.5rem;
+			padding-top: 1.25rem;
+			border-top: 1px solid #F1F5F9;
+			text-align: left;
+			line-height: 1.4;
+		}
+
+		.form-feedback {
+			font-size: 0.85rem;
+			color: var(--primary);
+			font-family: 'Outfit', sans-serif;
+			font-weight: 500;
+			margin-top: 0.5rem;
+			min-height: 20px;
+		}
+
+		@media (max-width: 600px) {
+			.consultor-modal-shell {
+				padding: 1.75rem 1.25rem;
+				max-height: 92vh;
+			}
+			.qualification-step-heading h3 {
+				font-size: 1.1rem;
+			}
+			.quiz-card {
+				padding: 0.75rem 0.95rem;
+				gap: 0.75rem;
+			}
+			.quiz-card-key {
+				width: 26px;
+				height: 26px;
+				font-size: 0.72rem;
+			}
+			.quiz-card-title {
+				font-size: 0.9rem;
+			}
+			.quiz-card-desc {
+				font-size: 0.75rem;
+			}
+		}
 	</style>
 </head>
 
@@ -1071,10 +1518,10 @@
 						onclick="gtag('event', 'teste_paciente', {'event_category': 'lead', 'event_label': 'whatsapp_demo'}); fbq('trackCustom', 'TestePaciente');">
 						<i class="fab fa-whatsapp" style="margin-right: 8px;"></i> Teste como paciente
 					</a>
-					<a href="https://wa.me/551148635695?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20a%20Aplia"
-						class="btn btn-outline"
-						onclick="gtag('event', 'fale_conosco', {'event_category': 'lead', 'event_label': 'whatsapp_comercial'}); fbq('trackCustom', 'FaleConosco');">
-						<i class="fab fa-whatsapp" style="margin-right: 8px;"></i> Fale conosco
+					<a href="#abrir-avaliacao"
+						class="btn btn-outline js-open-consultor-modal"
+						onclick="gtag('event', 'fale_conosco', {'event_category': 'lead', 'event_label': 'modal_consultor'}); fbq('trackCustom', 'FaleConosco');">
+						<i class="fas fa-clipboard-check" style="margin-right: 8px;"></i> Avaliar minha clínica
 					</a>
 				</div>
 			</div>
@@ -1274,7 +1721,7 @@
 						<li><i class="fas fa-check"></i> Suporte dedicado 24/7</li>
 						<li><i class="fas fa-check"></i> Integrações personalizadas</li>
 					</ul>
-					<a href="https://wa.me/551148635695?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20plano%20Enterprise%20da%20Aplia" class="btn btn-primary"
+					<a href="#abrir-avaliacao" class="btn btn-primary js-open-consultor-modal"
 						onclick="gtag('event', 'falar_consultor_enterprise', {'event_category': 'lead', 'event_label': 'plano_enterprise'}); fbq('trackCustom', 'FalarConsultorEnterprise');">Falar com consultor</a>
 				</div>
 			</div>
@@ -1308,7 +1755,27 @@
 					</div>
 					<div class="faq-answer">
 						<p>Não! A Aplia foi criada para ser a mais simples e intuitiva possível, permitindo uma rápida
-							implementação e simplificando o uso de inteligência artificial no dia a dia.</p>
+							configuração por qualquer pessoa.</p>
+					</div>
+				</div>
+				<div class="faq-item fade-in">
+					<div class="faq-question">
+						<span>Qual o limite de atendimentos que a IA pode fazer?</span>
+						<i class="fas fa-chevron-down"></i>
+					</div>
+					<div class="faq-answer">
+						<p>Não há limite! Nossos assistentes foram desenhados para responder dezenas ou centenas de
+							pacientes simultaneamente, sem filas de espera.</p>
+					</div>
+				</div>
+				<div class="faq-item fade-in">
+					<div class="faq-question">
+						<span>Como a IA aprende sobre o meu negócio?</span>
+						<i class="fas fa-chevron-down"></i>
+					</div>
+					<div class="faq-answer">
+						<p>Você insere informações como tratamentos oferecidos, valores, horários e orientações básicas.
+							A IA utiliza essas informações para responder dúvidas de forma precisa e humanizada.</p>
 					</div>
 				</div>
 				<div class="faq-item fade-in">
@@ -1398,7 +1865,7 @@
 		<div class="container">
 			<h2>Ficou alguma dúvida?</h2>
 			<p>Entre em contato conosco e tire todas suas dúvidas</p>
-			<a href="mailto:contato@aplia.com.br" class="btn">Entrar em contato</a>
+			<a href="#abrir-avaliacao" class="btn js-open-consultor-modal">Avaliar minha operação</a>
 		</div>
 	</section>
 
@@ -1432,8 +1899,244 @@
 			<div class="footer-bottom">
 				<p>© 2025 Aplia. Todos os direitos reservados</p>
 			</div>
+	<!-- Lead Qualification Modal -->
+	<div class="test-modal-overlay js-consultor-modal" id="consultorModal" aria-hidden="true">
+		<div class="test-modal-backdrop js-consultor-modal-close"></div>
+		<div class="test-modal-content consultor-modal-shell" role="dialog" aria-modal="true" aria-labelledby="modalHeading">
+			<button type="button" class="modal-close js-consultor-modal-close" aria-label="Fechar formulário">&times;</button>
+			<span class="modal-badge">Avaliação da sua operação</span>
+
+			<form class="modal-form js-consultor-form" id="consultorForm" novalidate>
+				<div class="qualification-progress" aria-label="Progresso do formulário">
+					<div class="qualification-progress-track">
+						<span class="js-step-progress" style="width: 16.66%;"></span>
+					</div>
+				</div>
+
+				<!-- Step 1: Nome -->
+				<div class="qualification-step active" data-step="1">
+					<div class="qualification-step-heading">
+						<span class="qualification-step-number">1</span>
+						<div>
+							<span class="qualification-step-kicker">Vamos mapear sua operação</span>
+							<h3 id="modalHeading">Qual é o seu nome?</h3>
+						</div>
+					</div>
+					<div class="quiz-input-group">
+						<i class="fas fa-user quiz-input-icon"></i>
+						<input type="text" id="lead-name-consultor" name="name" placeholder="Seu nome completo" autocomplete="name" required>
+					</div>
+					<div class="qualification-actions">
+						<button type="button" class="qualification-next btn-primary" data-next-step="2">Continuar <i class="fas fa-arrow-right" style="font-size: 0.8rem; margin-left: 4px;"></i></button>
+					</div>
+				</div>
+
+				<!-- Step 2: Email -->
+				<div class="qualification-step" data-step="2" hidden>
+					<div class="qualification-step-heading">
+						<span class="qualification-step-number">2</span>
+						<div>
+							<span class="qualification-step-kicker">Agora, seu melhor contato</span>
+							<h3>Qual é o seu e-mail?</h3>
+						</div>
+					</div>
+					<div class="quiz-input-group">
+						<i class="fas fa-envelope quiz-input-icon"></i>
+						<input type="email" id="lead-email-consultor" name="email" placeholder="seuemail@clinica.com.br" autocomplete="email" required>
+					</div>
+					<div class="qualification-actions">
+						<button type="button" class="qualification-back" data-previous-step="1"><i class="fas fa-arrow-left" style="font-size: 0.75rem; margin-right: 4px;"></i> Voltar</button>
+						<button type="button" class="qualification-next btn-primary" data-next-step="3">Continuar <i class="fas fa-arrow-right" style="font-size: 0.8rem; margin-left: 4px;"></i></button>
+					</div>
+				</div>
+
+				<!-- Step 3: WhatsApp -->
+				<div class="qualification-step" data-step="3" hidden>
+					<div class="qualification-step-heading">
+						<span class="qualification-step-number">3</span>
+						<div>
+							<span class="qualification-step-kicker">Para que nossa equipe possa retornar</span>
+							<h3>Qual é o seu WhatsApp com DDD?</h3>
+						</div>
+					</div>
+					<div class="quiz-input-group">
+						<i class="fab fa-whatsapp quiz-input-icon" style="color: #25D366;"></i>
+						<input type="tel" id="lead-whatsapp-consultor" name="whatsapp" placeholder="(11) 99999-9999" autocomplete="tel" inputmode="tel" required>
+					</div>
+					<div class="qualification-actions">
+						<button type="button" class="qualification-back" data-previous-step="2"><i class="fas fa-arrow-left" style="font-size: 0.75rem; margin-right: 4px;"></i> Voltar</button>
+						<button type="button" class="qualification-next btn-primary" data-next-step="4">Continuar <i class="fas fa-arrow-right" style="font-size: 0.8rem; margin-left: 4px;"></i></button>
+					</div>
+				</div>
+
+				<!-- Step 4: Quantos atendimentos -->
+				<div class="qualification-step" data-step="4" hidden>
+					<div class="qualification-step-heading">
+						<span class="qualification-step-number">4</span>
+						<div>
+							<span class="qualification-step-kicker">O tamanho da sua operação</span>
+							<h3>Quantos atendimentos você realiza, em média, por mês?</h3>
+						</div>
+					</div>
+					<div class="specialty-options qualification-options">
+						<label class="spec-opt quiz-card">
+							<input type="radio" name="whatsapp_volume" value="Até 50 pacientes/mês" required>
+							<div class="quiz-card-key">A</div>
+							<div class="quiz-card-body">
+								<strong class="quiz-card-title">Até 50 pacientes/mês</strong>
+								<span class="quiz-card-desc">Consultório individual ou início de operação</span>
+							</div>
+							<div class="quiz-card-check"><i class="fas fa-check"></i></div>
+						</label>
+						<label class="spec-opt quiz-card">
+							<input type="radio" name="whatsapp_volume" value="Entre 50 e 100 pacientes/mês">
+							<div class="quiz-card-key">B</div>
+							<div class="quiz-card-body">
+								<strong class="quiz-card-title">Entre 50 e 100 pacientes/mês</strong>
+								<span class="quiz-card-desc">Operação em crescimento com agenda ativa</span>
+							</div>
+							<div class="quiz-card-check"><i class="fas fa-check"></i></div>
+						</label>
+						<label class="spec-opt quiz-card">
+							<input type="radio" name="whatsapp_volume" value="Mais de 100 pacientes/mês">
+							<div class="quiz-card-key">C</div>
+							<div class="quiz-card-body">
+								<strong class="quiz-card-title">Mais de 100 pacientes/mês</strong>
+								<span class="quiz-card-desc">Alta demanda, múltiplos médicos ou especialidades</span>
+							</div>
+							<div class="quiz-card-check"><i class="fas fa-check"></i></div>
+						</label>
+					</div>
+					<div class="qualification-actions">
+						<button type="button" class="qualification-back" data-previous-step="3"><i class="fas fa-arrow-left" style="font-size: 0.75rem; margin-right: 4px;"></i> Voltar</button>
+						<button type="button" class="qualification-next btn-primary" data-next-step="5">Continuar <i class="fas fa-arrow-right" style="font-size: 0.8rem; margin-left: 4px;"></i></button>
+					</div>
+				</div>
+
+				<!-- Step 5: Quem costuma atender -->
+				<div class="qualification-step" data-step="5" hidden>
+					<div class="qualification-step-heading">
+						<span class="qualification-step-number">5</span>
+						<div>
+							<span class="qualification-step-kicker">Para entender sua operação atual</span>
+							<h3>Quem costuma atender seus pacientes no WhatsApp hoje?</h3>
+						</div>
+					</div>
+					<div class="specialty-options qualification-options">
+						<label class="spec-opt quiz-card">
+							<input type="radio" name="whatsapp_responsible" value="Eu mesmo(a)" required>
+							<div class="quiz-card-key">A</div>
+							<div class="quiz-card-body">
+								<strong class="quiz-card-title">Eu mesmo(a) atendo</strong>
+								<span class="quiz-card-desc">O próprio profissional responde aos pacientes</span>
+							</div>
+							<div class="quiz-card-check"><i class="fas fa-check"></i></div>
+						</label>
+						<label class="spec-opt quiz-card">
+							<input type="radio" name="whatsapp_responsible" value="Minha secretária">
+							<div class="quiz-card-key">B</div>
+							<div class="quiz-card-body">
+								<strong class="quiz-card-title">Minha secretária / recepcionista</strong>
+								<span class="quiz-card-desc">Uma pessoa da recepção cuida do número</span>
+							</div>
+							<div class="quiz-card-check"><i class="fas fa-check"></i></div>
+						</label>
+						<label class="spec-opt quiz-card">
+							<input type="radio" name="whatsapp_responsible" value="Equipe comercial">
+							<div class="quiz-card-key">C</div>
+							<div class="quiz-card-body">
+								<strong class="quiz-card-title">Equipe comercial ou SDR</strong>
+								<span class="quiz-card-desc">Time dedicado para vendas e agendamentos</span>
+							</div>
+							<div class="quiz-card-check"><i class="fas fa-check"></i></div>
+						</label>
+						<label class="spec-opt quiz-card">
+							<input type="radio" name="whatsapp_responsible" value="Ninguém consistente">
+							<div class="quiz-card-key">D</div>
+							<div class="quiz-card-body">
+								<strong class="quiz-card-title">Ninguém consistente</strong>
+								<span class="quiz-card-desc">Mensagens demoram a ser respondidas e acumulam</span>
+							</div>
+							<div class="quiz-card-check"><i class="fas fa-check"></i></div>
+						</label>
+					</div>
+					<div class="qualification-actions">
+						<button type="button" class="qualification-back" data-previous-step="4"><i class="fas fa-arrow-left" style="font-size: 0.75rem; margin-right: 4px;"></i> Voltar</button>
+						<button type="button" class="qualification-next btn-primary" data-next-step="6">Continuar <i class="fas fa-arrow-right" style="font-size: 0.8rem; margin-left: 4px;"></i></button>
+					</div>
+				</div>
+
+				<!-- Step 6: Principal dificuldade -->
+				<div class="qualification-step" data-step="6" hidden>
+					<div class="qualification-step-heading">
+						<span class="qualification-step-number">6</span>
+						<div>
+							<span class="qualification-step-kicker">O que sua clínica busca resolver</span>
+							<h3>Qual é a principal dificuldade da sua clínica hoje?</h3>
+						</div>
+					</div>
+					<div class="specialty-options qualification-options">
+						<label class="spec-opt quiz-card">
+							<input type="checkbox" name="main_pain" value="Tráfego sem agilidade">
+							<div class="quiz-card-key">A</div>
+							<div class="quiz-card-body">
+								<strong class="quiz-card-title">Demora na resposta a anúncios</strong>
+								<span class="quiz-card-desc">Faço tráfego pago e perco leads por demora no retorno</span>
+							</div>
+							<div class="quiz-card-check"><i class="fas fa-check"></i></div>
+						</label>
+						<label class="spec-opt quiz-card">
+							<input type="checkbox" name="main_pain" value="Recepção sobrecarregada">
+							<div class="quiz-card-key">B</div>
+							<div class="quiz-card-body">
+								<strong class="quiz-card-title">Recepção sobrecarregada</strong>
+								<span class="quiz-card-desc">Muitas mensagens repetitivas dividindo atenção do balcão</span>
+							</div>
+							<div class="quiz-card-check"><i class="fas fa-check"></i></div>
+						</label>
+						<label class="spec-opt quiz-card">
+							<input type="checkbox" name="main_pain" value="Secretária não atende bem">
+							<div class="quiz-card-key">C</div>
+							<div class="quiz-card-body">
+								<strong class="quiz-card-title">Falta de padrão no atendimento</strong>
+								<span class="quiz-card-desc">Atendimento incompleto ou sem conversão de agendamento</span>
+							</div>
+							<div class="quiz-card-check"><i class="fas fa-check"></i></div>
+						</label>
+						<label class="spec-opt quiz-card">
+							<input type="checkbox" name="main_pain" value="Fora do horário comercial">
+							<div class="quiz-card-key">D</div>
+							<div class="quiz-card-body">
+								<strong class="quiz-card-title">Perda de pacientes à noite e fins de semana</strong>
+								<span class="quiz-card-desc">Recebo contatos fora do horário e ficam sem resposta</span>
+							</div>
+							<div class="quiz-card-check"><i class="fas fa-check"></i></div>
+						</label>
+						<label class="spec-opt quiz-card">
+							<input type="checkbox" name="main_pain" value="Todas as opções">
+							<div class="quiz-card-key"><i class="fas fa-check" style="font-size: 0.7rem;"></i></div>
+							<div class="quiz-card-body">
+								<strong class="quiz-card-title">Sofro com todas as opções acima</strong>
+								<span class="quiz-card-desc">Preciso de automação inteligente em toda a jornada</span>
+							</div>
+							<div class="quiz-card-check"><i class="fas fa-check"></i></div>
+						</label>
+					</div>
+					<div class="qualification-actions">
+						<button type="button" class="qualification-back" data-previous-step="5"><i class="fas fa-arrow-left" style="font-size: 0.75rem; margin-right: 4px;"></i> Voltar</button>
+						<button type="submit" class="qualification-submit btn-primary">Concluir minha avaliação <i class="fas fa-check" style="font-size: 0.85rem; margin-left: 4px;"></i></button>
+					</div>
+				</div>
+
+				<p class="form-feedback" id="consultor-form-feedback" role="alert" aria-live="polite"></p>
+
+				<div class="modal-privacy-note">
+					<i class="fas fa-shield-halved modal-privacy-icon" style="color: var(--primary); font-size: 0.85rem; margin-right: 6px;" aria-hidden="true"></i>
+					<span>Seus dados estão 100% seguros e serão usados apenas para este atendimento. Sem spam.</span>
+				</div>
+			</form>
 		</div>
-	</footer>
+	</div>
 
 	<script>
 		// Header scroll effect
@@ -1517,8 +2220,10 @@
 		// Smooth scroll for anchor links
 		document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 			anchor.addEventListener('click', function (e) {
+				const href = this.getAttribute('href');
+				if (href === '#' || href === '#abrir-avaliacao' || href === '#abrir-formulario') return;
 				e.preventDefault();
-				const target = document.querySelector(this.getAttribute('href'));
+				const target = document.querySelector(href);
 				if (target) {
 					target.scrollIntoView({
 						behavior: 'smooth',
@@ -1528,6 +2233,336 @@
 			});
 		});
 
+		/* ================= MULTI-STEP QUALIFICATION MODAL CONTROLLER ================= */
+		// URL do Webhook do n8n (Recebe os dados preenchidos no formulário)
+		const N8N_WEBHOOK_URL = 'https://n8n.aplia.com.br/webhook/lead-avaliacao';
+
+		// =========================================================================
+		// CONFIGURAÇÃO DOS NÚMEROS DE WHATSAPP
+		// =========================================================================
+		// 1. Número para TESTE da IA (Atendimento simulado de clínica)
+		const DEMO_WHATSAPP_NUMBER = '551151973902';
+
+		// 2. Número da APLIA (Consultor comercial / equipe)
+		const SALES_WHATSAPP_NUMBER = '551151973902';
+
+		const modalOverlay = document.getElementById('consultorModal');
+		const form = document.getElementById('consultorForm');
+		const progressBar = document.querySelector('.js-step-progress');
+		const feedbackEl = document.getElementById('consultor-form-feedback');
+		const TOTAL_STEPS = 6;
+		let currentStep = 1;
+
+		function openModal() {
+			if (!modalOverlay) return;
+			modalOverlay.classList.add('active');
+			modalOverlay.setAttribute('aria-hidden', 'false');
+			document.body.style.overflow = 'hidden';
+			goToStep(1);
+		}
+
+		function closeModal() {
+			if (!modalOverlay) return;
+			modalOverlay.classList.remove('active');
+			modalOverlay.setAttribute('aria-hidden', 'true');
+			document.body.style.overflow = '';
+		}
+
+		// Attach open triggers
+		document.querySelectorAll('.js-open-consultor-modal, a[href="#abrir-avaliacao"], a[href="#abrir-formulario"]').forEach(trigger => {
+			trigger.addEventListener('click', (e) => {
+				e.preventDefault();
+				openModal();
+			});
+		});
+
+		// Attach close triggers
+		document.querySelectorAll('.js-consultor-modal-close').forEach(btn => {
+			btn.addEventListener('click', closeModal);
+		});
+
+		// Close on Escape key
+		window.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape' && modalOverlay && modalOverlay.classList.contains('active')) {
+				closeModal();
+			}
+		});
+
+		// Check URL hash on page load and on hash change
+		if (window.location.hash === '#abrir-avaliacao' || window.location.hash === '#abrir-formulario') {
+			setTimeout(openModal, 150);
+		}
+		window.addEventListener('hashchange', () => {
+			if (window.location.hash === '#abrir-avaliacao' || window.location.hash === '#abrir-formulario') {
+				openModal();
+			}
+		});
+
+		function setFeedback(msg) {
+			if (feedbackEl) feedbackEl.textContent = msg;
+		}
+
+		function updateProgress(step) {
+			if (progressBar) {
+				const percent = Math.round((step / TOTAL_STEPS) * 100);
+				progressBar.style.width = `${percent}%`;
+			}
+		}
+
+		function goToStep(stepNumber) {
+			currentStep = stepNumber;
+			setFeedback('');
+			document.querySelectorAll('.qualification-step').forEach(stepEl => {
+				const step = parseInt(stepEl.getAttribute('data-step'), 10);
+				if (step === stepNumber) {
+					stepEl.classList.add('active');
+					stepEl.removeAttribute('hidden');
+					const input = stepEl.querySelector('input:not([type="radio"]):not([type="checkbox"])');
+					if (input) setTimeout(() => input.focus(), 100);
+				} else {
+					stepEl.classList.remove('active');
+					stepEl.setAttribute('hidden', '');
+				}
+			});
+			updateProgress(stepNumber);
+		}
+
+		function validateStep(step) {
+			if (step === 1) {
+				const nameInput = document.getElementById('lead-name-consultor');
+				if (!nameInput || nameInput.value.trim().length < 2) {
+					setFeedback('Por favor, informe seu nome completo.');
+					nameInput && nameInput.focus();
+					return false;
+				}
+			} else if (step === 2) {
+				const emailInput = document.getElementById('lead-email-consultor');
+				const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+				if (!emailInput || !emailRegex.test(emailInput.value.trim())) {
+					setFeedback('Por favor, informe um endereço de e-mail válido.');
+					emailInput && emailInput.focus();
+					return false;
+				}
+			} else if (step === 3) {
+				const phoneInput = document.getElementById('lead-whatsapp-consultor');
+				const cleanPhone = phoneInput ? phoneInput.value.replace(/\D/g, '') : '';
+				if (!phoneInput || cleanPhone.length < 10) {
+					setFeedback('Por favor, informe seu WhatsApp completo com DDD.');
+					phoneInput && phoneInput.focus();
+					return false;
+				}
+			} else if (step === 4) {
+				const volumeChecked = form.querySelector('input[name="whatsapp_volume"]:checked');
+				if (!volumeChecked) {
+					setFeedback('Por favor, selecione uma opção de atendimentos por mês.');
+					return false;
+				}
+			} else if (step === 5) {
+				const respChecked = form.querySelector('input[name="whatsapp_responsible"]:checked');
+				if (!respChecked) {
+					setFeedback('Por favor, selecione quem atende seu WhatsApp atualmente.');
+					return false;
+				}
+			} else if (step === 6) {
+				const painChecked = form.querySelectorAll('input[name="main_pain"]:checked');
+				if (!painChecked || painChecked.length === 0) {
+					setFeedback('Por favor, selecione ao menos uma dificuldade da sua clínica.');
+					return false;
+				}
+			}
+			return true;
+		}
+
+		// Next buttons
+		document.querySelectorAll('.qualification-next').forEach(btn => {
+			btn.addEventListener('click', () => {
+				const nextStep = parseInt(btn.getAttribute('data-next-step'), 10);
+				const current = nextStep - 1;
+				if (validateStep(current)) {
+					goToStep(nextStep);
+				}
+			});
+		});
+
+		// Back buttons
+		document.querySelectorAll('.qualification-back').forEach(btn => {
+			btn.addEventListener('click', () => {
+				const prevStep = parseInt(btn.getAttribute('data-previous-step'), 10);
+				goToStep(prevStep);
+			});
+		});
+
+		// Enter key to advance text inputs
+		['lead-name-consultor', 'lead-email-consultor', 'lead-whatsapp-consultor'].forEach((id, idx) => {
+			const el = document.getElementById(id);
+			if (el) {
+				el.addEventListener('keydown', (e) => {
+					if (e.key === 'Enter') {
+						e.preventDefault();
+						const nextBtn = el.closest('.qualification-step').querySelector('.qualification-next');
+						if (nextBtn) nextBtn.click();
+					}
+				});
+			}
+		});
+
+		// Phone formatting mask
+		const phoneInput = document.getElementById('lead-whatsapp-consultor');
+		if (phoneInput) {
+			phoneInput.addEventListener('input', (e) => {
+				let v = e.target.value.replace(/\D/g, '');
+				if (v.length > 11) v = v.slice(0, 11);
+				if (v.length > 6) {
+					v = `(${v.slice(0, 2)}) ${v.slice(2, 7)}-${v.slice(7)}`;
+				} else if (v.length > 2) {
+					v = `(${v.slice(0, 2)}) ${v.slice(2)}`;
+				} else if (v.length > 0) {
+					v = `(${v}`;
+				}
+				e.target.value = v;
+			});
+		}
+
+		// Auto advance on radio selection
+		document.querySelectorAll('input[name="whatsapp_volume"]').forEach(radio => {
+			radio.addEventListener('change', () => {
+				setTimeout(() => {
+					if (validateStep(4)) goToStep(5);
+				}, 220);
+			});
+		});
+
+		document.querySelectorAll('input[name="whatsapp_responsible"]').forEach(radio => {
+			radio.addEventListener('change', () => {
+				setTimeout(() => {
+					if (validateStep(5)) goToStep(6);
+				}, 220);
+			});
+		});
+
+		// "Todas as opções" toggle handler in Step 6
+		const allOptionsCheckbox = document.querySelector('input[name="main_pain"][value="Todas as opções"]');
+		const otherPainCheckboxes = document.querySelectorAll('input[name="main_pain"]:not([value="Todas as opções"])');
+		if (allOptionsCheckbox) {
+			allOptionsCheckbox.addEventListener('change', () => {
+				if (allOptionsCheckbox.checked) {
+					otherPainCheckboxes.forEach(cb => cb.checked = true);
+				}
+			});
+			otherPainCheckboxes.forEach(cb => {
+				cb.addEventListener('change', () => {
+					if (!cb.checked && allOptionsCheckbox.checked) {
+						allOptionsCheckbox.checked = false;
+					}
+				});
+			});
+		}
+
+		// Submit form
+		if (form) {
+			form.addEventListener('submit', (e) => {
+				e.preventDefault();
+				if (!validateStep(6)) return;
+
+				const name = document.getElementById('lead-name-consultor').value.trim();
+				const email = document.getElementById('lead-email-consultor').value.trim();
+				const whatsapp = document.getElementById('lead-whatsapp-consultor').value.trim();
+				const volume = (form.querySelector('input[name="whatsapp_volume"]:checked') || {}).value || '';
+				const responsible = (form.querySelector('input[name="whatsapp_responsible"]:checked') || {}).value || '';
+				const pains = Array.from(form.querySelectorAll('input[name="main_pain"]:checked')).map(cb => cb.value);
+
+				// Prepare Lead Payload for Webhook
+				const urlParams = new URLSearchParams(window.location.search);
+				const leadData = {
+					name: name,
+					email: email,
+					whatsapp: whatsapp,
+					whatsapp_volume: volume,
+					whatsapp_responsible: responsible,
+					main_pains: pains,
+					metadata: {
+						submitted_at: new Date().toISOString(),
+						page_url: window.location.href,
+						referrer: document.referrer || '',
+						utm_source: urlParams.get('utm_source') || '',
+						utm_medium: urlParams.get('utm_medium') || '',
+						utm_campaign: urlParams.get('utm_campaign') || '',
+						utm_content: urlParams.get('utm_content') || '',
+						utm_term: urlParams.get('utm_term') || ''
+					}
+				};
+
+				// Send to n8n Webhook (Asynchronous & Resilient)
+				if (N8N_WEBHOOK_URL && N8N_WEBHOOK_URL.trim() !== '') {
+					try {
+						fetch(N8N_WEBHOOK_URL, {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json',
+								'Accept': 'application/json'
+							},
+							body: JSON.stringify(leadData),
+							keepalive: true
+						}).catch(err => console.warn('Aviso: n8n webhook não respondeu:', err));
+					} catch (err) {
+						console.warn('Aviso ao disparar webhook:', err);
+					}
+				}
+
+				// Analytics Tracking
+				if (typeof fbq === 'function') {
+					fbq('track', 'Lead', {
+						content_name: 'Avaliação da Operação',
+						user_name: name,
+						value: volume === 'Mais de 100 pacientes/mês' ? 399 : 249,
+						currency: 'BRL'
+					});
+				}
+
+				if (typeof gtag === 'function') {
+					gtag('event', 'generate_lead', {
+						event_category: 'consultor_form',
+						event_label: volume
+					});
+				}
+
+				// WhatsApp Demo Link (Para testar o atendimento com IA)
+				const demoMessage = `Olá! Gostaria de testar o atendimento da clínica com Inteligência Artificial.`;
+				const demoWhatsappUrl = `https://wa.me/${DEMO_WHATSAPP_NUMBER}?text=${encodeURIComponent(demoMessage)}`;
+
+				// WhatsApp Consultor Link (Envia o diagnóstico completo para o consultor da Aplia)
+				const consultorMessage = `Olá! Me chamo *${name}*. Acabei de preencher a avaliação no site da Aplia:\n\n` +
+					`*Dados da Operação:*\n` +
+					`• Atendimentos/mês: ${volume}\n` +
+					`• Quem atende hoje: ${responsible}\n` +
+					`• Principal dificuldade: ${pains.join(', ')}\n` +
+					`• E-mail: ${email}\n` +
+					`• WhatsApp: ${whatsapp}\n\n` +
+					`Gostaria de ver como a Aplia pode automatizar a minha clínica.`;
+				const consultorWhatsappUrl = `https://wa.me/${SALES_WHATSAPP_NUMBER}?text=${encodeURIComponent(consultorMessage)}`;
+
+				// Render success feedback
+				form.innerHTML = `
+					<div style="text-align: center; padding: 1.5rem 0.5rem; font-family: 'Outfit', sans-serif;">
+						<div style="width: 52px; height: 52px; border-radius: 50%; background: rgba(34, 197, 94, 0.12); color: #16A34A; font-size: 1.35rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+							<i class="fas fa-check"></i>
+						</div>
+						<h3 style="font-size: 1.35rem; font-weight: 700; color: var(--dark); margin-bottom: 0.4rem; font-family: 'Outfit', sans-serif;">Avaliação Concluída, ${name}!</h3>
+						<p style="color: var(--gray); font-size: 0.92rem; line-height: 1.45; margin-bottom: 1.5rem; font-family: 'Outfit', sans-serif;">
+							Mapeamos o perfil da sua clínica. Enquanto preparamos a sua proposta, aproveite para experimentar a nossa assistente virtual em tempo real:
+						</p>
+						<div style="display: flex; flex-direction: column; gap: 0.75rem;">
+							<a href="${demoWhatsappUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 0.85rem 1.25rem; font-size: 0.95rem; font-family: 'Outfit', sans-serif;">
+								<i class="fab fa-whatsapp" style="font-size: 1.15rem; margin-right: 8px;"></i> Teste o atendimento de uma clínica com IA
+							</a>
+							<a href="${consultorWhatsappUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="width: 100%; justify-content: center; padding: 0.75rem 1.25rem; font-size: 0.9rem; font-family: 'Outfit', sans-serif; border-color: #E2E8F0; color: var(--dark);">
+								<i class="fas fa-headset" style="margin-right: 8px; color: var(--primary);"></i> Falar com consultor da Aplia
+							</a>
+						</div>
+					</div>
+				`;
+			});
+		}
 	</script>
 </body>
 

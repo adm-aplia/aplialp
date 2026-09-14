@@ -10,3 +10,4 @@ blog_generation.log
 # Arquivos de Sistema
 .DS_Store
 Thumbs.db
+.playwright-mcp/
