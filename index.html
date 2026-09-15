@@ -771,7 +771,7 @@
 
 		.pricing-card ul {
 			list-style: none;
-			margin-bottom: 2rem;
+			margin-bottom: 0;
 		}
 
 		.pricing-card ul li {
@@ -790,6 +790,7 @@
 
 		.pricing-card .btn-primary {
 			width: 100%;
+			margin: 0.5rem 0 1.75rem;
 		}
 
 		/* ============ FAQ ============ */
@@ -1691,49 +1692,55 @@
 			<div class="pricing-grid">
 				<div class="pricing-card fade-in">
 					<h3>Essencial</h3>
-					<p class="description">Ideal para profissionais e pequenos consultórios que estão começando</p>
+					<p class="description">Perfeito para profissionais autônomos e pequenos consultórios que querem automatizar o atendimento</p>
 					<div class="trial-price">Grátis por 10 dias</div>
 					<div class="then-price">depois, <strong>R$ 249,00/mês</strong></div>
+					<a href="https://app.aplia.com.br/cadastro" class="btn btn-primary"
+						onclick="gtag('event', 'escolher_plano_essencial', {'event_category': 'signup', 'event_label': 'plano_essencial', 'value': 249}); fbq('trackCustom', 'EscolherPlanoEssencial', {value: 249, currency: 'BRL'});">Começar
+						teste grátis</a>
 					<ul>
 						<li><i class="fas fa-check"></i> 1 Número de WhatsApp</li>
 						<li><i class="fas fa-check"></i> 1 Assistente Personalizado</li>
 						<li><i class="fas fa-check"></i> Reconhece Áudio</li>
 						<li><i class="fas fa-check"></i> Reconhece Emoji</li>
 						<li><i class="fas fa-check"></i> Agendamentos ilimitados</li>
+						<li><i class="fas fa-check"></i> Ficha de Pacientes</li>
+						<li><i class="fas fa-check"></i> Controle Financeiro</li>
 						<li><i class="fas fa-check"></i> Lembretes de Consultas Automáticos</li>
 						<li><i class="fas fa-check"></i> Integração Google Agenda</li>
 						<li><i class="fas fa-check"></i> Estatísticas Detalhadas</li>
 						<li><i class="fas fa-check"></i> Suporte por e-mail</li>
 					</ul>
-					<a href="https://app.aplia.com.br/cadastro" class="btn btn-primary"
-						onclick="gtag('event', 'escolher_plano_essencial', {'event_category': 'signup', 'event_label': 'plano_essencial', 'value': 249}); fbq('trackCustom', 'EscolherPlanoEssencial', {value: 249, currency: 'BRL'});">Começar
-						teste grátis</a>
 				</div>
 				<div class="pricing-card popular fade-in">
 					<h3>Profissional</h3>
 					<p class="description">Perfeito para clínicas em crescimento que precisam de mais recursos</p>
 					<div class="trial-price">Grátis por 10 dias</div>
 					<div class="then-price">depois, <strong>R$ 399,00/mês</strong></div>
+					<a href="https://app.aplia.com.br/cadastro" class="btn btn-primary"
+						onclick="gtag('event', 'escolher_plano_profissional', {'event_category': 'signup', 'event_label': 'plano_profissional', 'value': 399}); fbq('trackCustom', 'EscolherPlanoProfissional', {value: 399, currency: 'BRL'});">Começar
+						teste grátis</a>
 					<ul>
 						<li><i class="fas fa-check"></i> 3 Números de WhatsApp</li>
 						<li><i class="fas fa-check"></i> 3 Assistentes Personalizados</li>
 						<li><i class="fas fa-check"></i> Reconhece Áudio</li>
 						<li><i class="fas fa-check"></i> Reconhece Emoji</li>
 						<li><i class="fas fa-check"></i> Agendamentos ilimitados</li>
+						<li><i class="fas fa-check"></i> Ficha de Pacientes</li>
+						<li><i class="fas fa-check"></i> Controle Financeiro</li>
 						<li><i class="fas fa-check"></i> Relatórios Avançados</li>
 						<li><i class="fas fa-check"></i> Lembretes de Consultas Automáticos</li>
 						<li><i class="fas fa-check"></i> Integração Google Agenda</li>
 						<li><i class="fas fa-check"></i> Estatísticas Detalhadas</li>
 						<li><i class="fas fa-check"></i> Suporte prioritário</li>
 					</ul>
-					<a href="https://app.aplia.com.br/cadastro" class="btn btn-primary"
-						onclick="gtag('event', 'escolher_plano_profissional', {'event_category': 'signup', 'event_label': 'plano_profissional', 'value': 399}); fbq('trackCustom', 'EscolherPlanoProfissional', {value: 399, currency: 'BRL'});">Começar
-						teste grátis</a>
 				</div>
 				<div class="pricing-card fade-in">
 					<h3>Enterprise</h3>
 					<p class="description">Para clínicas com necessidades personalizadas</p>
 					<div class="price" style="font-size: 2.2rem; margin: 1.5rem 0;">Sob demanda</div>
+					<a href="#abrir-avaliacao" class="btn btn-primary js-open-consultor-modal"
+						onclick="gtag('event', 'falar_consultor_enterprise', {'event_category': 'lead', 'event_label': 'plano_enterprise'}); fbq('trackCustom', 'FalarConsultorEnterprise');">Falar com consultor</a>
 					<ul>
 						<li><i class="fas fa-check"></i> Tudo do plano Profissional</li>
 						<li><i class="fas fa-check"></i> +3 Números de WhatsApp</li>
@@ -1741,8 +1748,6 @@
 						<li><i class="fas fa-check"></i> Suporte dedicado 24/7</li>
 						<li><i class="fas fa-check"></i> Integrações personalizadas</li>
 					</ul>
-					<a href="#abrir-avaliacao" class="btn btn-primary js-open-consultor-modal"
-						onclick="gtag('event', 'falar_consultor_enterprise', {'event_category': 'lead', 'event_label': 'plano_enterprise'}); fbq('trackCustom', 'FalarConsultorEnterprise');">Falar com consultor</a>
 				</div>
 			</div>
 		</div>
@@ -1872,8 +1877,8 @@
 						<i class="fas fa-chevron-down"></i>
 					</div>
 					<div class="faq-answer">
-						<p>Sim, você pode pagar mensalmente e cancelar a hora que quiser. Se você adquirir o plano
-							anual, terá um desconto sobre cada mensalidade.</p>
+						<p>Sim, a cobrança é sempre mensal — sem plano anual, sem fidelidade. Você pode cancelar quando
+							quiser, sem multa.</p>
 					</div>
 				</div>
 			</div>
