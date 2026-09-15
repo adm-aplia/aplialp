@@ -745,6 +745,24 @@
 			opacity: 0.7;
 		}
 
+		.pricing-card .trial-price {
+			font-size: 1.65rem;
+			font-weight: 800;
+			color: #34d399;
+			margin: 1.5rem 0 0.25rem;
+		}
+
+		.pricing-card .then-price {
+			font-size: 1.05rem;
+			color: rgba(255, 255, 255, 0.7);
+			margin-bottom: 1.5rem;
+		}
+
+		.pricing-card .then-price strong {
+			color: var(--light);
+			font-weight: 600;
+		}
+
 		.pricing-card .description {
 			color: rgba(255, 255, 255, 0.7);
 			font-size: 0.9rem;
@@ -1674,7 +1692,8 @@
 				<div class="pricing-card fade-in">
 					<h3>Essencial</h3>
 					<p class="description">Ideal para profissionais e pequenos consultórios que estão começando</p>
-					<div class="price">R$ 249,00<span>/mês</span></div>
+					<div class="trial-price">Grátis por 10 dias</div>
+					<div class="then-price">depois, <strong>R$ 249,00/mês</strong></div>
 					<ul>
 						<li><i class="fas fa-check"></i> 1 Número de WhatsApp</li>
 						<li><i class="fas fa-check"></i> 1 Assistente Personalizado</li>
@@ -1686,14 +1705,15 @@
 						<li><i class="fas fa-check"></i> Estatísticas Detalhadas</li>
 						<li><i class="fas fa-check"></i> Suporte por e-mail</li>
 					</ul>
-					<a href="https://app.aplia.com.br/" class="btn btn-primary"
-						onclick="gtag('event', 'escolher_plano_essencial', {'event_category': 'signup', 'event_label': 'plano_essencial', 'value': 249}); fbq('trackCustom', 'EscolherPlanoEssencial', {value: 249, currency: 'BRL'});">Escolher
-						plano</a>
+					<a href="https://app.aplia.com.br/cadastro" class="btn btn-primary"
+						onclick="gtag('event', 'escolher_plano_essencial', {'event_category': 'signup', 'event_label': 'plano_essencial', 'value': 249}); fbq('trackCustom', 'EscolherPlanoEssencial', {value: 249, currency: 'BRL'});">Começar
+						teste grátis</a>
 				</div>
 				<div class="pricing-card popular fade-in">
 					<h3>Profissional</h3>
 					<p class="description">Perfeito para clínicas em crescimento que precisam de mais recursos</p>
-					<div class="price">R$ 399,00<span>/mês</span></div>
+					<div class="trial-price">Grátis por 10 dias</div>
+					<div class="then-price">depois, <strong>R$ 399,00/mês</strong></div>
 					<ul>
 						<li><i class="fas fa-check"></i> 3 Números de WhatsApp</li>
 						<li><i class="fas fa-check"></i> 3 Assistentes Personalizados</li>
@@ -1706,9 +1726,9 @@
 						<li><i class="fas fa-check"></i> Estatísticas Detalhadas</li>
 						<li><i class="fas fa-check"></i> Suporte prioritário</li>
 					</ul>
-					<a href="https://app.aplia.com.br/" class="btn btn-primary"
-						onclick="gtag('event', 'escolher_plano_profissional', {'event_category': 'signup', 'event_label': 'plano_profissional', 'value': 399}); fbq('trackCustom', 'EscolherPlanoProfissional', {value: 399, currency: 'BRL'});">Escolher
-						plano</a>
+					<a href="https://app.aplia.com.br/cadastro" class="btn btn-primary"
+						onclick="gtag('event', 'escolher_plano_profissional', {'event_category': 'signup', 'event_label': 'plano_profissional', 'value': 399}); fbq('trackCustom', 'EscolherPlanoProfissional', {value: 399, currency: 'BRL'});">Começar
+						teste grátis</a>
 				</div>
 				<div class="pricing-card fade-in">
 					<h3>Enterprise</h3>
