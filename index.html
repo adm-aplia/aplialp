@@ -767,6 +767,14 @@
 			color: rgba(255, 255, 255, 0.7);
 			font-size: 0.9rem;
 			margin-bottom: 1.5rem;
+			min-height: 4.35rem;
+		}
+
+		.pricing-card .price-block {
+			min-height: 7.6rem;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
 		}
 
 		.pricing-card ul {
@@ -1693,8 +1701,10 @@
 				<div class="pricing-card fade-in">
 					<h3>Essencial</h3>
 					<p class="description">Perfeito para profissionais autônomos e pequenos consultórios que querem automatizar o atendimento</p>
-					<div class="trial-price">Grátis por 10 dias</div>
-					<div class="then-price">depois, <strong>R$ 249,00/mês</strong></div>
+					<div class="price-block">
+						<div class="trial-price">Grátis por 10 dias</div>
+						<div class="then-price">depois, <strong>R$ 249,00/mês</strong></div>
+					</div>
 					<a href="https://app.aplia.com.br/cadastro" class="btn btn-primary"
 						onclick="gtag('event', 'escolher_plano_essencial', {'event_category': 'signup', 'event_label': 'plano_essencial', 'value': 249}); fbq('trackCustom', 'EscolherPlanoEssencial', {value: 249, currency: 'BRL'});">Começar
 						teste grátis</a>
@@ -1715,8 +1725,10 @@
 				<div class="pricing-card popular fade-in">
 					<h3>Profissional</h3>
 					<p class="description">Perfeito para clínicas em crescimento que precisam de mais recursos</p>
-					<div class="trial-price">Grátis por 10 dias</div>
-					<div class="then-price">depois, <strong>R$ 399,00/mês</strong></div>
+					<div class="price-block">
+						<div class="trial-price">Grátis por 10 dias</div>
+						<div class="then-price">depois, <strong>R$ 399,00/mês</strong></div>
+					</div>
 					<a href="https://app.aplia.com.br/cadastro" class="btn btn-primary"
 						onclick="gtag('event', 'escolher_plano_profissional', {'event_category': 'signup', 'event_label': 'plano_profissional', 'value': 399}); fbq('trackCustom', 'EscolherPlanoProfissional', {value: 399, currency: 'BRL'});">Começar
 						teste grátis</a>
@@ -1738,7 +1750,9 @@
 				<div class="pricing-card fade-in">
 					<h3>Enterprise</h3>
 					<p class="description">Para clínicas com necessidades personalizadas</p>
-					<div class="price" style="font-size: 2.2rem; margin: 1.5rem 0;">Sob demanda</div>
+					<div class="price-block">
+						<div class="price" style="font-size: 2.2rem; margin: 0;">Sob demanda</div>
+					</div>
 					<a href="#abrir-avaliacao" class="btn btn-primary js-open-consultor-modal"
 						onclick="gtag('event', 'falar_consultor_enterprise', {'event_category': 'lead', 'event_label': 'plano_enterprise'}); fbq('trackCustom', 'FalarConsultorEnterprise');">Falar com consultor</a>
 					<ul>
