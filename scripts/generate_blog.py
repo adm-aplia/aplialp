@@ -339,20 +339,41 @@ def update_blog_index(post_data):
     print(f"[+] blog.html atualizado com o novo artigo.")
 
 def update_sitemap(slug):
-    """Adiciona a URL do novo artigo no sitemap.xml."""
+    """Adiciona a URL do novo artigo no sitemap.xml, evitando duplicatas."""
     sitemap_path = 'sitemap.xml'
     if not os.path.exists(sitemap_path):
         print(f"[!] Aviso: '{sitemap_path}' não encontrado. Pulando sitemap.")
         return
-        
+
     with open(sitemap_path, 'r', encoding='utf-8') as f:
         content = f.read()
-        
+
     now_date = datetime.now().strftime("%Y-%m-%d")
-    
+    loc = f"https://aplia.com.br/blog/{slug}"
+
+    # Se a URL já existir, apenas atualiza o lastmod em vez de duplicar
+    existing_url_pattern = re.compile(
+        r"\t<url>\n\t\t<loc>" + re.escape(loc) + r"</loc>\n\t\t<lastmod>[^<]*</lastmod>\n"
+        r"\t\t<changefreq>[^<]*</changefreq>\n\t\t<priority>[^<]*</priority>\n\t</url>\n"
+    )
+    if existing_url_pattern.search(content):
+        updated_content = existing_url_pattern.sub(
+            f"\t<url>\n\t\t<loc>{loc}</loc>\n\t\t<lastmod>{now_date}</lastmod>\n"
+            f"\t\t<changefreq>weekly</changefreq>\n\t\t<priority>0.6</priority>\n\t</url>\n",
+            content,
+        )
+        with open(sitemap_path, 'w', encoding='utf-8') as f:
+            f.write(updated_content)
+        print(f"[+] sitemap.xml: lastmod atualizado para artigo já existente ({slug}).")
+        return
+
+    if f"<loc>{loc}</loc>" in content:
+        print(f"[i] sitemap.xml já contém '{loc}' em formato inesperado. Pulando para evitar duplicata.")
+        return
+
     # Prepara a nova entrada
     new_url = f"""\t<url>
-\t\t<loc>https://aplia.com.br/blog/{slug}</loc>
+\t\t<loc>{loc}</loc>
 \t\t<lastmod>{now_date}</lastmod>
 \t\t<changefreq>weekly</changefreq>\n\t\t<priority>0.6</priority>
 \t</url>
