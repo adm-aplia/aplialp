@@ -321,7 +321,9 @@
 		}
 
 		.hero-content h1 {
-			font-size: 3.5rem;
+			/* escala com a largura: em telas de 2 colunas o titulo precisa caber
+			   em duas linhas, e a coluna de texto encolhe junto com a viewport */
+			font-size: clamp(2.25rem, 3.6vw, 3rem);
 			font-weight: 800;
 			line-height: 1.1;
 			margin-bottom: 1.5rem;
