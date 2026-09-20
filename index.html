@@ -2012,6 +2012,17 @@
 	}
 
 
+	
+	/* O titulo do FAQ passava por pouco dos 44rem do bloco e quebrava em duas
+	   linhas. Nowrap no desktop, com a quebra liberada no celular. */
+	#faq .s-head { max-width: 52rem; }
+	#faq h2 { text-wrap: nowrap; }
+
+	@media (max-width: 640px) {
+		#faq h2 { text-wrap: balance; }
+	}
+
+
 	</style>
 </head>
 
@@ -2485,7 +2496,7 @@
 	<section id="faq">
 		<div class="wrap">
 			<div class="s-head rise">
-				<h2>Perguntas que chegam antes da decisão</h2>
+				<h2>O que costumam nos perguntar?</h2>
 			</div>
 			<div class="faq-grid" id="faqList">
 				<div class="q rise">
