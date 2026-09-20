@@ -1780,31 +1780,10 @@
 		/* A malha nasce densa no miolo e se dissolve em direcao as bordas.
 		   Duas mascaras multiplicadas: uma elipse que abre do centro e um
 		   esvanecimento vertical, para o padrao nao terminar em linha reta. */
-		/* Corredor vazio sobre a faixa de conteudo: a malha vive so nas margens.
-		   --band acompanha a largura do container, entao o corredor segue o
-		   conteudo em qualquer viewport. */
-		--band: 1200px;
-		--edge: 40px;
-		-webkit-mask-image:
-			linear-gradient(90deg,
-				#000 0,
-				#000 calc(50% - var(--band) / 2 - var(--edge)),
-				transparent calc(50% - var(--band) / 2),
-				transparent calc(50% + var(--band) / 2),
-				#000 calc(50% + var(--band) / 2 + var(--edge)),
-				#000 100%),
-			linear-gradient(180deg, transparent 0, #000 12%, #000 88%, transparent 100%);
-		mask-image:
-			linear-gradient(90deg,
-				#000 0,
-				#000 calc(50% - var(--band) / 2 - var(--edge)),
-				transparent calc(50% - var(--band) / 2),
-				transparent calc(50% + var(--band) / 2),
-				#000 calc(50% + var(--band) / 2 + var(--edge)),
-				#000 100%),
-			linear-gradient(180deg, transparent 0, #000 12%, #000 88%, transparent 100%);
-		-webkit-mask-composite: source-in;
-		mask-composite: intersect;
+		/* A malha cobre a secao e esvanece no topo e na base. O espaco livre
+		   do conteudo e aberto pelo veu da coluna de texto, abaixo. */
+		-webkit-mask-image: linear-gradient(180deg, transparent 0, #000 9%, #000 91%, transparent 100%);
+		mask-image: linear-gradient(180deg, transparent 0, #000 9%, #000 91%, transparent 100%);
 		pointer-events: none;
 	}
 
@@ -1956,6 +1935,25 @@
 		background: var(--paper);
 		border-radius: 28px;
 		filter: blur(16px);
+		z-index: -1;
+	}
+
+
+	
+	/* Veu unico sobre a coluna de texto. Como e um bloco so, nao sobra malha
+	   entre um paragrafo e outro, que era o defeito dos veus por elemento.
+	   As caixas com fundo proprio param a malha sozinhas, e o que fica livre
+	   acima do conteudo, abaixo do cartao da direita e nas margens segue
+	   com pontos. */
+	#conversa .split > div:first-child { position: relative; }
+
+	#conversa .split > div:first-child::before {
+		content: "";
+		position: absolute;
+		inset: -1.25rem -1.75rem -1.25rem -2rem;
+		background: var(--paper);
+		border-radius: 36px;
+		filter: blur(20px);
 		z-index: -1;
 	}
 
