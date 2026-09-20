@@ -1775,10 +1775,19 @@
 		content: "";
 		position: absolute;
 		inset: 0;
-		background-image: radial-gradient(circle at center, rgba(23, 33, 56, .30) 1.5px, transparent 1.6px);
+		background-image: radial-gradient(circle at center, rgba(23, 33, 56, .34) 1.6px, transparent 1.7px);
 		background-size: 26px 26px;
-		-webkit-mask-image: linear-gradient(180deg, transparent 0, #000 12%, #000 88%, transparent 100%);
-		mask-image: linear-gradient(180deg, transparent 0, #000 12%, #000 88%, transparent 100%);
+		/* A malha nasce densa no miolo e se dissolve em direcao as bordas.
+		   Duas mascaras multiplicadas: uma elipse que abre do centro e um
+		   esvanecimento vertical, para o padrao nao terminar em linha reta. */
+		-webkit-mask-image:
+			radial-gradient(ellipse 72% 68% at 56% 48%, #000 28%, rgba(0,0,0,.62) 58%, rgba(0,0,0,.22) 80%, transparent 96%),
+			linear-gradient(180deg, transparent 0, #000 14%, #000 86%, transparent 100%);
+		mask-image:
+			radial-gradient(ellipse 72% 68% at 56% 48%, #000 28%, rgba(0,0,0,.62) 58%, rgba(0,0,0,.22) 80%, transparent 96%),
+			linear-gradient(180deg, transparent 0, #000 14%, #000 86%, transparent 100%);
+		-webkit-mask-composite: source-in;
+		mask-composite: intersect;
 		pointer-events: none;
 	}
 
