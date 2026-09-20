@@ -451,7 +451,7 @@
 	.sheet.open a:nth-child(4) { transition-delay: .18s; }
 	.sheet.open a:nth-child(5) { transition-delay: .22s; }
 
-	.sheet .btn { margin-top: 1.75rem; justify-content: space-between; }
+	.sheet .btn { margin-top: 1.75rem; justify-content: center; }
 
 	/* --- Heroi -------------------------------------------------------------- */
 
@@ -837,7 +837,7 @@
 	.plan .money small { display: block; font-size: 0.875rem; color: var(--ink-3); margin-top: 0.25rem; }
 	.plan .money small strong { color: var(--ink-2); font-weight: 600; }
 
-	.plan .btn { width: 100%; margin: 1.25rem 0 1.5rem; justify-content: space-between; }
+	.plan .btn { width: 100%; margin: 1.25rem 0 1.5rem; justify-content: center; }
 
 		/* O margin-top auto empurrava as listas curtas para o rodape do cartao e
 	   abria um vao no meio. As listas passam a comecar logo apos o botao. */
@@ -994,7 +994,9 @@
 		.reassure { grid-template-columns: 1fr; gap: 1rem; }
 		.foot-grid { grid-template-columns: 1fr; gap: 2rem; }
 		.hero-cta { flex-direction: column; align-items: stretch; }
-		.hero-cta .btn { justify-content: space-between; }
+		/* Largura total e bom alvo de toque, mas space-between empurrava rotulo
+		   e seta para os extremos e abria um vao no meio do botao. */
+		.hero-cta .btn { justify-content: center; padding-inline: 1.5rem; }
 		.phone { max-width: 300px; }
 		.phone-screen { height: 470px; }
 	}
@@ -2020,6 +2022,18 @@
 
 	@media (max-width: 640px) {
 		#faq h2 { text-wrap: balance; }
+	}
+
+
+	
+	/* Botao de largura total agrupa rotulo e icone no centro. Com
+	   space-between os dois iam para os extremos e o vao no meio fazia o
+	   botao parecer esticado, sobretudo no celular. */
+	.close-cta .btn { justify-content: center; }
+
+	@media (max-width: 640px) {
+		.close-cta .row { flex-direction: column; align-items: stretch; }
+		.close-cta .btn { width: 100%; }
 	}
 
 
