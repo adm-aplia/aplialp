@@ -1531,6 +1531,94 @@
 
 	.phone { z-index: 0; }
 
+	
+	/* =========================================================================
+	   RITMO E BENTO . revisao
+	   ========================================================================= */
+
+	/* O respiro entre secoes chegava a 272px somados. Reduzido para uma
+	   cadencia que ainda respira sem partir a leitura ao meio. */
+	section { padding-block: clamp(3.5rem, 6vw, 5.25rem); }
+
+	.s-head { margin-bottom: clamp(2rem, 3.5vw, 2.75rem); }
+
+	/* Colunas de altura desigual deixavam um vazio no pe da secao */
+	.split, .problem-grid { align-items: stretch; }
+	.split > *, .problem-grid > * { display: flex; flex-direction: column; justify-content: center; }
+
+	/* --- Bento ------------------------------------------------------------- */
+
+	.bento { grid-auto-rows: minmax(0, auto); gap: 0.875rem; }
+
+	.cell-a { grid-column: span 4; display: flex; flex-direction: column; gap: 1.25rem; }
+	.cell-b { grid-column: span 2; }
+	.cell-c { grid-column: span 2; }
+	.cell-d { grid-column: span 2; }
+	.cell-e { grid-column: span 2; }
+	.cell-f { grid-column: span 6; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+
+	.cell-copy { flex: 1; min-width: 15rem; }
+	.cell-copy .ico { margin-bottom: 1rem; }
+
+	/* Celula tingida: o coral aparece uma vez na grade, sem virar decoracao */
+	.cell.tint {
+		background: linear-gradient(160deg, var(--coral-050), var(--paper) 72%);
+		border-color: rgba(234, 84, 95, .2);
+	}
+
+	.cell.tint .ico { background: #fff; border-color: rgba(234, 84, 95, .22); color: var(--coral-600); }
+
+	/* Fragmento de conversa dentro da celula escura: o produto aparece,
+	   em vez de ser descrito */
+	.mini-chat { display: flex; flex-direction: column; gap: 0.375rem; margin-top: auto; }
+
+	.mini {
+		max-width: 88%;
+		font-size: 0.8125rem;
+		line-height: 1.4;
+		padding: 0.5rem 0.75rem;
+		border-radius: 12px;
+	}
+
+	.mini.them { align-self: flex-start; background: rgba(255,255,255,.1); color: rgba(255,255,255,.88); border-top-left-radius: 3px; }
+	.mini.us { align-self: flex-end; background: #D9FDD3; color: #111b21; border-top-right-radius: 3px; }
+
+	/* Fichas de horario e de categoria */
+	.chips { display: flex; flex-wrap: wrap; gap: 0.375rem; margin-top: 1.125rem; }
+
+	.chips span {
+		font-size: 0.75rem;
+		font-weight: 600;
+		color: var(--ink-2);
+		background: var(--paper-3);
+		border: 1px solid var(--line);
+		border-radius: 999px;
+		padding: 0.3125rem 0.625rem;
+		white-space: nowrap;
+	}
+
+	.chips span.off { color: var(--ink-3); opacity: .55; text-decoration: line-through; }
+	.chips.wide { margin-top: 0; flex: none; }
+
+	@media (max-width: 1024px) {
+		.cell-a { grid-column: span 2; }
+		.cell-f { grid-column: span 2; }
+		.cell-b, .cell-c, .cell-d, .cell-e { grid-column: span 1; }
+	}
+
+	@media (max-width: 640px) {
+		.cell-a, .cell-b, .cell-c, .cell-d, .cell-e, .cell-f { grid-column: span 1; }
+		.cell-f { align-items: flex-start; flex-direction: column; gap: 1.125rem; }
+		.chips.wide { margin-top: 0; }
+	}
+
+	
+	/* Relatorios: linha horizontal, icone junto do titulo */
+	.cell-line { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; }
+	.cell-line .ico { margin-bottom: 0; }
+	.cell-f .cell-copy { min-width: 18rem; }
+
+
 	</style>
 </head>
 
@@ -1549,6 +1637,7 @@
 			<g id="i-clock"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3.2 1.9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></g>
 			<g id="i-cal"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 10h17M8 3v4M16 3v4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></g>
 			<g id="i-bell"><path d="M18 8.5a6 6 0 10-12 0c0 6-2.2 7.5-2.2 7.5h16.4S18 14.5 18 8.5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M13.7 20a2 2 0 01-3.4 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></g>
+			<g id="i-money"><rect x="2.5" y="6" width="19" height="12.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12.25" r="2.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6 9.5v5.5M18 9.5v5.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></g>
 			<g id="i-chart"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></g>
 			<g id="i-users"><circle cx="9" cy="8" r="3.4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M2.5 20c0-3.6 2.9-6.1 6.5-6.1s6.5 2.5 6.5 6.1M17 5.2a3.4 3.4 0 010 6.6M18.5 20c0-2.2-.8-3.9-2-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></g>
 			<g id="i-shield"><path d="M12 3l7.5 3v5.6c0 4.6-3.1 8-7.5 9.4-4.4-1.4-7.5-4.8-7.5-9.4V6z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2.2 2.2L15.5 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></g>
@@ -1749,35 +1838,62 @@
 		<div class="wrap">
 			<div class="s-head rise">
 				<h2>O que ela faz no seu consultório</h2>
-				<p>Não é um chatbot com respostas prontas. É uma secretária que trabalha dentro do WhatsApp e da
-					agenda que você já usa.</p>
+				<p>Trabalha dentro do WhatsApp e da agenda que você já usa.</p>
 			</div>
 			<div class="bento">
+
 				<div class="cell cell-a dark rise">
-					<div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chat"/></svg></div>
-					<h3>Atende no WhatsApp, 24 horas por dia</h3>
-					<p>No mesmo número que seus pacientes já conhecem. Conversa em linguagem natural, entende áudio e responde na hora.</p>
+					<div class="cell-copy">
+						<div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chat"/></svg></div>
+						<h3>Atende no WhatsApp, 24 horas por dia</h3>
+						<p>No mesmo número que seus pacientes já conhecem. Entende áudio e responde na hora.</p>
+					</div>
+					<div class="mini-chat" aria-hidden="true">
+						<span class="mini them">Tem horário sábado?</span>
+						<span class="mini us">Temos sim, às 10h. Reservo para você?</span>
+					</div>
 				</div>
+
 				<div class="cell cell-b rise d1">
 					<div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cal"/></svg></div>
 					<h3>Agenda sozinha</h3>
 					<p>Vê seus horários livres e marca direto na Google Agenda.</p>
+					<div class="chips" aria-hidden="true">
+						<span>Qui 14:30</span><span>Sex 09:00</span><span>Sáb 10:00</span>
+					</div>
 				</div>
+
 				<div class="cell cell-c rise">
 					<div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bell"/></svg></div>
 					<h3>Confirma presença</h3>
 					<p>Lembretes automáticos para reduzir a cadeira vazia.</p>
 				</div>
+
 				<div class="cell cell-d rise d1">
 					<div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-users"/></svg></div>
 					<h3>Ficha do paciente</h3>
 					<p>Histórico e dados organizados, prontos para a consulta.</p>
 				</div>
-				<div class="cell cell-e rise d2">
-					<div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chart"/></svg></div>
-					<h3>Relatórios</h3>
-					<p>Agendamentos, remarcações e cancelamentos em números.</p>
+
+				<div class="cell cell-e tint rise d2">
+					<div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-money"/></svg></div>
+					<h3>Controle financeiro</h3>
+					<p>Consultas, recebimentos e pendências no mesmo lugar da agenda.</p>
 				</div>
+
+				<div class="cell cell-f rise">
+					<div class="cell-copy">
+						<div class="cell-line">
+							<div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chart"/></svg></div>
+							<h3>Relatórios</h3>
+						</div>
+						<p>O que acontece no atendimento, em números.</p>
+					</div>
+					<div class="chips wide" aria-hidden="true">
+						<span>Agendamentos</span><span>Remarcações</span><span>Cancelamentos</span><span>Faltas</span>
+					</div>
+				</div>
+
 			</div>
 		</div>
 	</section>
