@@ -1993,6 +1993,36 @@
 	}
 
 
+	
+	/* O selo do heroi nomeia a categoria e traz o unico ponto de coral acima
+	   da dobra que nao e botao. O titulo segue em navy: colorir o H1
+	   inverteria a hierarquia do manual. */
+	.hero .tag { margin-bottom: 1rem; }
+
+
+	
+	/* O selo do heroi virou frase, nao rotulo: caixa-alta com espacamento de
+	   letra alargava demais e quebrava em duas linhas no celular. */
+	.hero .tag {
+		margin-bottom: 1rem;
+		text-transform: none;
+		letter-spacing: -0.005em;
+		font-size: 0.8125rem;
+		font-weight: 600;
+	}
+
+
+	
+	/* O titulo do FAQ passava por pouco dos 44rem do bloco e quebrava em duas
+	   linhas. Nowrap no desktop, com a quebra liberada no celular. */
+	#faq .s-head { max-width: 52rem; }
+	#faq h2 { text-wrap: nowrap; }
+
+	@media (max-width: 640px) {
+		#faq h2 { text-wrap: balance; }
+	}
+
+
 	</style>
 </head>
 
@@ -2066,6 +2096,7 @@
 		<div class="wrap">
 			<div class="hero-grid">
 				<div class="rise">
+					<span class="tag">A secretária de IA para o seu consultório</span>
 					<h1>Nenhum paciente fica sem resposta</h1>
 					<p class="lede">A Aplia atende no WhatsApp do seu consultório, marca a consulta na sua
 						agenda e confirma a presença. Às onze da noite, no domingo e enquanto você atende.</p>
@@ -2465,7 +2496,7 @@
 	<section id="faq">
 		<div class="wrap">
 			<div class="s-head rise">
-				<h2>Perguntas que chegam antes da decisão</h2>
+				<h2>O que costumam nos perguntar?</h2>
 			</div>
 			<div class="faq-grid" id="faqList">
 				<div class="q rise">
