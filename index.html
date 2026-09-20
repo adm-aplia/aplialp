@@ -1328,6 +1328,209 @@
 		.quiz-card input:checked ~ .quiz-card-check { opacity: 1; transform: none; }
 	}
 
+	
+	/* =========================================================================
+	   APARELHO E CONVERSA . revisao
+	   Moldura no formato de iPhone: ilha dinamica, barra de status, botoes
+	   laterais, bisel fino e raios concentricos.
+	   ========================================================================= */
+
+	.phone {
+		position: relative;
+		width: 100%;
+		max-width: 328px;
+		margin-inline: auto;
+		background: linear-gradient(150deg, #33405c 0%, #172138 38%, #0d1424 100%);
+		border-radius: 52px;
+		padding: 11px;
+		box-shadow:
+			0 0 0 1px rgba(23,33,56,.55),
+			inset 0 1px 1px rgba(255,255,255,.22),
+			0 32px 70px -18px rgba(23,33,56,.42),
+			0 12px 28px -12px rgba(23,33,56,.22);
+	}
+
+	/* Botoes laterais, so o suficiente para o olho reconhecer o objeto */
+	.phone-side {
+		position: absolute;
+		width: 2px;
+		background: linear-gradient(180deg, #46536e, #26314a);
+		border-radius: 2px;
+	}
+
+	.phone-side.left { left: -2px; top: 132px; height: 34px; box-shadow: 0 54px 0 #313d58, 0 104px 0 #313d58; }
+	.phone-side.right { right: -2px; top: 168px; height: 76px; }
+
+	.phone-screen {
+		position: relative;
+		background: #ECE5DD;
+		border-radius: 42px;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+		height: 546px;
+	}
+
+	/* Barra de status com a ilha dinamica ao centro */
+	.phone-status {
+		flex: none;
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		height: 38px;
+		padding: 0 1.375rem 0 1.5rem;
+		background: #075E54;
+		color: #fff;
+		font-size: 0.75rem;
+		font-weight: 600;
+		letter-spacing: -0.01em;
+	}
+
+	.phone-island {
+		position: absolute;
+		left: 50%;
+		top: 7px;
+		transform: translateX(-50%);
+		width: 84px;
+		height: 24px;
+		background: #05100f;
+		border-radius: 999px;
+	}
+
+	.phone-meta { display: inline-flex; align-items: center; gap: 5px; }
+	.phone-meta svg { width: 15px; height: 15px; }
+
+	.chat-top {
+		display: flex;
+		align-items: center;
+		gap: 0.625rem;
+		padding: 0.5rem 0.875rem 0.75rem;
+		background: #075E54;
+		color: #fff;
+		flex: none;
+	}
+
+	.chat-avatar {
+		width: 36px;
+		height: 36px;
+		flex: none;
+		display: grid;
+		place-items: center;
+		border-radius: 999px;
+		background: #fff;
+		box-shadow: 0 1px 3px rgba(0,0,0,.2);
+	}
+
+	.chat-avatar svg { width: 19px; height: 19px; fill: var(--coral); }
+
+	.chat-id { min-width: 0; }
+
+	.chat-who {
+		font-size: 0.8125rem;
+		font-weight: 600;
+		line-height: 1.25;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.chat-state { font-size: 0.6875rem; opacity: .78; line-height: 1.25; }
+
+	.chat-body { padding: 0.875rem 0.6875rem; gap: 0.375rem; }
+
+	.chat-foot {
+		flex: none;
+		padding: 0.5rem 0.75rem 0.875rem;
+		font-size: 0.6875rem;
+		color: var(--ink-3);
+		background: #ECE5DD;
+		text-align: center;
+	}
+
+	@media (max-width: 640px) {
+		.phone { max-width: 292px; border-radius: 46px; padding: 9px; }
+		.phone-screen { height: 492px; border-radius: 38px; }
+	}
+
+	
+	/* =========================================================================
+	   TEXTURA . revisao
+	   O padrao geometrico do simbolo foi retirado. No lugar, a gramatica que
+	   Revolut, Nubank e Stripe usam: wash de luz colorida em opacidade muito
+	   baixa, malha de pontos quase imperceptivel e sombra ambiental difusa.
+	   Nada de forma reconhecivel repetida.
+	   ========================================================================= */
+
+	.hero::before {
+		content: "";
+		position: absolute;
+		inset: -20% -10% auto -10%;
+		height: 150%;
+		background:
+			radial-gradient(ellipse 48% 42% at 78% 22%, rgba(234, 84, 95, .13), transparent 62%),
+			radial-gradient(ellipse 52% 46% at 18% 12%, rgba(23, 33, 56, .07), transparent 60%),
+			radial-gradient(ellipse 60% 40% at 50% 100%, rgba(234, 84, 95, .05), transparent 65%);
+		filter: blur(12px);
+		pointer-events: none;
+		-webkit-mask-image: none;
+		mask-image: none;
+	}
+
+	/* Malha de pontos em segundo plano, so o suficiente para o fundo nao ser
+	   uma chapa branca. Desaparece antes de virar padrao. */
+	.hero::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background-image: radial-gradient(circle at 1px 1px, rgba(23, 33, 56, .16) 0.6px, transparent 0);
+		background-size: 22px 22px;
+		opacity: .5;
+		-webkit-mask-image: linear-gradient(180deg, #000 0%, rgba(0,0,0,.5) 55%, transparent 92%);
+		mask-image: linear-gradient(180deg, #000 0%, rgba(0,0,0,.5) 55%, transparent 92%);
+		pointer-events: none;
+	}
+
+	/* A secao escura ganha o mesmo tratamento, com luz fria vinda do alto */
+	.impact::before {
+		background:
+			radial-gradient(ellipse 50% 45% at 82% 8%, rgba(234, 84, 95, .18), transparent 62%),
+			radial-gradient(ellipse 45% 40% at 12% 100%, rgba(120, 160, 255, .08), transparent 60%);
+		background-size: auto;
+		-webkit-mask-image: none;
+		mask-image: none;
+		filter: blur(8px);
+	}
+
+	.close-cta { position: relative; overflow: hidden; }
+
+	.close-cta::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background: radial-gradient(ellipse 55% 70% at 50% 0%, rgba(234, 84, 95, .16), transparent 62%);
+		pointer-events: none;
+	}
+
+	.close-cta .wrap { position: relative; }
+
+	/* Sombra ambiental sob o aparelho: o objeto passa a pousar na pagina */
+	.phone::after {
+		content: "";
+		position: absolute;
+		left: 50%;
+		bottom: -34px;
+		transform: translateX(-50%);
+		width: 74%;
+		height: 44px;
+		background: radial-gradient(ellipse at center, rgba(23, 33, 56, .22), transparent 70%);
+		filter: blur(18px);
+		pointer-events: none;
+		z-index: -1;
+	}
+
+	.phone { z-index: 0; }
+
 	</style>
 </head>
 
@@ -1351,6 +1554,9 @@
 			<g id="i-shield"><path d="M12 3l7.5 3v5.6c0 4.6-3.1 8-7.5 9.4-4.4-1.4-7.5-4.8-7.5-9.4V6z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2.2 2.2L15.5 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></g>
 			<g id="i-mic"><rect x="9" y="2.5" width="6" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5 11a7 7 0 0014 0M12 18v3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></g>
 			<g id="i-down"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></g>
+			<g id="i-signal"><path d="M2 17h3v4H2zM7.5 13.5h3V21h-3zM13 10h3v11h-3zM18.5 6.5h3V21h-3z" fill="currentColor"/></g>
+			<g id="i-battery"><rect x="2" y="8.5" width="17" height="10" rx="3" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".5"/><rect x="4" y="10.5" width="11" height="6" rx="1.6" fill="currentColor"/><path d="M20.8 12v3.2a2.6 2.6 0 000-3.2z" fill="currentColor" opacity=".5"/></g>
+			<g id="i-mark"><rect x="2" y="13" width="8.5" height="9" rx="2.6"/><rect x="13.5" y="13" width="8.5" height="9" rx="2.6"/><rect x="7.75" y="2" width="8.5" height="9" rx="2.6"/></g>
 			<g id="i-wa"><path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.39a9.86 9.86 0 004.74 1.21h.01c5.46 0 9.9-4.44 9.9-9.9 0-2.64-1.03-5.13-2.9-7A9.82 9.82 0 0012.04 2zm5.8 14.14c-.25.69-1.44 1.32-1.99 1.37-.53.05-1.02.24-3.45-.72-2.9-1.14-4.74-4.1-4.88-4.29-.14-.19-1.16-1.55-1.16-2.95 0-1.4.73-2.09.99-2.37.26-.29.57-.36.76-.36l.54.01c.17 0 .41-.07.64.49.24.58.8 2 .87 2.15.07.14.12.31.02.5-.1.19-.14.31-.29.48l-.43.5c-.14.14-.29.3-.12.59.17.29.74 1.23 1.6 1.99 1.1.98 2.03 1.29 2.32 1.43.29.15.46.12.63-.07.17-.19.73-.85.92-1.15.19-.29.39-.24.65-.14.26.09 1.67.79 1.96.93.29.14.48.22.55.34.07.12.07.69-.18 1.37z" fill="currentColor"/></g>
 		</defs>
 	</svg>
@@ -1397,9 +1603,8 @@
 			<div class="hero-grid">
 				<div class="rise">
 					<h1>Nenhum paciente fica sem resposta</h1>
-					<p class="lede">Uma secretária de IA que atende no WhatsApp do seu consultório, marca a
-						consulta na sua agenda e confirma a presença. Às onze da noite, no domingo e enquanto
-						você está atendendo.</p>
+					<p class="lede">A Aplia atende no WhatsApp do seu consultório, marca a consulta na sua
+						agenda e confirma a presença. Às onze da noite, no domingo e enquanto você atende.</p>
 					<div class="hero-cta">
 						<a href="https://app.aplia.com.br/cadastro" target="_blank" rel="noopener" class="btn btn-solid"
 							onclick="gtag('event', 'cta_hero', {'event_category': 'signup', 'event_label': 'hero'}); fbq('trackCustom', 'ClickComecar');">
@@ -1422,11 +1627,23 @@
 
 				<div class="rise d1">
 					<div class="phone" id="demoPhone">
+						<div class="phone-side left"></div>
+						<div class="phone-side right"></div>
 						<div class="phone-screen">
+							<div class="phone-status">
+								<span class="num">21:43</span>
+								<span class="phone-island"></span>
+								<span class="phone-meta">
+									<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-signal"/></svg>
+									<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-battery"/></svg>
+								</span>
+							</div>
 							<div class="chat-top">
-								<span class="chat-avatar">A</span>
-								<div>
-									<div class="chat-who">Consultório Dra. Marina Bettega</div>
+								<span class="chat-avatar">
+									<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mark"/></svg>
+								</span>
+								<div class="chat-id">
+									<div class="chat-who">Consultório Dra. Helena</div>
 									<div class="chat-state">online</div>
 								</div>
 							</div>
@@ -1457,17 +1674,16 @@
 			<div class="problem-grid">
 				<div class="rise">
 					<h2>Quem não é respondido não espera. Marca em outro lugar.</h2>
-					<p class="lede" style="margin-top:1rem">A mensagem que chega fora do expediente raramente vira
-						consulta. Não porque o paciente desistiu do tratamento, mas porque alguém respondeu antes.</p>
+					<p class="lede" style="margin-top:1rem">A mensagem que chega fora do expediente raramente vira consulta. Não porque o paciente desistiu, mas porque alguém respondeu antes.</p>
 				</div>
 				<div class="clock-list rise d1">
 					<div class="clock-row">
 						<b>19:40</b>
-						<p>Paciente manda mensagem pedindo horário. O consultório fechou às 18h.</p>
+						<p>Paciente pede horário. O consultório fechou às 18h.</p>
 					</div>
 					<div class="clock-row">
 						<b>19:52</b>
-						<p>Sem resposta, ele procura outra clínica no Google e manda mensagem.</p>
+						<p>Sem resposta, procura outra clínica no Google.</p>
 					</div>
 					<div class="clock-row lost">
 						<b>20:05</b>
@@ -1475,7 +1691,7 @@
 					</div>
 					<div class="clock-row">
 						<b>08:30</b>
-						<p>Sua secretária abre o WhatsApp e responde. A consulta já não existe mais.</p>
+						<p>Sua secretária responde. A consulta já não existe.</p>
 					</div>
 				</div>
 			</div>
@@ -1489,18 +1705,16 @@
 				<div class="rise">
 					<span class="tag">A pergunta que todo mundo faz</span>
 					<h2>"Meu paciente vai perceber que é um robô?"</h2>
-					<p class="lede" style="margin-top:1rem">É a objeção mais honesta que existe, e a razão pela qual
-						a maioria dos consultórios nunca automatizou o atendimento. Chatbot de menu numerado irrita
-						paciente e queima a imagem da clínica.</p>
+					<p class="lede" style="margin-top:1rem">É a objeção que mais trava a decisão, e com razão:
+						chatbot de menu numerado irrita paciente.</p>
 					<ul class="checks">
-						<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>Ela entende texto corrido, áudio e emoji. Não existe "digite 1".</span></li>
-						<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>Responde com os dados reais do seu consultório: seus horários, seus convênios, seus procedimentos.</span></li>
-						<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>Quando a pergunta sai do que ela sabe, encaminha para um humano em vez de inventar.</span></li>
+						<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>Entende texto corrido, áudio e emoji. Sem "digite 1".</span></li>
+						<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>Usa os dados do seu consultório: horários, convênios, procedimentos.</span></li>
+						<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>Se a pergunta sai do que ela sabe, passa para um humano em vez de inventar.</span></li>
 					</ul>
 					<div class="honest" style="margin-top:1.75rem">
 						<h3>O jeito mais rápido de tirar essa dúvida</h3>
-						<p style="margin-bottom:1rem">Mande uma mensagem como se fosse seu paciente e julgue você
-							mesmo. Leva um minuto e não pede cadastro.</p>
+						<p style="margin-bottom:1rem">Mande uma mensagem como se fosse seu paciente. Leva um minuto e não pede cadastro.</p>
 						<a href="https://wa.me/551151973902?text=ol%C3%A1%20gostaria%20de%20marcar%20uma%20consulta"
 							target="_blank" rel="noopener" class="btn btn-navy"
 							onclick="gtag('event', 'teste_paciente', {'event_category': 'lead', 'event_label': 'secao_conversa'}); fbq('trackCustom', 'TestePaciente');">
@@ -1522,7 +1736,7 @@
 								<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>"Preciso levar algum exame?"</span></li>
 							</ul>
 							<p style="margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--line);font-size:.875rem;color:var(--ink-3)">
-								Perguntas clínicas e casos fora do combinado ela não responde: passa para a sua equipe.</p>
+								Pergunta clínica ou caso fora do combinado, ela passa para a sua equipe.</p>
 						</div>
 					</div>
 				</div>
@@ -1542,28 +1756,27 @@
 				<div class="cell cell-a dark rise">
 					<div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chat"/></svg></div>
 					<h3>Atende no WhatsApp, 24 horas por dia</h3>
-					<p>No mesmo número que seus pacientes já conhecem. Ela conversa em linguagem natural, entende
-						áudio e responde na hora, inclusive de madrugada e no fim de semana.</p>
+					<p>No mesmo número que seus pacientes já conhecem. Conversa em linguagem natural, entende áudio e responde na hora.</p>
 				</div>
 				<div class="cell cell-b rise d1">
 					<div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cal"/></svg></div>
 					<h3>Agenda sozinha</h3>
-					<p>Consulta seus horários livres e marca direto na Google Agenda, sem dupla digitação.</p>
+					<p>Vê seus horários livres e marca direto na Google Agenda.</p>
 				</div>
 				<div class="cell cell-c rise">
 					<div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bell"/></svg></div>
 					<h3>Confirma presença</h3>
-					<p>Lembretes automáticos antes da consulta, para reduzir a cadeira vazia.</p>
+					<p>Lembretes automáticos para reduzir a cadeira vazia.</p>
 				</div>
 				<div class="cell cell-d rise d1">
 					<div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-users"/></svg></div>
 					<h3>Ficha do paciente</h3>
-					<p>Histórico de conversas e dados organizados, prontos para a consulta.</p>
+					<p>Histórico e dados organizados, prontos para a consulta.</p>
 				</div>
 				<div class="cell cell-e rise d2">
 					<div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chart"/></svg></div>
 					<h3>Relatórios</h3>
-					<p>Agendamentos, remarcações e cancelamentos em números, não em achismo.</p>
+					<p>Agendamentos, remarcações e cancelamentos em números.</p>
 				</div>
 			</div>
 		</div>
@@ -1580,13 +1793,11 @@
 							<div class="clock-list">
 								<div class="clock-row" style="grid-template-columns:90px 1fr">
 									<b style="color:var(--coral)">Aplia</b>
-									<p>Horário, valor, convênio, endereço, agendamento, remarcação, lembrete.
-										O repetitivo, a qualquer hora.</p>
+									<p>Horário, valor, convênio, agendamento, lembrete. O repetitivo, a qualquer hora.</p>
 								</div>
 								<div class="clock-row" style="grid-template-columns:90px 1fr">
 									<b>Sua equipe</b>
-									<p>O paciente difícil, a exceção, a negociação, o acolhimento. O que exige
-										uma pessoa de verdade.</p>
+									<p>O paciente difícil, a exceção, o acolhimento. O que exige uma pessoa.</p>
 								</div>
 							</div>
 						</div>
@@ -1597,9 +1808,9 @@
 					<p class="lede" style="margin-top:1rem">Responder "qual o valor da consulta" pela vigésima vez no
 						dia não é o melhor uso de uma pessoa que você contratou para cuidar de paciente.</p>
 					<ul class="checks">
-						<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>A equipe assume as conversas que exigem julgamento.</span></li>
+						<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>A equipe fica com o que exige julgamento.</span></li>
 						<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>As mensagens da madrugada deixam de virar fila às 8h.</span></li>
-						<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>Funciona em consultório de um profissional ou em clínica com vários.</span></li>
+						<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>Serve de consultório solo a clínica com vários profissionais.</span></li>
 					</ul>
 				</div>
 			</div>
@@ -1611,18 +1822,18 @@
 		<div class="wrap">
 			<div class="s-head rise">
 				<h2>No ar em quinze minutos</h2>
-				<p>Sem instalação, sem trocar de número, sem técnico. Você faz uma vez e ela trabalha a partir dali.</p>
+				<p>Sem instalação, sem trocar de número, sem técnico.</p>
 			</div>
 			<div class="steps">
 				<div class="step first rise">
 					<b>PASSO 1</b>
 					<h3>Crie sua conta</h3>
-					<p>Escolha o plano e comece o período grátis. Leva poucos minutos.</p>
+					<p>Escolha o plano e comece o período grátis.</p>
 				</div>
 				<div class="step rise d1">
 					<b>PASSO 2</b>
 					<h3>Conte sobre o consultório</h3>
-					<p>Horários, convênios aceitos, procedimentos e valores. É com isso que ela responde.</p>
+					<p>Horários, convênios, procedimentos e valores. É com isso que ela responde.</p>
 				</div>
 				<div class="step rise d2">
 					<b>PASSO 3</b>
@@ -1632,7 +1843,7 @@
 				<div class="step rise d3">
 					<b>PASSO 4</b>
 					<h3>Ela assume</h3>
-					<p>A partir daí agenda, confirma, lembra e responde. Você acompanha pelo painel.</p>
+					<p>Agenda, confirma e responde. Você acompanha pelo painel.</p>
 				</div>
 			</div>
 		</div>
