@@ -1619,6 +1619,149 @@
 	.cell-f .cell-copy { min-width: 18rem; }
 
 
+	
+	/* =========================================================================
+	   REVISAO CRITICA . celula de destaque, passos e conversa rolavel
+	   ========================================================================= */
+
+	/* O bloco navy solido dominava a grade inteira. Vira superficie clara com
+	   um halo de luz: continua sendo a celula principal, sem pesar. */
+	.cell.glow {
+		background:
+			radial-gradient(ellipse 70% 100% at 0% 0%, rgba(23, 33, 56, .05), transparent 60%),
+			radial-gradient(ellipse 60% 90% at 100% 100%, rgba(234, 84, 95, .06), transparent 62%),
+			var(--paper);
+		border-color: var(--line-2);
+	}
+
+	.cell.glow h3 { color: var(--ink); }
+	.cell.glow p { color: var(--ink-2); }
+	.cell.glow .ico { background: var(--navy); border-color: var(--navy); color: #fff; }
+
+	.cell.glow .mini.them {
+		background: var(--paper);
+		color: var(--ink);
+		border: 1px solid var(--line);
+		box-shadow: var(--lift-1);
+	}
+
+	.cell.glow .mini.us {
+		background: #D9FDD3;
+		color: #111b21;
+		border: 1px solid rgba(17,27,33,.06);
+	}
+
+	/* --- Passos: numeral em destaque e trilho ligando a sequencia ----------- */
+
+	.steps { gap: 1.25rem; }
+
+	.step {
+		position: relative;
+		border-top: 0;
+		padding-top: 0;
+		padding-inline-start: 0;
+	}
+
+	.step-n {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 44px;
+		height: 44px;
+		border-radius: 14px;
+		font-size: 0.9375rem;
+		font-weight: 700;
+		font-variant-numeric: tabular-nums;
+		letter-spacing: -0.02em;
+		color: var(--coral-600);
+		background: linear-gradient(150deg, var(--coral-050), #fff 75%);
+		border: 1px solid rgba(234, 84, 95, .22);
+		box-shadow: var(--lift-1);
+		margin-bottom: 1.125rem;
+	}
+
+	/* O quarto passo e a conclusao: numeral cheio, como um estado final */
+	.step:last-child .step-n {
+		color: #fff;
+		background: linear-gradient(150deg, var(--coral), var(--coral-600));
+		border-color: transparent;
+		box-shadow: 0 6px 18px rgba(234, 84, 95, .3);
+	}
+
+	/* Trilho horizontal ligando os numerais */
+	.step::after {
+		content: "";
+		position: absolute;
+		top: 22px;
+		left: 56px;
+		right: -1.25rem;
+		height: 1px;
+		background: linear-gradient(90deg, rgba(234,84,95,.28), rgba(23,33,56,.08));
+	}
+
+	.step:last-child::after { display: none; }
+
+	.step h3 { margin-bottom: 0.4375rem; }
+	.step p { font-size: 0.9375rem; line-height: 1.55; }
+
+	@media (max-width: 1024px) {
+		.step:nth-child(2n)::after { display: none; }
+	}
+
+	@media (max-width: 640px) {
+		.step::after { display: none; }
+		.step-n { width: 38px; height: 38px; border-radius: 12px; margin-bottom: 0.875rem; }
+	}
+
+	/* --- Conversa: rolavel depois que a encenacao termina ------------------- */
+
+	.chat-body {
+		overflow-y: hidden;
+		overscroll-behavior: contain;
+		scrollbar-width: thin;
+		scrollbar-color: rgba(17,27,33,.2) transparent;
+	}
+
+	.chat-body.done { overflow-y: auto; }
+	.chat-body.done::-webkit-scrollbar { width: 5px; }
+	.chat-body.done::-webkit-scrollbar-track { background: transparent; }
+	.chat-body.done::-webkit-scrollbar-thumb { background: rgba(17,27,33,.18); border-radius: 999px; }
+
+	
+	/* A celula principal precisa de presenca sem virar bloco de cor. Superficie
+	   levemente mais fria que o papel, com borda definida. */
+	.cell.glow {
+		background: linear-gradient(158deg, #eaeef5 0%, #f4f6fa 42%, #fdfdfe 100%);
+		border-color: rgba(23, 33, 56, .12);
+		box-shadow: var(--lift-2);
+	}
+
+	.cell.glow .mini.them {
+		background: #fff;
+		border-color: rgba(23,33,56,.10);
+	}
+
+	/* O cabecalho da secao cabia em uma linha; a restricao de largura o
+	   quebrava sem motivo */
+	#features .s-head { max-width: 52rem; }
+
+
+	
+	/* A divisao de trabalho e o argumento central da secao: ganha peso de
+	   superficie em vez de ficar como cartao pequeno ao lado do titulo. */
+	.honest, .split .shell .core { padding: 1.75rem 1.75rem 1.5rem; }
+
+	.split .clock-row { padding: 1.125rem 0; }
+	.split .clock-row:first-child { padding-top: 0; }
+
+	.split .clock-row b {
+		font-size: 0.8125rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+	}
+
+
 	</style>
 </head>
 
@@ -1762,8 +1905,12 @@
 		<div class="wrap">
 			<div class="problem-grid">
 				<div class="rise">
-					<h2>Quem não é respondido não espera. Marca em outro lugar.</h2>
-					<p class="lede" style="margin-top:1rem">A mensagem que chega fora do expediente raramente vira consulta. Não porque o paciente desistiu, mas porque alguém respondeu antes.</p>
+					<h2>Quem não é respondido, às vezes não espera.</h2>
+					<p class="lede" style="margin-top:1rem">Isso não diz nada sobre a sua competência. O paciente
+						que manda mensagem às oito da noite quase nunca está comparando profissionais. Ele está
+						resolvendo um problema, e vai com quem respondeu primeiro.</p>
+					<p class="lede" style="margin-top:1rem">O seu consultório não perdeu para um concorrente melhor.
+						Perdeu para um horário em que ninguém estava no WhatsApp.</p>
 				</div>
 				<div class="clock-list rise d1">
 					<div class="clock-row">
@@ -1842,7 +1989,7 @@
 			</div>
 			<div class="bento">
 
-				<div class="cell cell-a dark rise">
+				<div class="cell cell-a glow rise">
 					<div class="cell-copy">
 						<div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chat"/></svg></div>
 						<h3>Atende no WhatsApp, 24 horas por dia</h3>
@@ -1920,7 +2067,7 @@
 					</div>
 				</div>
 				<div class="rise" style="order:1">
-					<h2>Ela não substitui sua secretária. Tira dela o que ninguém gosta de fazer.</h2>
+					<h2>Ela não substitui sua secretária</h2>
 					<p class="lede" style="margin-top:1rem">Responder "qual o valor da consulta" pela vigésima vez no
 						dia não é o melhor uso de uma pessoa que você contratou para cuidar de paciente.</p>
 					<ul class="checks">
@@ -1941,23 +2088,23 @@
 				<p>Sem instalação, sem trocar de número, sem técnico.</p>
 			</div>
 			<div class="steps">
-				<div class="step first rise">
-					<b>PASSO 1</b>
+				<div class="step rise">
+					<span class="step-n">01</span>
 					<h3>Crie sua conta</h3>
 					<p>Escolha o plano e comece o período grátis.</p>
 				</div>
 				<div class="step rise d1">
-					<b>PASSO 2</b>
+					<span class="step-n">02</span>
 					<h3>Conte sobre o consultório</h3>
 					<p>Horários, convênios, procedimentos e valores. É com isso que ela responde.</p>
 				</div>
 				<div class="step rise d2">
-					<b>PASSO 3</b>
+					<span class="step-n">03</span>
 					<h3>Conecte o WhatsApp</h3>
 					<p>Leia um QR Code para ligar a IA ao seu número de atendimento.</p>
 				</div>
 				<div class="step rise d3">
-					<b>PASSO 4</b>
+					<span class="step-n">04</span>
 					<h3>Ela assume</h3>
 					<p>Agenda, confirma e responde. Você acompanha pelo painel.</p>
 				</div>
@@ -2554,12 +2701,15 @@
 				}
 				bubble(msg);
 			}
+			/* Terminada a encenacao, o paciente pode reler a conversa */
+			chatBody.classList.add('done');
 		}
 
 		if (chatBody) {
 			if (reduceMotion) {
 				/* Sob movimento reduzido a conversa aparece inteira, sem encenacao */
 				CHAT.forEach(msg => bubble(msg).classList.add('in'));
+				chatBody.classList.add('done');
 			} else {
 				const chatObserver = new IntersectionObserver(entries => {
 					entries.forEach(entry => {
