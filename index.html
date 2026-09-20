@@ -1791,18 +1791,6 @@
 		pointer-events: none;
 	}
 
-	/* Os pontos passavam por tras da copy e sujavam a leitura. Um veu claro
-	   abre espaco sob o texto: a malha continua visivel nas areas livres. */
-	#conversa::after {
-		content: "";
-		position: absolute;
-		inset: 0;
-		background:
-			radial-gradient(ellipse 34% 40% at 26% 34%, var(--paper) 42%, transparent 76%),
-			radial-gradient(ellipse 30% 22% at 27% 78%, var(--paper) 46%, transparent 78%);
-		pointer-events: none;
-	}
-
 	#conversa > .wrap { position: relative; z-index: 1; }
 
 
@@ -1867,6 +1855,34 @@
 			border-top: 1px solid rgba(255,255,255,.14);
 		}
 		.fig:first-child { padding-top: 0; border-top: 0; }
+	}
+
+
+	
+	/* O veu anterior usava percentuais da secao, entao em telas largas ele
+	   errava o alvo e os pontos voltavam a cruzar o texto. Agora cada bloco
+	   de copy carrega o proprio veu, que acompanha o elemento em qualquer
+	   largura. As caixas com fundo proprio nao precisam. */
+
+	#conversa .split > div { position: relative; }
+
+	#conversa .split > div:first-child > .tag,
+	#conversa .split > div:first-child > h2,
+	#conversa .split > div:first-child > .lede,
+	#conversa .split > div:first-child > .checks {
+		position: relative;
+	}
+
+	#conversa .split > div:first-child > h2::before,
+	#conversa .split > div:first-child > .lede::before,
+	#conversa .split > div:first-child > .checks::before {
+		content: "";
+		position: absolute;
+		inset: -0.875rem -1.5rem;
+		background: var(--paper);
+		border-radius: 28px;
+		filter: blur(16px);
+		z-index: -1;
 	}
 
 
