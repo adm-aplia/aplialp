@@ -993,10 +993,11 @@
 		.steps { grid-template-columns: 1fr; }
 		.reassure { grid-template-columns: 1fr; gap: 1rem; }
 		.foot-grid { grid-template-columns: 1fr; gap: 2rem; }
-		.hero-cta { flex-direction: column; align-items: stretch; }
-		/* Largura total e bom alvo de toque, mas space-between empurrava rotulo
-		   e seta para os extremos e abria um vao no meio do botao. */
-		.hero-cta .btn { justify-content: center; padding-inline: 1.5rem; }
+		/* Botao na largura do proprio conteudo, alinhado a esquerda. Esticado
+		   para os 390px sobrava pilula vazia demais, com ou sem o conteudo
+		   centralizado. A altura ja garante o alvo de toque. */
+		.hero-cta { flex-direction: column; align-items: flex-start; }
+		.hero-cta .btn { width: auto; justify-content: flex-start; }
 		.phone { max-width: 300px; }
 		.phone-screen { height: 470px; }
 	}
@@ -2032,8 +2033,8 @@
 	.close-cta .btn { justify-content: center; }
 
 	@media (max-width: 640px) {
-		.close-cta .row { flex-direction: column; align-items: stretch; }
-		.close-cta .btn { width: 100%; }
+		.close-cta .row { flex-direction: column; align-items: center; }
+		.close-cta .btn { width: auto; }
 	}
 
 
