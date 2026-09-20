@@ -1767,19 +1767,30 @@
 	   o inline-flex do selo virava flex e ele esticava para a coluna inteira. */
 	.tag { align-self: flex-start; }
 
-	/* --- Textura de pontos na secao da objecao ------------------------------ */
+	/* --- Malha de pontos na secao da objecao -------------------------------- */
 
-	#conversa { position: relative; overflow: hidden; }
+	#conversa { position: relative; overflow: hidden; background: var(--paper); }
 
 	#conversa::before {
 		content: "";
 		position: absolute;
 		inset: 0;
-		background-image: radial-gradient(circle at 1px 1px, rgba(23, 33, 56, .18) 0.7px, transparent 0);
-		background-size: 20px 20px;
-		-webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 45%, #000 15%, transparent 78%);
-		mask-image: radial-gradient(ellipse 75% 65% at 50% 45%, #000 15%, transparent 78%);
-		opacity: .55;
+		background-image: radial-gradient(circle at center, rgba(23, 33, 56, .30) 1.5px, transparent 1.6px);
+		background-size: 26px 26px;
+		-webkit-mask-image: linear-gradient(180deg, transparent 0, #000 12%, #000 88%, transparent 100%);
+		mask-image: linear-gradient(180deg, transparent 0, #000 12%, #000 88%, transparent 100%);
+		pointer-events: none;
+	}
+
+	/* Os pontos passavam por tras da copy e sujavam a leitura. Um veu claro
+	   abre espaco sob o texto: a malha continua visivel nas areas livres. */
+	#conversa::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background:
+			radial-gradient(ellipse 34% 40% at 26% 34%, var(--paper) 42%, transparent 76%),
+			radial-gradient(ellipse 30% 22% at 27% 78%, var(--paper) 46%, transparent 78%);
 		pointer-events: none;
 	}
 
