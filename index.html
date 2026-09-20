@@ -1762,6 +1762,37 @@
 	}
 
 
+	
+	/* A especificacao converte o display de todo filho de flex container, entao
+	   o inline-flex do selo virava flex e ele esticava para a coluna inteira. */
+	.tag { align-self: flex-start; }
+
+	/* --- Textura de pontos na secao da objecao ------------------------------ */
+
+	#conversa { position: relative; overflow: hidden; }
+
+	#conversa::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background-image: radial-gradient(circle at 1px 1px, rgba(23, 33, 56, .18) 0.7px, transparent 0);
+		background-size: 20px 20px;
+		-webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 45%, #000 15%, transparent 78%);
+		mask-image: radial-gradient(ellipse 75% 65% at 50% 45%, #000 15%, transparent 78%);
+		opacity: .55;
+		pointer-events: none;
+	}
+
+	#conversa > .wrap { position: relative; z-index: 1; }
+
+
+	
+	/* Esticar o cartao espalhava o conteudo. Ele fica na altura natural e
+	   alinhado ao topo, para comecar na mesma linha do texto ao lado. */
+	.split > * { justify-content: flex-start; }
+	.split .shell { align-self: flex-start; }
+
+
 	</style>
 </head>
 
@@ -1906,11 +1937,11 @@
 			<div class="problem-grid">
 				<div class="rise">
 					<h2>Quem não é respondido, às vezes não espera.</h2>
-					<p class="lede" style="margin-top:1rem">Isso não diz nada sobre a sua competência. O paciente
-						que manda mensagem às oito da noite quase nunca está comparando profissionais. Ele está
-						resolvendo um problema, e vai com quem respondeu primeiro.</p>
-					<p class="lede" style="margin-top:1rem">O seu consultório não perdeu para um concorrente melhor.
-						Perdeu para um horário em que ninguém estava no WhatsApp.</p>
+					<p class="lede" style="margin-top:1rem">Isso não diz nada sobre a sua competência. Quem
+						manda mensagem às oito da noite não está comparando profissionais: está resolvendo um
+						problema, e vai com quem responder primeiro.</p>
+					<p class="lede" style="margin-top:0.875rem">Você não perdeu para alguém melhor. Perdeu para um
+						horário sem ninguém no WhatsApp.</p>
 				</div>
 				<div class="clock-list rise d1">
 					<div class="clock-row">
