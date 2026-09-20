@@ -828,7 +828,7 @@
 		white-space: nowrap;
 	}
 
-	.plan .desc { font-size: 0.875rem; line-height: 1.5; color: var(--ink-3); min-height: 3.2em; }
+	.plan .desc { font-size: 0.875rem; line-height: 1.5; color: var(--ink-3); min-height: 4.5em; }
 
 	.plan .money { margin: 1.5rem 0 0.375rem; }
 	.plan .money b { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.03em; color: var(--ink); }
@@ -837,7 +837,9 @@
 
 	.plan .btn { width: 100%; margin: 1.25rem 0 1.5rem; justify-content: space-between; }
 
-	.plan-feats { display: flex; flex-direction: column; gap: 0.625rem; margin-top: auto; }
+		/* O margin-top auto empurrava as listas curtas para o rodape do cartao e
+	   abria um vao no meio. As listas passam a comecar logo apos o botao. */
+	.plan-feats { display: flex; flex-direction: column; gap: 0.625rem; }
 	.plan-feats li { display: flex; gap: 0.625rem; font-size: 0.875rem; line-height: 1.45; color: var(--ink-2); }
 	.plan-feats svg { width: 15px; height: 15px; color: var(--coral); flex: none; margin-top: 2px; }
 
@@ -2341,14 +2343,14 @@
 				<p>Dez dias para testar com pacientes reais. Se não servir, cancele sem multa.</p>
 			</div>
 			<div class="plans">
-				<div class="plan rise">
-					<div class="plan-top"><h3>Essencial</h3></div>
+				<div class="plan pick rise">
+					<div class="plan-top"><h3>Essencial</h3><span class="pill">Mais escolhido</span></div>
 					<p class="desc">Para profissionais autônomos e consultórios que atendem em um número só.</p>
 					<div class="money">
 						<b>Grátis por 10 dias</b>
 						<small>depois, <strong class="num">R$ 249,00/mês</strong></small>
 					</div>
-					<a href="https://app.aplia.com.br/cadastro" class="btn btn-ghost"
+					<a href="https://app.aplia.com.br/cadastro" class="btn btn-solid"
 						onclick="gtag('event', 'escolher_plano_essencial', {'event_category': 'signup', 'event_label': 'plano_essencial', 'value': 249}); fbq('trackCustom', 'EscolherPlanoEssencial', {value: 249, currency: 'BRL'});">
 						Testar grátis <span class="pip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></span>
 					</a>
@@ -2365,14 +2367,14 @@
 					</ul>
 				</div>
 
-				<div class="plan pick rise d1">
-					<div class="plan-top"><h3>Profissional</h3><span class="pill">Mais escolhido</span></div>
+				<div class="plan rise d1">
+					<div class="plan-top"><h3>Profissional</h3></div>
 					<p class="desc">Para clínicas com mais de um profissional ou mais de um número em uso.</p>
 					<div class="money">
 						<b>Grátis por 10 dias</b>
 						<small>depois, <strong class="num">R$ 499,00/mês</strong></small>
 					</div>
-					<a href="https://app.aplia.com.br/cadastro" class="btn btn-solid"
+					<a href="https://app.aplia.com.br/cadastro" class="btn btn-ghost"
 						onclick="gtag('event', 'escolher_plano_profissional', {'event_category': 'signup', 'event_label': 'plano_profissional', 'value': 499}); fbq('trackCustom', 'EscolherPlanoProfissional', {value: 499, currency: 'BRL'});">
 						Testar grátis <span class="pip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></span>
 					</a>
