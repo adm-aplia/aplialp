@@ -152,6 +152,8 @@
 		--coral: #EA545F;
 		--coral-600: #d8434e;
 		--coral-050: #fef3f4;
+		--go: #15803d;
+		--go-050: #f0fdf4;
 
 		--paper: #ffffff;
 		--paper-2: #fafbfc;
@@ -831,7 +833,7 @@
 	.plan .desc { font-size: 0.875rem; line-height: 1.5; color: var(--ink-3); min-height: 4.5em; }
 
 	.plan .money { margin: 1.5rem 0 0.375rem; }
-	.plan .money b { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.03em; color: var(--ink); }
+	.plan .money b { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.03em; color: var(--go); }
 	.plan .money small { display: block; font-size: 0.875rem; color: var(--ink-3); margin-top: 0.25rem; }
 	.plan .money small strong { color: var(--ink-2); font-weight: 600; }
 
@@ -1960,6 +1962,19 @@
 	}
 
 
+	
+	/* Ressalva sobre a integracao, em peso menor que o recurso em si */
+	.cell-note {
+		margin-top: 0.75rem;
+		font-size: 0.8125rem;
+		line-height: 1.45;
+		color: var(--ink-3);
+	}
+
+	/* O Enterprise nao tem periodo gratis: o preco dele segue em navy */
+	.plan:last-child .money b { color: var(--ink); }
+
+
 	</style>
 </head>
 
@@ -2091,7 +2106,7 @@
 		<div class="wrap">
 			<div class="strip-grid">
 				<div class="strip-item rise"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chat"/></svg><span>Responde no WhatsApp que você já usa</span></div>
-				<div class="strip-item rise d1"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cal"/></svg><span>Marca direto na sua Google Agenda</span></div>
+				<div class="strip-item rise d1"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cal"/></svg><span>Marca direto na sua agenda</span></div>
 				<div class="strip-item rise d2"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bell"/></svg><span>Confirma presença sem você lembrar</span></div>
 				<div class="strip-item rise d3"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mic"/></svg><span>Entende áudio, emoji e gíria</span></div>
 			</div>
@@ -2201,10 +2216,11 @@
 				<div class="cell cell-b rise d1">
 					<div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cal"/></svg></div>
 					<h3>Agenda sozinha</h3>
-					<p>Vê seus horários livres e marca direto na Google Agenda.</p>
+					<p>Vê seus horários livres e marca direto na sua agenda.</p>
 					<div class="chips" aria-hidden="true">
 						<span>Qui 14:30</span><span>Sex 09:00</span><span>Sáb 10:00</span>
 					</div>
+					<p class="cell-note">Vincula ao Google Agenda se você já usa.</p>
 				</div>
 
 				<div class="cell cell-c rise">
@@ -2360,7 +2376,7 @@
 						<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>Agendamentos ilimitados</span></li>
 						<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>Reconhece áudio e emoji</span></li>
 						<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>Lembretes automáticos</span></li>
-						<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>Integração Google Agenda</span></li>
+						<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>Agenda própria, integrável ao Google Agenda</span></li>
 						<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>Ficha de pacientes e controle financeiro</span></li>
 						<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>Estatísticas detalhadas</span></li>
 						<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>Suporte por e-mail</span></li>
