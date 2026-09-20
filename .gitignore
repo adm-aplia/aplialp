@@ -11,3 +11,14 @@ blog_generation.log
 .DS_Store
 Thumbs.db
 .playwright-mcp/
+
+# Ferramentas de desenvolvimento (skills de design).
+# Ficam fora do repositorio porque o deploy envia o diretorio inteiro por FTP
+# (.github/workflows/deploy.yml, localDir: "."), e os symlinks de
+# .claude/skills nao sobrevivem a transferencia.
+# Reinstale com:
+#   npx skills add emilkowalski/skill
+#   npx skills add Leonxlnx/taste-skill
+.agents/
+.claude/skills/
+skills-lock.json
