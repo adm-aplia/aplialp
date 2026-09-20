@@ -1813,6 +1813,63 @@
 	.split .shell { align-self: flex-start; }
 
 
+	
+	/* =========================================================================
+	   IMPACTO . faixa horizontal compacta
+	   A secao ocupava uma tela inteira para tres numeros. Vira uma banda:
+	   titulo a esquerda, numeros em linha, separados por fio vertical.
+	   ========================================================================= */
+
+	.impact { padding-block: clamp(2.75rem, 4.5vw, 4rem); }
+
+	.impact-band {
+		display: grid;
+		grid-template-columns: minmax(14rem, 0.85fr) 2fr;
+		gap: clamp(2rem, 5vw, 4rem);
+		align-items: center;
+	}
+
+	.impact-lead h2 {
+		font-size: clamp(1.5rem, 2.4vw, 2rem);
+		line-height: 1.12;
+		margin-bottom: 0.625rem;
+	}
+
+	.impact-lead .source { margin-top: 0; font-size: 0.75rem; max-width: 18rem; }
+
+	.figs { grid-template-columns: repeat(3, 1fr); gap: 0; }
+
+	.fig {
+		border-top: 0;
+		padding: 0 clamp(1rem, 2vw, 1.75rem);
+		border-inline-start: 1px solid rgba(255,255,255,.14);
+	}
+
+	.fig:first-child { padding-inline-start: 0; border-inline-start: 0; }
+
+	.fig b {
+		font-size: clamp(2rem, 3.4vw, 2.75rem);
+		margin-bottom: 0.4375rem;
+	}
+
+	.fig p { font-size: 0.875rem; line-height: 1.45; }
+
+	@media (max-width: 900px) {
+		.impact-band { grid-template-columns: 1fr; gap: 2rem; }
+		.figs { gap: 1.5rem 0; }
+	}
+
+	@media (max-width: 640px) {
+		.figs { grid-template-columns: 1fr; }
+		.fig {
+			padding: 1rem 0 0;
+			border-inline-start: 0;
+			border-top: 1px solid rgba(255,255,255,.14);
+		}
+		.fig:first-child { padding-top: 0; border-top: 0; }
+	}
+
+
 	</style>
 </head>
 
@@ -2166,25 +2223,26 @@
 	<!-- ================= Impacto ================= -->
 	<section class="impact">
 		<div class="wrap">
-			<div class="s-head rise">
-				<h2>O custo de não responder</h2>
-				<p>Dados de mercado sobre atendimento em consultórios e clínicas.</p>
+			<div class="impact-band">
+				<div class="impact-lead rise">
+					<h2>O custo de não responder</h2>
+					<p class="source">Fonte: MGMA, Medical Group Management Association</p>
+				</div>
+				<div class="figs">
+					<div class="fig rise">
+						<b class="num">75%</b>
+						<p>perdem pacientes por falhas no atendimento</p>
+					</div>
+					<div class="fig rise d1">
+						<b class="num">30%</b>
+						<p>das consultas se perdem no agendamento</p>
+					</div>
+					<div class="fig rise d2">
+						<b class="num">60%</b>
+						<p>a mais de satisfação com atendimento contínuo</p>
+					</div>
+				</div>
 			</div>
-			<div class="figs">
-				<div class="fig rise">
-					<b class="num">75%</b>
-					<p>dos profissionais da saúde perdem pacientes por falhas no atendimento</p>
-				</div>
-				<div class="fig rise d1">
-					<b class="num">30%</b>
-					<p>das consultas não são marcadas ou se perdem por erros no agendamento</p>
-				</div>
-				<div class="fig rise d2">
-					<b class="num">60%</b>
-					<p>é o quanto o atendimento contínuo pode elevar a satisfação do paciente</p>
-				</div>
-			</div>
-			<p class="source rise">Fonte: MGMA, Medical Group Management Association.</p>
 		</div>
 	</section>
 
