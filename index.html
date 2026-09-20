@@ -1780,12 +1780,29 @@
 		/* A malha nasce densa no miolo e se dissolve em direcao as bordas.
 		   Duas mascaras multiplicadas: uma elipse que abre do centro e um
 		   esvanecimento vertical, para o padrao nao terminar em linha reta. */
+		/* Corredor vazio sobre a faixa de conteudo: a malha vive so nas margens.
+		   --band acompanha a largura do container, entao o corredor segue o
+		   conteudo em qualquer viewport. */
+		--band: 1200px;
+		--edge: 40px;
 		-webkit-mask-image:
-			radial-gradient(ellipse 72% 68% at 56% 48%, #000 28%, rgba(0,0,0,.62) 58%, rgba(0,0,0,.22) 80%, transparent 96%),
-			linear-gradient(180deg, transparent 0, #000 14%, #000 86%, transparent 100%);
+			linear-gradient(90deg,
+				#000 0,
+				#000 calc(50% - var(--band) / 2 - var(--edge)),
+				transparent calc(50% - var(--band) / 2),
+				transparent calc(50% + var(--band) / 2),
+				#000 calc(50% + var(--band) / 2 + var(--edge)),
+				#000 100%),
+			linear-gradient(180deg, transparent 0, #000 12%, #000 88%, transparent 100%);
 		mask-image:
-			radial-gradient(ellipse 72% 68% at 56% 48%, #000 28%, rgba(0,0,0,.62) 58%, rgba(0,0,0,.22) 80%, transparent 96%),
-			linear-gradient(180deg, transparent 0, #000 14%, #000 86%, transparent 100%);
+			linear-gradient(90deg,
+				#000 0,
+				#000 calc(50% - var(--band) / 2 - var(--edge)),
+				transparent calc(50% - var(--band) / 2),
+				transparent calc(50% + var(--band) / 2),
+				#000 calc(50% + var(--band) / 2 + var(--edge)),
+				#000 100%),
+			linear-gradient(180deg, transparent 0, #000 12%, #000 88%, transparent 100%);
 		-webkit-mask-composite: source-in;
 		mask-composite: intersect;
 		pointer-events: none;
@@ -1799,6 +1816,63 @@
 	   alinhado ao topo, para comecar na mesma linha do texto ao lado. */
 	.split > * { justify-content: flex-start; }
 	.split .shell { align-self: flex-start; }
+
+
+	
+	/* =========================================================================
+	   IMPACTO . faixa horizontal compacta
+	   A secao ocupava uma tela inteira para tres numeros. Vira uma banda:
+	   titulo a esquerda, numeros em linha, separados por fio vertical.
+	   ========================================================================= */
+
+	.impact { padding-block: clamp(2.75rem, 4.5vw, 4rem); }
+
+	.impact-band {
+		display: grid;
+		grid-template-columns: minmax(14rem, 0.85fr) 2fr;
+		gap: clamp(2rem, 5vw, 4rem);
+		align-items: center;
+	}
+
+	.impact-lead h2 {
+		font-size: clamp(1.5rem, 2.4vw, 2rem);
+		line-height: 1.12;
+		margin-bottom: 0.625rem;
+	}
+
+	.impact-lead .source { margin-top: 0; font-size: 0.75rem; max-width: 18rem; }
+
+	.figs { grid-template-columns: repeat(3, 1fr); gap: 0; }
+
+	.fig {
+		border-top: 0;
+		padding: 0 clamp(1rem, 2vw, 1.75rem);
+		border-inline-start: 1px solid rgba(255,255,255,.14);
+	}
+
+	.fig:first-child { padding-inline-start: 0; border-inline-start: 0; }
+
+	.fig b {
+		font-size: clamp(2rem, 3.4vw, 2.75rem);
+		margin-bottom: 0.4375rem;
+	}
+
+	.fig p { font-size: 0.875rem; line-height: 1.45; }
+
+	@media (max-width: 900px) {
+		.impact-band { grid-template-columns: 1fr; gap: 2rem; }
+		.figs { gap: 1.5rem 0; }
+	}
+
+	@media (max-width: 640px) {
+		.figs { grid-template-columns: 1fr; }
+		.fig {
+			padding: 1rem 0 0;
+			border-inline-start: 0;
+			border-top: 1px solid rgba(255,255,255,.14);
+		}
+		.fig:first-child { padding-top: 0; border-top: 0; }
+	}
 
 
 	
@@ -2031,8 +2105,7 @@
 				<div class="rise">
 					<h2>Quem não é respondido, às vezes não espera.</h2>
 					<p class="lede" style="margin-top:1rem">Isso não diz nada sobre a sua competência. Quem
-						manda mensagem às oito da noite não está comparando profissionais: está resolvendo um
-						problema, e vai com quem responder primeiro.</p>
+						manda mensagem às oito da noite vai com quem responder primeiro.</p>
 					<p class="lede" style="margin-top:0.875rem">Você não perdeu para alguém melhor. Perdeu para um
 						horário sem ninguém no WhatsApp.</p>
 				</div>
