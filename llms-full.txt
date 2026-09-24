@@ -438,11 +438,11 @@ Com soluções avançadas de IA, como a secretária virtual da Aplia Saúde, os 
 
 Impacto financeiro das faltas: Clínicas no Brasil chegam a perder até 30% do faturamento mensal devido a ausências não comunicadas. A automação reduz esse índice para menos de 5%.
 
-## Regulamentação e Segurança: A Era do CFM 2454/2026
+## Regulamentação e Segurança: o que a IA na saúde precisa respeitar
 
 A adoção de IA na saúde não é uma terra sem lei. Órgãos reguladores estão constantemente atualizando suas diretrizes para garantir a segurança e a privacidade irrestrita do paciente.
 
-As futuras diretrizes, como as expectativas em torno da resolução CFM 2454/2026, estipulam padrões rigorosos para o uso de tecnologias em comunicação médica e prontuários.
+As diretrizes éticas do Conselho Federal de Medicina (CFM) para o uso de tecnologias em comunicação médica e prontuários seguem sendo atualizadas, e é esperado que os padrões para IA na saúde fiquem cada vez mais rigorosos.
 
 Além disso, a conformidade total com a Lei Geral de Proteção de Dados (LGPD) é inegociável. Plataformas de IA sérias garantem criptografia de ponta a ponta e anonimização de dados sensíveis.
 

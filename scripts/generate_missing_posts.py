@@ -94,7 +94,7 @@ O conteúdo HTML gerado em "content_html" DEVE ser altamente estilizado e visual
    Use parágrafos <p> normais para o texto corrido. Divida o texto em parágrafos de no máximo 3 ou 4 linhas para facilitar a leitura rápida.
 
 Certifique-se de:
-1. Incluir dados ou estatísticas realistas sobre atendimento de saúde no Brasil (ex: percentual de faltas, taxas de conversão de leads, estatísticas de uso do WhatsApp por pacientes, referências regulatórias como resoluções do CFM como o CFM 2454/2026 ou conformidade LGPD).
+1. Incluir dados ou estatísticas realistas sobre atendimento de saúde no Brasil (ex: percentual de faltas, taxas de conversão de leads, estatísticas de uso do WhatsApp por pacientes, referências regulatórias reais, como diretrizes do CFM ou a conformidade com a LGPD — nunca invente números de resolução específicos).
 2. Buscar a validação e confirmação de dados simulando ou citando fontes reais de mercado.
 3. No final do artigo, crie uma seção estruturada HTML com o cabeçalho '<h2>Referências e Fontes</h2>' e uma lista '<ul>' contendo de 2 a 3 fontes reais ou altamente credíveis que respaldem as informações do artigo (ex: CFM - Conselho Federal de Medicina, estudos de telemedicina de USP/FGV, dados do Sebrae ou OMS).
 
