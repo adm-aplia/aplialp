@@ -43,39 +43,23 @@
     <!-- End Google Analytics tag -->
 <title>Como automatizar agendamento de consultas pelo WhatsApp | Blog Aplia</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Passo a passo para configurar um assistente que agenda consultas automaticamente pelo WhatsApp, sem você precisar responder manualmente." />
+    <meta name="description" content="Passo a passo para configurar um assistente que agenda consultas automaticamente pelo WhatsApp, sem você precisar responder manualmente." />
 
     <!-- Favicon -->
-    <link rel="icon" href="/assets/img/favicon.png" type="image/png" />
+    <link rel="icon" href="../assets/img/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="../assets/img/favicon.png" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="article" />
-    <meta property="og:url"
-        content="https://aplia.com.br/blog/como-automatizar-agendamento-de-consultas-pelo-whatsapp" />
+    <meta property="og:url" content="https://aplia.com.br/blog/como-automatizar-agendamento-de-consultas-pelo-whatsapp" />
     <meta property="og:title" content="Como automatizar agendamento de consultas pelo WhatsApp" />
-    <meta property="og:description"
-        content="Configure um assistente que agenda consultas automaticamente, sem responder manualmente." />
+    <meta property="og:description" content="Passo a passo para configurar um assistente que agenda consultas automaticamente pelo WhatsApp, sem você precisar responder manualmente." />
     <meta property="og:image" content="https://aplia.com.br/assets/img/favicon-og.png" />
 
     <!-- Canonical -->
-    <link rel="canonical"
-        href="https://aplia.com.br/blog/como-automatizar-agendamento-de-consultas-pelo-whatsapp" />
+    <link rel="canonical" href="https://aplia.com.br/blog/como-automatizar-agendamento-de-consultas-pelo-whatsapp" />
 
-    <!-- Schema.org Article -->
-    <script type="application/ld+json">
-	{
-		"@context": "https://schema.org",
-		"@type": "Article",
-		"headline": "Como automatizar agendamento de consultas pelo WhatsApp",
-		"description": "Passo a passo para configurar um assistente que agenda consultas automaticamente pelo WhatsApp.",
-		"author": {"@type": "Organization", "name": "Aplia"},
-		"publisher": {"@type": "Organization", "name": "Aplia", "logo": {"@type": "ImageObject", "url": "https://aplia.com.br/assets/img/favicon-og.png"}},
-		"datePublished": "2026-01-28",
-		"dateModified": "2026-01-28",
-		"mainEntityOfPage": "https://aplia.com.br/blog/como-automatizar-agendamento-de-consultas-pelo-whatsapp.html"
-	}
-	</script>
+
 
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
@@ -86,10 +70,13 @@
         :root {
             --primary: #EA545F;
             --primary-dark: #d43d48;
+            --primary-soft: rgba(234, 84, 95, 0.08);
             --dark: #1a1a2e;
             --dark-secondary: #232342;
             --light: #ffffff;
             --gray: #6c757d;
+            --gray-light: #f8f9fa;
+            --gray-border: #ececf2;
             --shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
             --radius: 16px;
             --transition: all 0.3s ease;
@@ -108,6 +95,7 @@
             line-height: 1.8;
         }
 
+        /* Header */
         header {
             background: var(--light);
             padding: 1rem 0;
@@ -131,6 +119,8 @@
 
         .logo img {
             height: 35px;
+            width: auto;
+            transition: var(--transition);
         }
 
         .nav-links {
@@ -159,6 +149,9 @@
             font-weight: 600;
             transition: var(--transition);
             display: inline-block;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
         }
 
         .btn-primary:hover {
@@ -166,72 +159,220 @@
             transform: translateY(-2px);
         }
 
-        .article-header {
-            background: linear-gradient(135deg, var(--dark) 0%, var(--dark-secondary) 100%);
-            padding: 4rem 0;
+        .btn-outline {
+            background: transparent;
             color: var(--light);
+            border: 1.5px solid rgba(255, 255, 255, 0.5);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-block;
         }
 
-        .article-header .container {
-            max-width: 800px;
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: var(--light);
+        }
+
+        /* Post hero — claro, DNA de artigo de autoridade (não gradiente escuro
+           genérico de landing page). Espelha a leitura de "conteúdo editorial",
+           não de peça de venda. */
+        .post-hero {
+            background: var(--gray-light);
+            border-bottom: 1px solid var(--gray-border);
+            padding: 7rem 0 2.75rem;
+        }
+
+        .post-hero .container {
+            max-width: 900px;
         }
 
         .breadcrumb {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
             font-size: 0.9rem;
-            opacity: 0.7;
+            color: var(--gray);
         }
 
         .breadcrumb a {
-            color: var(--light);
+            color: var(--gray);
             text-decoration: none;
         }
 
         .breadcrumb a:hover {
-            text-decoration: underline;
+            color: var(--primary);
         }
 
-        .article-header h1 {
+        .tag-pill {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--light);
+            padding: 0.35rem 0.9rem;
+            border-radius: 50px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        .post-hero h1 {
             font-size: 2.5rem;
-            line-height: 1.3;
-            margin-bottom: 1rem;
+            line-height: 1.25;
+            margin: 1.25rem 0 1.5rem;
+            color: var(--dark);
+            font-weight: 700;
         }
 
         .article-meta {
             display: flex;
-            gap: 2rem;
+            flex-wrap: wrap;
+            gap: 1.75rem;
+            font-size: 0.92rem;
+            color: var(--gray);
+        }
+
+        .article-meta i {
+            color: var(--primary);
+            margin-right: 0.4rem;
+        }
+
+        /* Byline honesta: os posts saem do gerador de conteúdo da Aplia, não de
+           uma pessoa — o avatar é o símbolo da marca, não um rosto inventado.
+           Nenhuma alegação de autoria humana (diferente do site de referência
+           que inspirou este layout, que tem uma pessoa real por trás). */
+        .post-byline {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            margin-top: 1.75rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--gray-border);
+        }
+
+        .post-byline img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gray-light);
+            border: 1px solid var(--gray-border);
+            padding: 8px;
+            object-fit: contain;
+        }
+
+        .post-byline strong {
+            display: block;
+            font-size: 0.92rem;
+            color: var(--dark);
+        }
+
+        .post-byline span {
+            font-size: 0.82rem;
+            color: var(--gray);
+        }
+
+        /* Corpo do post: sumário fixo (sticky) + coluna de leitura */
+        .post-body-section {
+            padding: 3rem 0 1rem;
+        }
+
+        .post-layout {
+            max-width: 1080px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 220px minmax(0, 1fr);
+            gap: 3.5rem;
+            align-items: start;
+        }
+
+        .post-toc {
+            position: sticky;
+            top: 6.5rem;
+        }
+
+        .post-toc-title {
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--gray);
+            margin-bottom: 0.9rem;
+        }
+
+        .post-toc nav {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .post-toc nav a {
             font-size: 0.9rem;
-            opacity: 0.8;
+            color: var(--dark);
+            text-decoration: none;
+            padding: 0.55rem 0;
+            border-bottom: 1px solid var(--gray-border);
+            transition: var(--transition);
+        }
+
+        .post-toc nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Se o post não tiver H2 suficiente pro sumário fazer sentido, o script
+           esconde a coluna inteira e o artigo ocupa a largura toda. */
+        .post-layout.no-toc {
+            grid-template-columns: 1fr;
+        }
+
+        .post-layout.no-toc .post-toc {
+            display: none;
         }
 
         .article-content {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
+            min-width: 0;
+            max-width: 720px;
+        }
+
+        .post-cover {
+            width: 100%;
+            border-radius: var(--radius);
+            margin-bottom: 2rem;
+            display: block;
+        }
+
+        /* O primeiro parágrafo do conteúdo gerado vira a "linha de abertura" —
+           destaque tipográfico automático, sem precisar tocar no gerador. */
+        .post-body-content-label>p:first-of-type {
+            border-left: 4px solid var(--primary);
+            padding-left: 1.25rem;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: var(--dark);
+            margin-bottom: 2rem;
         }
 
         .article-content h2 {
-            font-size: 1.75rem;
-            margin: 2.5rem 0 1rem;
+            font-size: 1.65rem;
+            margin: 2.75rem 0 1rem;
             color: var(--dark);
+            scroll-margin-top: 6.5rem;
         }
 
         .article-content h3 {
-            font-size: 1.35rem;
+            font-size: 1.3rem;
             margin: 2rem 0 0.75rem;
             color: var(--dark);
+            scroll-margin-top: 6.5rem;
         }
 
         .article-content p {
             margin-bottom: 1.5rem;
             color: #444;
-            font-size: 1.1rem;
+            font-size: 1.08rem;
         }
 
         .article-content ul,
         .article-content ol {
             margin: 1.5rem 0;
-            padding-left: 2rem;
+            padding-left: 1.75rem;
         }
 
         .article-content li {
@@ -240,7 +381,7 @@
         }
 
         .highlight-box {
-            background: rgba(234, 84, 95, 0.1);
+            background: var(--primary-soft);
             border-left: 4px solid var(--primary);
             padding: 1.5rem;
             margin: 2rem 0;
@@ -252,59 +393,121 @@
             font-weight: 500;
         }
 
-        .step-box {
-            background: var(--dark);
-            color: var(--light);
-            padding: 2rem;
-            border-radius: var(--radius);
-            margin: 1.5rem 0;
-        }
-
-        .step-box h4 {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-        }
-
-        .step-number {
-            width: 40px;
-            height: 40px;
-            background: var(--primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .stat-highlight {
+            font-size: 2.5rem;
             font-weight: 700;
+            color: var(--primary);
+            display: block;
+            margin-bottom: 0.5rem;
         }
 
-        .step-box p {
-            color: rgba(255, 255, 255, 0.8);
-            margin: 0;
-        }
-
+        /* Bloco de CTA no meio do artigo: cartão escuro com tira de 4 provas —
+           mesma função do bloco de conversão do site de referência, com os
+           quatro pontos reais da Aplia no lugar dos deles. */
         .cta-box {
             background: linear-gradient(135deg, var(--dark) 0%, var(--dark-secondary) 100%);
-            padding: 3rem;
+            padding: 2.5rem;
             border-radius: var(--radius);
-            text-align: center;
             color: var(--light);
-            margin: 3rem 0;
+            margin: 3rem 0 1rem;
+        }
+
+        .cta-box .eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: rgba(255, 255, 255, 0.55);
+            margin-bottom: 0.9rem;
+        }
+
+        .cta-box .eyebrow::before {
+            content: "";
+            width: 3px;
+            height: 14px;
+            background: var(--primary);
+            display: inline-block;
         }
 
         .cta-box h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+            font-size: 1.6rem;
+            margin-bottom: 0.75rem;
             color: var(--light);
         }
 
         .cta-box p {
-            opacity: 0.8;
+            opacity: 0.75;
             margin-bottom: 1.5rem;
+            color: var(--light);
+            max-width: 32rem;
+        }
+
+        .cta-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            padding-top: 1.5rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .cta-stats strong {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
             color: var(--light);
         }
 
+        .cta-stats span {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Faixa de CTA final, largura cheia — o mesmo encerramento do site de
+           referência: bloco de cor sólida, headline curta, dois botões. */
+        .post-cta-banner {
+            background: var(--primary);
+            padding: 3.5rem 0;
+            color: var(--light);
+            text-align: center;
+        }
+
+        .post-cta-banner h2 {
+            font-size: 1.85rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .post-cta-banner p {
+            font-size: 1.05rem;
+            opacity: 0.85;
+            max-width: 34rem;
+            margin: 0 auto 1.75rem;
+        }
+
+        .post-cta-banner .cta-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .post-cta-banner .btn-primary {
+            background: var(--light);
+            color: var(--primary);
+        }
+
+        .post-cta-banner .btn-primary:hover {
+            background: var(--gray-light);
+        }
+
+        /* Footer */
         footer {
             background: var(--dark);
             color: var(--light);
@@ -316,21 +519,52 @@
             opacity: 0.7;
         }
 
+        /* Responsive */
+        @media (max-width: 900px) {
+            .post-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .post-toc {
+                display: none;
+            }
+        }
+
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
             }
 
-            .article-header h1 {
+            .post-hero {
+                padding: 6rem 0 2rem;
+            }
+
+            .post-hero h1 {
                 font-size: 1.75rem;
             }
 
             .article-meta {
-                flex-direction: column;
-                gap: 0.5rem;
+                gap: 1rem;
+            }
+
+            .cta-stats {
+                grid-template-columns: 1fr 1fr;
             }
         }
     </style>
+<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "Article",
+		"headline": "Como automatizar agendamento de consultas pelo WhatsApp",
+		"description": "Passo a passo para configurar um assistente que agenda consultas automaticamente pelo WhatsApp.",
+		"author": {"@type": "Organization", "name": "Aplia"},
+		"publisher": {"@type": "Organization", "name": "Aplia", "logo": {"@type": "ImageObject", "url": "https://aplia.com.br/assets/img/favicon-og.png"}},
+		"datePublished": "2026-01-28",
+		"dateModified": "2026-01-28",
+		"mainEntityOfPage": "https://aplia.com.br/blog/como-automatizar-agendamento-de-consultas-pelo-whatsapp.html"
+	}
+	</script>
 </head>
 
 <body>
@@ -339,7 +573,7 @@
         <div class="container">
             <nav>
                 <a href="/" class="logo">
-                    <img src="/assets/img/aplia-logo.webp" alt="Aplia">
+                    <img src="../assets/img/aplia-logo.webp" alt="Aplia">
                 </a>
                 <ul class="nav-links">
                     <li><a href="/">Início</a></li>
@@ -354,22 +588,39 @@
         </div>
     </header>
 
-    <section class="article-header">
+    <section class="post-hero">
         <div class="container">
             <div class="breadcrumb">
-                <a href="/">Início</a> / <a href="/blog">Blog</a> / Automação
+                <a href="/">Início</a> / <a href="/blog">Blog</a>
             </div>
-            <h1>Como automatizar agendamento de consultas pelo WhatsApp</h1>
+            <span class="tag-pill post-category-label">Automação</span>
+            <h1 class="post-title-label">Como automatizar agendamento de consultas pelo WhatsApp</h1>
             <div class="article-meta">
-                <span><i class="far fa-clock"></i> 7 min de leitura</span>
-                <span><i class="far fa-calendar"></i> 28 de janeiro de 2026</span>
+                <span><i class="far fa-calendar"></i><span class="post-date-label">28 de janeiro de 2026</span></span>
+                <span><i class="far fa-clock"></i><span class="post-read-time-label">7 min de leitura</span></span>
+            </div>
+            <div class="post-byline">
+                <img src="../assets/img/favicon.png" alt="Aplia">
+                <div>
+                    <strong>Equipe Aplia</strong>
+                    <span>Conteúdo revisado pela Aplia Saúde</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <article class="article-content">
-        <img src="/assets/img/blog/artigo2.webp" alt="Agendamento WhatsApp" style="width:100%; border-radius: 16px; margin-bottom: 2rem;" loading="lazy">
-        <p>Você ainda responde manualmente cada mensagem de paciente querendo marcar consulta? Isso consome tempo, gera
+    <section class="post-body-section">
+        <div class="container">
+            <div class="post-layout" id="postLayout">
+                <aside class="post-toc" id="postToc">
+                    <p class="post-toc-title">Nesta página</p>
+                    <nav id="postTocNav"></nav>
+                </aside>
+                <article class="article-content">
+                    <img src="/assets/img/blog/artigo2.webp" alt="Como automatizar agendamento de consultas pelo WhatsApp" class="post-cover post-main-image-label" loading="lazy">
+
+                    <div class="post-body-content-label">
+                        <p>Você ainda responde manualmente cada mensagem de paciente querendo marcar consulta? Isso consome tempo, gera
             erros e faz você perder pacientes quando não consegue responder rápido.</p>
 
         <p>Neste artigo, vou te mostrar <strong>como automatizar o agendamento de consultas pelo WhatsApp</strong> de
@@ -444,30 +695,92 @@
 
         <p>Na prática, a maioria dos consultórios recupera o investimento no primeiro mês, só com os pacientes que
             teriam perdido por demora no atendimento.</p>
+                    </div>
 
-        <div class="cta-box">
-            <h3>Pronto para automatizar?</h3>
-            <p>A Aplia é uma assistente de IA especializada em clínicas e consultórios. Configure em minutos e comece a
-                agendar consultas automaticamente.</p>
-            <a href="/#price" class="btn-primary"
-                onclick="gtag('event', 'cta_blog_ver_planos', {'event_category': 'lead', 'event_label': 'blog_post'}); fbq('trackCustom', 'ClickVerPlanos');">Ver
-                planos da Aplia</a>
+                    <div class="cta-box">
+                        <p class="eyebrow">Aplia Saúde</p>
+                        <h3>Quer parar de perder pacientes?</h3>
+                        <p>A Aplia é uma assistente de IA que atende seus pacientes 24/7 pelo WhatsApp, agenda
+                            consultas automaticamente e envia lembretes.</p>
+                        <div class="cta-stats">
+                            <div>
+                                <strong>24/7</strong>
+                                <span>No WhatsApp</span>
+                            </div>
+                            <div>
+                                <strong>15 min</strong>
+                                <span>Pra implantar</span>
+                            </div>
+                            <div>
+                                <strong>Lembrete</strong>
+                                <span>Automático</span>
+                            </div>
+                            <div>
+                                <strong>R$ 249</strong>
+                                <span>Planos a partir de</span>
+                            </div>
+                        </div>
+                        <a href="/#price" class="btn-primary"
+                            onclick="gtag('event', 'cta_blog_conhecer_aplia', {'event_category': 'lead', 'event_label': 'blog_post'}); fbq('trackCustom', 'ClickConhecerAplia');">Conhecer
+                            a Aplia</a>
+                    </div>
+                </article>
+            </div>
         </div>
+    </section>
 
-        <h2>Conclusão</h2>
-
-        <p>Automatizar o agendamento de consultas pelo WhatsApp não é mais um luxo — é necessidade. Pacientes esperam
-            respostas rápidas, e quem não oferece, perde para a concorrência.</p>
-
-        <p>O processo é simples: escolha uma ferramenta, configure sua agenda, personalize as mensagens e conecte ao
-            WhatsApp. Em poucos minutos, você terá um assistente trabalhando 24 horas por dia para você.</p>
-    </article>
+    <section class="post-cta-banner">
+        <div class="container">
+            <h2>Pronto pra parar de perder paciente?</h2>
+            <p>Fale com a gente e veja como a Aplia responde, agenda e lembra seus pacientes no WhatsApp, sem
+                você precisar estar online.</p>
+            <div class="cta-actions">
+                <a href="/#price" class="btn-primary"
+                    onclick="gtag('event', 'cta_blog_banner', {'event_category': 'lead', 'event_label': 'blog_post_banner'}); fbq('trackCustom', 'ClickComecar');">Começar
+                    agora</a>
+                <a href="/#price" class="btn-outline">Ver planos</a>
+            </div>
+        </div>
+    </section>
 
     <footer>
         <div class="container">
             <p>© 2026 Aplia. Todos os direitos reservados.</p>
         </div>
     </footer>
+
+    <script>
+        // Sumário lateral: lê os H2 do artigo e monta os links sozinho — não
+        // depende do gerador de conteúdo escrever nada a mais. Sem H2
+        // suficiente pra fazer sentido, a coluna inteira some.
+        (function () {
+            var article = document.querySelector('.post-body-content-label');
+            var nav = document.getElementById('postTocNav');
+            var layout = document.getElementById('postLayout');
+            if (!article || !nav || !layout) return;
+            var heads = article.querySelectorAll('h2');
+            if (heads.length < 2) {
+                layout.classList.add('no-toc');
+                return;
+            }
+            var used = {};
+            heads.forEach(function (h) {
+                var base = h.textContent.trim().toLowerCase()
+                    .normalize('NFD').replace(/[̀-ͯ]/g, '')
+                    .replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                var id = base || 'secao';
+                var n = 1;
+                while (used[id]) { id = base + '-' + (++n); }
+                used[id] = true;
+                h.id = id;
+                var a = document.createElement('a');
+                a.href = '#' + id;
+                a.textContent = h.textContent;
+                nav.appendChild(a);
+            });
+        })();
+    </script>
+
 </body>
 
 </html>

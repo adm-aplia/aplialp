@@ -70,11 +70,13 @@
         :root {
             --primary: #EA545F;
             --primary-dark: #d43d48;
+            --primary-soft: rgba(234, 84, 95, 0.1);
             --dark: #1a1a2e;
             --dark-secondary: #232342;
             --light: #ffffff;
             --gray: #6c757d;
             --gray-light: #f8f9fa;
+            --gray-border: #ececf2;
             --shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
             --radius: 16px;
             --transition: all 0.3s ease;
@@ -152,70 +154,96 @@
             transform: translateY(-2px);
         }
 
-        /* Blog Hero */
+        /* Blog hero — claro, eyebrow + título grande alinhado à esquerda (DNA
+           de blog editorial, não de landing page de venda). */
         .blog-hero {
-            background: linear-gradient(135deg, var(--dark) 0%, var(--dark-secondary) 100%);
-            padding: 5rem 0;
-            text-align: center;
-            color: var(--light);
+            background: var(--gray-light);
+            border-bottom: 1px solid var(--gray-border);
+            padding: 7rem 0 3rem;
+        }
+
+        .blog-hero .eyebrow {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--primary);
+            margin-bottom: 0.9rem;
         }
 
         .blog-hero h1 {
             font-size: 2.5rem;
             margin-bottom: 1rem;
+            max-width: 34rem;
+            line-height: 1.2;
         }
 
         .blog-hero p {
-            font-size: 1.1rem;
-            opacity: 0.8;
-            max-width: 600px;
-            margin: 0 auto;
+            font-size: 1.05rem;
+            color: var(--gray);
+            max-width: 34rem;
         }
 
         /* Blog Grid */
         .blog-section {
-            padding: 4rem 0;
+            padding: 3.5rem 0 4rem;
         }
 
         .blog-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
             gap: 2rem;
         }
 
         .blog-card {
-            background: var(--light);
-            border-radius: var(--radius);
+            display: flex;
+            flex-direction: column;
+            background: var(--gray-light);
+            border-radius: 18px;
             overflow: hidden;
-            box-shadow: var(--shadow);
             transition: var(--transition);
-            border: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .blog-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .blog-card-img {
+            aspect-ratio: 16 / 10;
+            width: 100%;
+            overflow: hidden;
         }
 
         .blog-card img {
             width: 100%;
-            height: 200px;
+            height: 100%;
             object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .blog-card:hover img {
+            transform: scale(1.05);
         }
 
         .blog-card-content {
-            padding: 1.5rem;
+            padding: 1.75rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
         }
 
         .blog-category {
             display: inline-block;
-            background: rgba(234, 84, 95, 0.1);
+            align-self: flex-start;
+            background: var(--primary-soft);
             color: var(--primary);
-            padding: 0.25rem 0.75rem;
+            padding: 0.3rem 0.8rem;
             border-radius: 50px;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             font-weight: 600;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.9rem;
         }
 
         .blog-card h2 {
@@ -238,7 +266,8 @@
         .blog-card p {
             color: var(--gray);
             font-size: 0.95rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.25rem;
+            flex: 1;
         }
 
         .blog-meta {
@@ -247,16 +276,33 @@
             align-items: center;
             font-size: 0.85rem;
             color: var(--gray);
+            border-top: 1px solid var(--gray-border);
+            padding-top: 1.1rem;
+        }
+
+        .blog-meta i {
+            color: var(--primary);
+            margin-right: 0.35rem;
         }
 
         .read-more {
             color: var(--primary);
             font-weight: 600;
             text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: var(--transition);
         }
 
-        .read-more:hover {
-            text-decoration: underline;
+        .read-more i {
+            margin: 0;
+            font-size: 0.8rem;
+            transition: transform 0.25s ease;
+        }
+
+        .read-more:hover i {
+            transform: translateX(3px);
         }
 
         /* Footer */
@@ -275,6 +321,10 @@
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
+            }
+
+            .blog-hero {
+                padding: 6rem 0 2.25rem;
             }
 
             .blog-hero h1 {
@@ -311,8 +361,10 @@
 
     <section class="blog-hero">
         <div class="container">
-            <h1>Blog Aplia</h1>
-            <p>Dicas práticas para melhorar o atendimento do seu consultório e nunca mais perder pacientes</p>
+            <span class="eyebrow">Blog</span>
+            <h1>Dicas práticas para nunca mais perder paciente</h1>
+            <p>Atendimento, agendamento e automação pra quem toca um consultório ou clínica — escrito pra quem tem
+                cinco minutos entre um paciente e outro.</p>
         </div>
     </section>
 
@@ -321,130 +373,128 @@
             <div class="blog-grid">
                 <!-- Artigo: Secretária Virtual com IA: O Futuro do Atendimento Médico no Rio de Janeiro -->
                 <article class="blog-card">
-                    <img src="assets/img/blog/artigo2.webp" alt="Secretária Virtual com IA: O Futuro do Atendimento Médico no Rio de Janeiro" loading="lazy" width="1024" height="1024">
+                    <div class="blog-card-img">
+                        <img src="/assets/img/blog/artigo2.webp" alt="Secretária Virtual com IA: O Futuro do Atendimento Médico no Rio de Janeiro" loading="lazy">
+                    </div>
                     <div class="blog-card-content">
                         <span class="blog-category">Automação</span>
-                        <h2><a href="blog/secretaria-virtual-ia-futuro-atendimento-medico-rio-de-janeiro">Secretária Virtual com IA: O Futuro do Atendimento Médico no Rio de Janeiro</a></h2>
+                        <h2><a href="/blog/secretaria-virtual-ia-futuro-atendimento-medico-rio-de-janeiro">Secretária Virtual com IA: O Futuro do Atendimento Médico no Rio de Janeiro</a></h2>
                         <p>Descubra como clínicas no Rio de Janeiro estão reduzindo faltas e otimizando agendamentos no WhatsApp com a secretária virtual da Aplia Saúde.</p>
                         <div class="blog-meta">
-                            <span>5 min de leitura</span>
-                            <a href="blog/secretaria-virtual-ia-futuro-atendimento-medico-rio-de-janeiro" class="read-more">Ler artigo →</a>
+                            <span><i class="far fa-clock"></i>5 min de leitura</span>
+                            <a href="/blog/secretaria-virtual-ia-futuro-atendimento-medico-rio-de-janeiro" class="read-more">Ler artigo<i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </article>
 
                 <!-- Artigo: Como Reduzir Faltas de Pacientes em Clínicas de São Paulo com Automação -->
                 <article class="blog-card">
-                    <img src="assets/img/blog/artigo2.webp" alt="Como Reduzir Faltas de Pacientes em Clínicas de São Paulo com Automação" loading="lazy" width="1024" height="1024">
+                    <div class="blog-card-img">
+                        <img src="/assets/img/blog/artigo2.webp" alt="Como Reduzir Faltas de Pacientes em Clínicas de São Paulo com Automação" loading="lazy">
+                    </div>
                     <div class="blog-card-content">
                         <span class="blog-category">Automação</span>
-                        <h2><a href="blog/como-reduzir-faltas-de-pacientes-em-clinicas-sao-paulo-automacao">Como Reduzir Faltas de Pacientes em Clínicas de São Paulo com Automação</a></h2>
+                        <h2><a href="/blog/como-reduzir-faltas-de-pacientes-em-clinicas-sao-paulo-automacao">Como Reduzir Faltas de Pacientes em Clínicas de São Paulo com Automação</a></h2>
                         <p>Descubra como clínicas em São Paulo estão reduzindo faltas de pacientes e otimizando agendamentos com assistentes virtuais de IA no WhatsApp.</p>
                         <div class="blog-meta">
-                            <span>5 min de leitura</span>
-                            <a href="blog/como-reduzir-faltas-de-pacientes-em-clinicas-sao-paulo-automacao" class="read-more">Ler artigo →</a>
+                            <span><i class="far fa-clock"></i>5 min de leitura</span>
+                            <a href="/blog/como-reduzir-faltas-de-pacientes-em-clinicas-sao-paulo-automacao" class="read-more">Ler artigo<i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </article>
 
                 <!-- Artigo 1 -->
                 <article class="blog-card">
-                    <img src="/assets/img/blog/artigo1.webp" alt="Consultório médico perdendo pacientes" loading="lazy">
+                    <div class="blog-card-img">
+                        <img src="/assets/img/blog/artigo1.webp" alt="Consultório médico perdendo pacientes" loading="lazy">
+                    </div>
                     <div class="blog-card-content">
                         <span class="blog-category">Gestão</span>
-                        <h2><a href="/blog/como-parar-de-perder-pacientes-por-demora-no-atendimento">Como parar de
-                                perder pacientes por demora no atendimento</a></h2>
-                        <p>Descubra por que 75% dos profissionais da saúde perdem pacientes por falhas no atendimento e
-                            como resolver isso.</p>
+                        <h2><a href="/blog/como-parar-de-perder-pacientes-por-demora-no-atendimento">Como parar de perder pacientes por demora no atendimento</a></h2>
+                        <p>Descubra por que 75% dos profissionais da saúde perdem pacientes por falhas no atendimento e como resolver isso.</p>
                         <div class="blog-meta">
-                            <span>5 min de leitura</span>
-                            <a href="/blog/como-parar-de-perder-pacientes-por-demora-no-atendimento"
-                                class="read-more">Ler artigo →</a>
+                            <span><i class="far fa-clock"></i>5 min de leitura</span>
+                            <a href="/blog/como-parar-de-perder-pacientes-por-demora-no-atendimento" class="read-more">Ler artigo<i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </article>
 
                 <!-- Artigo 2 -->
                 <article class="blog-card">
-                    <img src="/assets/img/blog/artigo2.webp" alt="WhatsApp para consultório médico" loading="lazy">
+                    <div class="blog-card-img">
+                        <img src="/assets/img/blog/artigo2.webp" alt="WhatsApp para consultório médico" loading="lazy">
+                    </div>
                     <div class="blog-card-content">
                         <span class="blog-category">Automação</span>
-                        <h2><a href="/blog/como-automatizar-agendamento-de-consultas-pelo-whatsapp">Como automatizar
-                                agendamento de consultas pelo WhatsApp</a></h2>
-                        <p>Passo a passo para configurar um assistente que agenda consultas automaticamente, sem você
-                            precisar responder.</p>
+                        <h2><a href="/blog/como-automatizar-agendamento-de-consultas-pelo-whatsapp">Como automatizar agendamento de consultas pelo WhatsApp</a></h2>
+                        <p>Passo a passo para configurar um assistente que agenda consultas automaticamente, sem você precisar responder.</p>
                         <div class="blog-meta">
-                            <span>7 min de leitura</span>
-                            <a href="/blog/como-automatizar-agendamento-de-consultas-pelo-whatsapp"
-                                class="read-more">Ler artigo →</a>
+                            <span><i class="far fa-clock"></i>7 min de leitura</span>
+                            <a href="/blog/como-automatizar-agendamento-de-consultas-pelo-whatsapp" class="read-more">Ler artigo<i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </article>
 
                 <!-- Artigo 3 -->
                 <article class="blog-card">
-                    <img src="/assets/img/blog/artigo3.webp" alt="Atendimento 24 horas consultório" loading="lazy">
+                    <div class="blog-card-img">
+                        <img src="/assets/img/blog/artigo3.webp" alt="Atendimento 24 horas consultório" loading="lazy">
+                    </div>
                     <div class="blog-card-content">
                         <span class="blog-category">Atendimento</span>
-                        <h2><a href="/blog/seu-consultorio-atende-fora-do-horario-comercial">Seu consultório atende
-                                fora do horário comercial? Deveria!</a></h2>
-                        <p>60% das marcações acontecem fora do horário comercial. Veja como não perder esses pacientes.
-                        </p>
+                        <h2><a href="/blog/seu-consultorio-atende-fora-do-horario-comercial">Seu consultório atende fora do horário comercial? Deveria!</a></h2>
+                        <p>60% das marcações acontecem fora do horário comercial. Veja como não perder esses pacientes.</p>
                         <div class="blog-meta">
-                            <span>4 min de leitura</span>
-                            <a href="/blog/seu-consultorio-atende-fora-do-horario-comercial" class="read-more">Ler
-                                artigo →</a>
+                            <span><i class="far fa-clock"></i>4 min de leitura</span>
+                            <a href="/blog/seu-consultorio-atende-fora-do-horario-comercial" class="read-more">Ler artigo<i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </article>
 
                 <!-- Artigo 4 -->
                 <article class="blog-card">
-                    <img src="/assets/img/blog/artigo4.webp" alt="Secretária virtual para médicos" loading="lazy">
+                    <div class="blog-card-img">
+                        <img src="/assets/img/blog/artigo4.webp" alt="Secretária virtual para médicos" loading="lazy">
+                    </div>
                     <div class="blog-card-content">
                         <span class="blog-category">Tecnologia</span>
-                        <h2><a href="/blog/secretaria-virtual-para-consultorio-medico-vale-a-pena">Secretária
-                                virtual para consultório médico: vale a pena?</a></h2>
-                        <p>Comparamos custos, benefícios e quando faz sentido ter uma assistente virtual no seu
-                            consultório.</p>
+                        <h2><a href="/blog/secretaria-virtual-para-consultorio-medico-vale-a-pena">Secretária virtual para consultório médico: vale a pena?</a></h2>
+                        <p>Comparamos custos, benefícios e quando faz sentido ter uma assistente virtual no seu consultório.</p>
                         <div class="blog-meta">
-                            <span>6 min de leitura</span>
-                            <a href="/blog/secretaria-virtual-para-consultorio-medico-vale-a-pena"
-                                class="read-more">Ler artigo →</a>
+                            <span><i class="far fa-clock"></i>6 min de leitura</span>
+                            <a href="/blog/secretaria-virtual-para-consultorio-medico-vale-a-pena" class="read-more">Ler artigo<i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </article>
 
                 <!-- Artigo 5 -->
                 <article class="blog-card">
-                    <img src="/assets/img/blog/artigo5.webp" alt="Paciente não aparece na consulta" loading="lazy">
+                    <div class="blog-card-img">
+                        <img src="/assets/img/blog/artigo5.webp" alt="Paciente não aparece na consulta" loading="lazy">
+                    </div>
                     <div class="blog-card-content">
                         <span class="blog-category">Gestão</span>
-                        <h2><a href="/blog/como-reduzir-faltas-de-pacientes-nas-consultas">Como reduzir faltas de
-                                pacientes nas consultas</a></h2>
-                        <p>Lembretes automáticos podem reduzir em até 40% as faltas. Aprenda a implementar no seu
-                            consultório.</p>
+                        <h2><a href="/blog/como-reduzir-faltas-de-pacientes-nas-consultas">Como reduzir faltas de pacientes nas consultas</a></h2>
+                        <p>Lembretes automáticos podem reduzir em até 40% as faltas. Aprenda a implementar no seu consultório.</p>
                         <div class="blog-meta">
-                            <span>5 min de leitura</span>
-                            <a href="/blog/como-reduzir-faltas-de-pacientes-nas-consultas" class="read-more">Ler
-                                artigo →</a>
+                            <span><i class="far fa-clock"></i>5 min de leitura</span>
+                            <a href="/blog/como-reduzir-faltas-de-pacientes-nas-consultas" class="read-more">Ler artigo<i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </article>
 
                 <!-- Artigo 6 -->
                 <article class="blog-card">
-                    <img src="/assets/img/blog/artigo6.webp" alt="IA na saúde" loading="lazy">
+                    <div class="blog-card-img">
+                        <img src="/assets/img/blog/artigo6.webp" alt="IA na saúde" loading="lazy">
+                    </div>
                     <div class="blog-card-content">
                         <span class="blog-category">Tendências</span>
-                        <h2><a href="/blog/inteligencia-artificial-para-clinicas-o-que-muda-em-2026">Inteligência
-                                artificial para clínicas: o que muda em 2026</a></h2>
-                        <p>As principais tendências de IA na saúde e como se preparar para o futuro do atendimento
-                            médico.</p>
+                        <h2><a href="/blog/inteligencia-artificial-para-clinicas-o-que-muda-em-2026">Inteligência artificial para clínicas: o que muda em 2026</a></h2>
+                        <p>As principais tendências de IA na saúde e como se preparar para o futuro do atendimento médico.</p>
                         <div class="blog-meta">
-                            <span>8 min de leitura</span>
-                            <a href="/blog/inteligencia-artificial-para-clinicas-o-que-muda-em-2026"
-                                class="read-more">Ler artigo →</a>
+                            <span><i class="far fa-clock"></i>8 min de leitura</span>
+                            <a href="/blog/inteligencia-artificial-para-clinicas-o-que-muda-em-2026" class="read-more">Ler artigo<i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </article>

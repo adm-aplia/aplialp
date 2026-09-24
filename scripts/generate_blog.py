@@ -221,7 +221,7 @@ def create_blog_post_file(post_data):
     html = html.replace('href="https://aplia.com.br/blog/slug-placeholder.html"', f'href="https://aplia.com.br/blog/{post_data["slug"]}"')
 
     # 2. Post Header (Título, categoria, leitura e data)
-    html = html.replace('<span class="post-category-label">Categoria</span>', post_data["category"])
+    html = html.replace('<span class="tag-pill post-category-label">Categoria</span>', f'<span class="tag-pill post-category-label">{post_data["category"]}</span>')
     html = html.replace('Título do Artigo', post_data["title"])
     html = html.replace('5 min de leitura', post_data["read_time"])
     html = html.replace('Data de Publicação', date_str)
@@ -318,14 +318,16 @@ def update_blog_index(post_data):
     new_card = f"""
                 <!-- Artigo: {post_data["title"]} -->
                 <article class="blog-card">
-                    <img src="{card_image}" alt="{post_data["title"]}" loading="lazy" width="1024" height="1024">
+                    <div class="blog-card-img">
+                        <img src="/{card_image}" alt="{post_data["title"]}" loading="lazy">
+                    </div>
                     <div class="blog-card-content">
                         <span class="blog-category">{post_data["category"]}</span>
-                        <h2><a href="blog/{post_data["slug"]}">{post_data["title"]}</a></h2>
+                        <h2><a href="/blog/{post_data["slug"]}">{post_data["title"]}</a></h2>
                         <p>{post_data["meta_description"]}</p>
                         <div class="blog-meta">
-                            <span>{post_data["read_time"]}</span>
-                            <a href="blog/{post_data["slug"]}" class="read-more">Ler artigo →</a>
+                            <span><i class="far fa-clock"></i>{post_data["read_time"]}</span>
+                            <a href="/blog/{post_data["slug"]}" class="read-more">Ler artigo<i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </article>
