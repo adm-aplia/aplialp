@@ -6,14 +6,19 @@
 - [Home](https://aplia.com.br/) - Apresentação da assistente de IA, benefícios e funcionamento.
 - [Preços](https://aplia.com.br/#price) - Planos de assinatura (Essencial, Profissional e Enterprise sob demanda).
 - [FAQ](https://aplia.com.br/#faq) - Dúvidas frequentes sobre segurança, IA e integrações.
-- [Blog](https://aplia.com.br/blog.html) - Dicas práticas de gestão, atendimento e tecnologia para clínicas.
+- [Funcionalidades](https://aplia.com.br/funcionalidades) - Tudo que a Aplia faz no WhatsApp do consultório: atendimento, agendamento automático, lembretes, agenda integrável ao Google Agenda e mais.
+- [Integrações](https://aplia.com.br/integracoes) - A Aplia se conecta ao WhatsApp e ao Google Agenda que o consultório já usa. Integrações personalizadas no plano Enterprise.
+- [Secretária Virtual com IA](https://aplia.com.br/secretaria-virtual-ia) - Secretária virtual com IA que atende no WhatsApp, agenda consultas, envia lembretes e organiza pacientes e financeiro da sua clínica.
+- [Agendamento pelo WhatsApp](https://aplia.com.br/agendamento-whatsapp) - Deixe pacientes marcarem, confirmarem e remarcarem consultas direto pelo WhatsApp, com IA que responde 24/7 e sincroniza com sua agenda.
+- [LGPD](https://aplia.com.br/lgpd) - Como a Aplia trata dado de paciente: consentimento registrado, criptografia de ponta a ponta e sigilo da relação profissional-paciente.
+- [Blog](https://aplia.com.br/blog) - Dicas práticas de gestão, atendimento e tecnologia para clínicas.
 
 ## Artigos do Blog
-- [Como parar de perder pacientes por demora no atendimento](https://aplia.com.br/blog/como-parar-de-perder-pacientes-por-demora-no-atendimento.html)
-- [Como automatizar agendamento de consultas pelo WhatsApp](https://aplia.com.br/blog/como-automatizar-agendamento-de-consultas-pelo-whatsapp.html)
-- [Seu consultório atende fora do horário comercial?](https://aplia.com.br/blog/seu-consultorio-atende-fora-do-horario-comercial.html)
-- [Secretária virtual para consultório médico: vale a pena?](https://aplia.com.br/blog/secretaria-virtual-para-consultorio-medico-vale-a-pena.html)
-- [Como reduzir faltas de pacientes nas consultas](https://aplia.com.br/blog/como-reduzir-faltas-de-pacientes-nas-consultas.html)
-- [Inteligência artificial para clínicas: o que muda em 2026](https://aplia.com.br/blog/inteligencia-artificial-para-clinicas-o-que-muda-em-2026.html)
+- [Como parar de perder pacientes por demora no atendimento](https://aplia.com.br/blog/como-parar-de-perder-pacientes-por-demora-no-atendimento)
+- [Como automatizar agendamento de consultas pelo WhatsApp](https://aplia.com.br/blog/como-automatizar-agendamento-de-consultas-pelo-whatsapp)
+- [Seu consultório atende fora do horário comercial?](https://aplia.com.br/blog/seu-consultorio-atende-fora-do-horario-comercial)
+- [Secretária virtual para consultório médico: vale a pena?](https://aplia.com.br/blog/secretaria-virtual-para-consultorio-medico-vale-a-pena)
+- [Como reduzir faltas de pacientes nas consultas](https://aplia.com.br/blog/como-reduzir-faltas-de-pacientes-nas-consultas)
+- [Inteligência artificial para clínicas: o que muda em 2026](https://aplia.com.br/blog/inteligencia-artificial-para-clinicas-o-que-muda-em-2026)
 - [Como Reduzir Faltas de Pacientes em Clínicas de São Paulo com Automação](https://aplia.com.br/blog/como-reduzir-faltas-de-pacientes-em-clinicas-sao-paulo-automacao)
 - [Secretária Virtual com IA: O Futuro do Atendimento Médico no Rio de Janeiro](https://aplia.com.br/blog/secretaria-virtual-ia-futuro-atendimento-medico-rio-de-janeiro)

@@ -2,6 +2,13 @@
 
 Este arquivo reúne todos os artigos do blog da Aplia Saúde em texto limpo, facilitando a indexação e o consumo por agentes de inteligência artificial (GEO).
 
+## Páginas do Site
+- [Funcionalidades](https://aplia.com.br/funcionalidades) - Tudo que a Aplia faz no WhatsApp do consultório: atendimento, agendamento automático, lembretes, agenda integrável ao Google Agenda e mais.
+- [Integrações](https://aplia.com.br/integracoes) - A Aplia se conecta ao WhatsApp e ao Google Agenda que o consultório já usa. Integrações personalizadas no plano Enterprise.
+- [Secretária Virtual com IA](https://aplia.com.br/secretaria-virtual-ia) - Secretária virtual com IA que atende no WhatsApp, agenda consultas, envia lembretes e organiza pacientes e financeiro da sua clínica.
+- [Agendamento pelo WhatsApp](https://aplia.com.br/agendamento-whatsapp) - Deixe pacientes marcarem, confirmarem e remarcarem consultas direto pelo WhatsApp, com IA que responde 24/7 e sincroniza com sua agenda.
+- [LGPD](https://aplia.com.br/lgpd) - Como a Aplia trata dado de paciente: consentimento registrado, criptografia de ponta a ponta e sigilo da relação profissional-paciente.
+
 ---
 
 ## [Como automatizar agendamento de consultas pelo WhatsApp](https://aplia.com.br/blog/como-automatizar-agendamento-de-consultas-pelo-whatsapp)
