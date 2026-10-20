@@ -42,18 +42,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	</script>
 	<!-- End Google Ads tag -->
 
-	<!-- Google tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-J5DQTE8K6Y"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag() { dataLayer.push(arguments); }
-		gtag('js', new Date());
-		gtag('config', 'G-J5DQTE8K6Y', {
-			linker: { domains: ['aplia.com.br', 'app.aplia.com.br'] }
-		});
-	</script>
-	<!-- End Google Analytics tag -->
-	<title>Secretária Virtual com IA para Clínicas | Aplia Saúde</title>
+<title>Secretária Virtual com IA para Clínicas | Aplia Saúde</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="Zere as faltas de pacientes e automatize agendamentos via WhatsApp e Google Agenda. Agente de IA para clínicas em conformidade com a LGPD e as diretrizes éticas do CFM.">
 	<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -2215,7 +2204,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 						</a>
 						<a href="https://wa.me/551151973902?text=ol%C3%A1%20gostaria%20de%20marcar%20uma%20consulta"
 							target="_blank" rel="noopener" class="btn btn-ghost"
-							onclick="gtag('event', 'teste_paciente', {'event_category': 'lead', 'event_label': 'whatsapp_demo'}); fbq('trackCustom', 'TestePaciente');">
+							onclick="gtag('event', 'teste_demo', {'event_category': 'lead', 'event_label': 'whatsapp_demo'}); fbq('trackCustom', 'TesteDemo');">
 							Testar como paciente
 							<span class="pip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg></span>
 						</a>
@@ -2322,7 +2311,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 						<p style="margin-bottom:1rem">Mande uma mensagem como se fosse seu paciente. Leva um minuto e não pede cadastro.</p>
 						<a href="https://wa.me/551151973902?text=ol%C3%A1%20gostaria%20de%20marcar%20uma%20consulta"
 							target="_blank" rel="noopener" class="btn btn-navy"
-							onclick="gtag('event', 'teste_paciente', {'event_category': 'lead', 'event_label': 'secao_conversa'}); fbq('trackCustom', 'TestePaciente');">
+							onclick="gtag('event', 'teste_demo', {'event_category': 'lead', 'event_label': 'secao_conversa'}); fbq('trackCustom', 'TesteDemo');">
 							Testar como paciente
 							<span class="pip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg></span>
 						</a>
@@ -2569,7 +2558,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 						<small>conversamos sobre o seu caso</small>
 					</div>
 					<a href="#abrir-avaliacao" class="btn btn-ghost js-open-consultor-modal"
-						onclick="gtag('event', 'falar_consultor_enterprise', {'event_category': 'lead', 'event_label': 'plano_enterprise'}); fbq('trackCustom', 'FalarConsultorEnterprise');">
+						onclick="gtag('event', 'falar_consultor_enterprise', {'event_category': 'lead', 'event_label': 'plano_enterprise'}); fbq('trackCustom', 'AbrirAvaliacaoEnterprise');">
 						Avaliar minha operação <span class="pip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></span>
 					</a>
 					<ul class="plan-feats">
@@ -2664,7 +2653,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 					Testar grátis <span class="pip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></span>
 				</a>
 				<a href="#abrir-avaliacao" class="btn btn-light js-open-consultor-modal"
-					onclick="gtag('event', 'fale_conosco', {'event_category': 'lead', 'event_label': 'modal_consultor'}); fbq('trackCustom', 'FaleConosco');">
+					onclick="gtag('event', 'fale_conosco', {'event_category': 'lead', 'event_label': 'modal_consultor'}); fbq('trackCustom', 'AbrirAvaliacao');">
 					Avaliar minha operação <span class="pip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></span>
 				</a>
 			</div>
@@ -3354,10 +3343,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		}
 
 		// Submit form
+		let leadSubmitted = false; // trava duplo clique/Enter: um envio = um Lead
 		if (form) {
 			form.addEventListener('submit', (e) => {
 				e.preventDefault();
+				if (leadSubmitted) return;
 				if (!validateStep(6)) return;
+				leadSubmitted = true;
 
 				const name = document.getElementById('lead-name-consultor').value.trim();
 				const email = document.getElementById('lead-email-consultor').value.trim();
@@ -3387,7 +3379,32 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 					}
 				};
 
-				// Send to n8n Webhook (Asynchronous & Resilient)
+				// Lead (Pixel + CAPI) e generate_lead só depois da resposta OK do
+				// webhook do n8n: se o envio falhar, não é lead. Um único event_id
+				// vai pro fbq (eventID) e pro dataLayer meta_capi (trackMetaEvent).
+				// O nome em texto puro não vai pro Pixel; a PII só sai com
+				// consentimento e o servidor faz o hash.
+				const trackLeadSent = () => {
+					if (typeof trackMetaEvent === 'function') {
+						const [firstName, ...rest] = name.split(/\s+/);
+						trackMetaEvent('Lead', {
+							customData: {
+								content_name: 'Avaliação da Operação',
+								value: volume === 'Mais de 100 pacientes/mês' ? 499 : 249,
+								currency: 'BRL'
+							},
+							userData: { email, phone: whatsapp, firstName, lastName: rest.join(' '), country: 'br' }
+						});
+					}
+					if (typeof gtag === 'function') {
+						gtag('event', 'generate_lead', {
+							event_category: 'consultor_form',
+							event_label: volume === 'Mais de 100 pacientes/mês' ? 'volume_alto' : 'volume_padrao'
+						});
+					}
+				};
+
+				// Send to n8n Webhook (não bloqueia a tela de sucesso)
 				if (N8N_WEBHOOK_URL && N8N_WEBHOOK_URL.trim() !== '') {
 					try {
 						fetch(N8N_WEBHOOK_URL, {
@@ -3398,33 +3415,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 							},
 							body: JSON.stringify(leadData),
 							keepalive: true
+						}).then(res => {
+							if (res.ok) trackLeadSent();
+							else console.warn('Aviso: n8n webhook respondeu', res.status);
 						}).catch(err => console.warn('Aviso: n8n webhook não respondeu:', err));
 					} catch (err) {
 						console.warn('Aviso ao disparar webhook:', err);
 					}
-				}
-
-				// Analytics Tracking
-				// Sem user_name no Pixel: nome em texto puro não pode ir pra Meta
-				// sem hash/consentimento. A PII vai pelo dataLayer (só com
-				// consentimento) e o servidor faz o hash.
-				if (typeof trackMetaEvent === 'function') {
-					const [firstName, ...rest] = name.split(/\s+/);
-					trackMetaEvent('Lead', {
-						customData: {
-							content_name: 'Avaliação da Operação',
-							value: volume === 'Mais de 100 pacientes/mês' ? 499 : 249,
-							currency: 'BRL'
-						},
-						userData: { email, phone: whatsapp, firstName, lastName: rest.join(' '), country: 'br' }
-					});
-				}
-
-				if (typeof gtag === 'function') {
-					gtag('event', 'generate_lead', {
-						event_category: 'consultor_form',
-						event_label: volume
-					});
 				}
 
 				// WhatsApp Demo Link (Para testar o atendimento com IA)

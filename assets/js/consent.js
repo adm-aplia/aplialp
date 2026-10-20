@@ -45,6 +45,7 @@
 		} catch (e) { }
 	}
 
+	window.marketingConsentState = choice; // 'granted' | 'denied' | null (sem escolha)
 	window.hasMarketingConsent = function () { return choice() === 'granted'; };
 	window.setMarketingConsent = function (granted) {
 		write(COOKIE, granted ? 'granted' : 'denied', YEAR);
