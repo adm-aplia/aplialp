@@ -2,6 +2,13 @@
 <html dir="ltr" lang="pt-BR">
 
 <head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PTN93NBN');</script>
+<!-- End Google Tag Manager -->
 	<meta charset="UTF-8">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<!-- Meta Pixel Code -->
@@ -17,10 +24,10 @@
 			s.parentNode.insertBefore(t, s)
 		}(window, document, 'script',
 			'https://connect.facebook.net/en_US/fbevents.js');
-		fbq('init', '1208652700901179');
+		fbq('init', '1885783109455550');
 		fbq('track', 'PageView');
 	</script>
-	<noscript><img src="https://www.facebook.com/tr?id=1208652700901179&ev=PageView&noscript=1" height="1" width="1" style="display:none" /></noscript>
+	<noscript><img src="https://www.facebook.com/tr?id=1885783109455550&ev=PageView&noscript=1" height="1" width="1" style="display:none" /></noscript>
 	<!-- End Meta Pixel Code -->
 
 	<!-- Google tag (gtag.js) - Google Ads -->
@@ -2123,15 +2130,16 @@
 
 
 	</style>
+<script src="assets/js/consent.js" defer></script>
+<script src="assets/js/meta-capi.js" defer></script>
 </head>
 
 <body>
-	<!-- Google Tag Manager (noscript) -->
-	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PTN93NBN" height="0" width="0"
-			style="display:none;visibility:hidden"></iframe></noscript>
-	<!-- End Google Tag Manager (noscript) -->
-
-	<!-- Icones em SVG inline: sem CDN bloqueante no caminho critico -->
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PTN93NBN"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- Icones em SVG inline: sem CDN bloqueante no caminho critico -->
 	<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
 		<defs>
 			<g id="i-arrow"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
@@ -3397,12 +3405,18 @@
 				}
 
 				// Analytics Tracking
-				if (typeof fbq === 'function') {
-					fbq('track', 'Lead', {
-						content_name: 'Avaliação da Operação',
-						user_name: name,
-						value: volume === 'Mais de 100 pacientes/mês' ? 499 : 249,
-						currency: 'BRL'
+				// Sem user_name no Pixel: nome em texto puro não pode ir pra Meta
+				// sem hash/consentimento. A PII vai pelo dataLayer (só com
+				// consentimento) e o servidor faz o hash.
+				if (typeof trackMetaEvent === 'function') {
+					const [firstName, ...rest] = name.split(/\s+/);
+					trackMetaEvent('Lead', {
+						customData: {
+							content_name: 'Avaliação da Operação',
+							value: volume === 'Mais de 100 pacientes/mês' ? 499 : 249,
+							currency: 'BRL'
+						},
+						userData: { email, phone: whatsapp, firstName, lastName: rest.join(' '), country: 'br' }
 					});
 				}
 
