@@ -6,8 +6,23 @@
    Ver aplia-web/docs/META-CAPI-GTM.md. */
 (function () {
 	var CONSENT_KEY = 'aplia_marketing_consent';
-	var norm = function (v) { return v ? String(v).trim().toLowerCase() : undefined; };
-	var digits = function (v) { return v ? String(v).replace(/\D/g, '') || undefined : undefined; };
+	var clean = function (v) { return v ? String(v).trim().toLowerCase() : undefined; };
+	var norm = function (v) { return v ? String(v).trim().toLowerCase().replace(/\s+/g, '') || undefined : undefined; };
+	// só dígitos com DDI; número BR sem DDI (10-11 dígitos) ganha 55
+	var phone = function (v) {
+		var d = v ? String(v).replace(/\D/g, '') : '';
+		if (!d) return undefined;
+		return (d.length === 10 || d.length === 11) ? '55' + d : d;
+	};
+	// AAAAMMDD (aceita AAAA-MM-DD, DD/MM/AAAA ou já normalizado)
+	var birth = function (v) {
+		var t = v ? String(v).trim() : '';
+		var br = t.match(/^(\d{2})[\/-](\d{2})[\/-](\d{4})$/);
+		if (br) return br[3] + br[2] + br[1];
+		var d = t.replace(/\D/g, '');
+		return d.length === 8 ? d : undefined;
+	};
+	var country = function (v) { return v && String(v).trim().length === 2 ? String(v).trim().toLowerCase() : undefined; };
 
 	function hasConsent() {
 		try { return localStorage.getItem(CONSENT_KEY) === 'granted'; } catch (e) { return false; }
@@ -35,16 +50,16 @@
 			window.__metaRawFbq('track', name, customData, { eventID: eventId });
 		}
 
-		var consent = hasConsent();
-		var pii = consent ? {
-			em: norm(u.email), ph: digits(u.phone), fn: norm(u.firstName), ln: norm(u.lastName),
-			ge: norm(u.gender), db: digits(u.birthDate),
-			ct: norm(u.city) && norm(u.city).replace(/\s+/g, ''), st: norm(u.state),
-			zp: norm(u.zip) && norm(u.zip).replace(/\s+/g, ''), country: norm(u.country),
-			external_id: u.externalId
+		var pii = hasConsent() ? {
+			em: clean(u.email), ph: phone(u.phone), fn: norm(u.firstName), ln: norm(u.lastName),
+			ge: clean(u.gender), db: birth(u.birthDate), ct: norm(u.city), st: norm(u.state),
+			zp: norm(u.zip), country: country(u.country)
 		} : {};
+		// não identificáveis: valem mesmo sem consentimento
+		pii.external_id = u.externalId;
 		pii.subscription_id = u.subscriptionId;
 
+		var hasMoney = customData.value !== undefined || customData.currency !== undefined;
 		(window.dataLayer = window.dataLayer || []).push({
 			event: 'meta_capi',
 			meta: {
@@ -53,11 +68,7 @@
 				event_time: Math.floor(Date.now() / 1000),
 				event_source_url: location.href,
 				action_source: 'website',
-				opt_out: false,
-				data_processing_options: [],
-				data_processing_options_country: 0,
-				data_processing_options_state: 0,
-				custom_data: name === 'Purchase' ? { value: customData.value, currency: customData.currency } : undefined,
+				custom_data: hasMoney ? { value: customData.value, currency: customData.currency } : undefined,
 				user_data: pii
 			}
 		});
@@ -71,9 +82,9 @@
 		ClickComecar: 'InitiateCheckout',
 		EscolherPlanoEssencial: 'AddToCart',
 		EscolherPlanoProfissional: 'AddToCart',
-		TestePaciente: 'Contact',
+		TestePaciente: 'Lead',
+		FalarConsultorEnterprise: 'Lead',
 		FaleConosco: 'Contact',
-		FalarConsultorEnterprise: 'Contact',
 		ClickConhecerAplia: 'ViewContent'
 	};
 
@@ -95,6 +106,12 @@
 
 	/* ViewContent em páginas de conteúdo (preços, funcionalidades, blog...). */
 	document.addEventListener('DOMContentLoaded', function () {
+		// uma vez por página e por sessão da aba (reload não repete)
+		var key = 'meta_once:view:' + location.pathname;
+		try {
+			if (sessionStorage.getItem(key)) return;
+			sessionStorage.setItem(key, '1');
+		} catch (e) { }
 		window.trackMetaEvent('ViewContent', { customData: { content_name: document.title } });
 	});
 })();
