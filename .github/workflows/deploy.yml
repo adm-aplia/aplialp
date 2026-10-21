@@ -9,6 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+
+    - name: Versiona scripts (?v=<hash>)
+      run: python3 scripts/versionar-assets.py
     
     - name: FTP Deploy Locaweb
       uses: locaweb/ftp-deploy@1.0.0

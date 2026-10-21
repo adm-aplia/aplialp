@@ -3,10 +3,12 @@
    com eventID e empurra o MESMO evento (mesmo event_id) no dataLayer como
    `meta_capi`. O hash SHA-256 da PII, IP e user agent ficam no container
    server-side; o token da CAPI nunca passa por aqui.
-   Consentimento (LGPD): evento anônimo (id, hora, URL, valor/moeda) sai sempre.
-   Dados pessoais só com aplia_consent=granted; sem escolha vai só fbp/fbc;
-   com denied nada identificável. Lido a cada evento, então vale na hora, sem
-   recarregar. Nada que indique saúde vai ao Meta (URL e nomes neutros).
+   Identificadores de navegador SAIR SEMPRE (decisão do negócio, divulgada no
+   banner e na política): fbp, fbc e external_id (ID anônimo persistente, ou o
+   do lead/usuário quando existir), mesmo antes do aceite ou com recusa.
+   Dados de contato (em, ph, fn, ln, ge, db, ct, st, zp) SÓ com
+   aplia_consent=granted, lido a cada evento (vale na hora, sem recarregar).
+   Nada que indique saúde vai ao Meta (URL e nomes neutros).
    Todo evento do Pixel (padrão, personalizado e PageView) sai TAMBÉM pelo
    servidor (meta_capi) com o MESMO event_id do fbq (eventID), pra Meta deduplicar.
    Depende de consent.js (carregar antes). Ver aplia-web/docs/META-CAPI-GTM.md. */
@@ -101,22 +103,30 @@
 
 	var rawFbq = window.fbq;
 
-	/* Lead já conhecido neste navegador (formulário enviado antes, com
-	   consentimento): completa o user_data dos eventos seguintes (ex.:
-	   InitiateCheckout). 90 dias; nunca é lido sem aplia_consent=granted. */
+	/* Lead já conhecido neste navegador. O ID do lead (UUID, sem dado pessoal) é
+	   guardado sempre e vira o external_id dos eventos seguintes. Os dados de
+	   contato do lead (e-mail, telefone, nome) só são guardados e lidos com
+	   aplia_consent=granted. 90 dias. */
 	var LEAD_KEY = 'aplia_lead';
+	var LEAD_ID_KEY = 'aplia_lead_id';
 	var LEAD_TTL = 90 * 24 * 3600 * 1000;
+	function readJson(key) {
+		try { return JSON.parse(localStorage.getItem(key) || 'null'); } catch (e) { return null; }
+	}
 	function knownLead() {
-		try {
-			if (consentState() !== 'granted') return {};
-			var l = JSON.parse(localStorage.getItem(LEAD_KEY) || 'null');
-			if (!l || !l.ts || Date.now() - l.ts > LEAD_TTL) return {};
-			return l;
-		} catch (e) { return {}; }
+		if (consentState() !== 'granted') return {};
+		var l = readJson(LEAD_KEY);
+		return l && l.ts && Date.now() - l.ts <= LEAD_TTL ? l : {};
+	}
+	function knownLeadId() {
+		var l = readJson(LEAD_ID_KEY);
+		return l && l.id && l.ts && Date.now() - l.ts <= LEAD_TTL ? l.id : undefined;
 	}
 	window.rememberLead = function (d) {
 		try {
-			if (consentState() !== 'granted' || !d) return;
+			if (!d) return;
+			if (d.externalId) localStorage.setItem(LEAD_ID_KEY, JSON.stringify({ id: d.externalId, ts: Date.now() }));
+			if (consentState() !== 'granted') return;
 			localStorage.setItem(LEAD_KEY, JSON.stringify({
 				email: d.email, phone: d.phone, firstName: d.firstName, lastName: d.lastName,
 				externalId: d.externalId, ts: Date.now()
@@ -124,43 +134,75 @@
 		} catch (e) { }
 	};
 
-	/* user_data: granted = tudo (+ lead conhecido); sem escolha = só fbp/fbc;
-	   denied = nada identificável. Lido a cada evento. */
+	/* user_data. SEMPRE (granted, sem escolha ou denied): external_id, fbp, fbc.
+	   Só com granted: em, ph, fn, ln, ge, db, ct, st, zp (+ country e subscription_id). */
 	function buildUserData(u) {
-		var state = consentState();
-		var ud = {};
-		if (state === 'granted') {
+		u = u || {};
+		var ud = pick({
+			external_id: u.externalId || knownLeadId() ||
+				(typeof window.anonymousId === 'function' ? window.anonymousId() : undefined),
+			fbp: cookie('_fbp'), fbc: cookie('_fbc')
+		}, USER_DATA_ALLOWED);
+		if (consentState() === 'granted') {
 			var k = knownLead();
-			u = u || {};
-			ud = pick({
+			var contact = pick({
 				em: clean(u.email || k.email), ph: phone(u.phone || k.phone),
 				fn: norm(u.firstName || k.firstName), ln: norm(u.lastName || k.lastName),
 				ge: clean(u.gender), db: birth(u.birthDate), ct: norm(u.city), st: norm(u.state),
 				zp: norm(u.zip), country: country(u.country || (k.email ? 'br' : undefined)),
-				external_id: u.externalId || k.externalId, subscription_id: u.subscriptionId,
-				fbp: cookie('_fbp'), fbc: cookie('_fbc')
+				subscription_id: u.subscriptionId
 			}, USER_DATA_ALLOWED);
-		} else if (state === null) {
-			ud = pick({ fbp: cookie('_fbp'), fbc: cookie('_fbc') }, USER_DATA_ALLOWED);
+			for (var key in contact) ud[key] = contact[key];
 		}
 		return ud;
+	}
+
+	/* O Pixel grava o _fbp só depois que o fbevents.js carrega. Nos primeiros
+	   ~500 ms da página, o evento espera o _fbp aparecer (ou o prazo acabar, e
+	   então sai sem ele). event_time e o resto ficam fixados no momento do evento. */
+	var T0 = Date.now();
+	var FBP_WAIT_MS = 500;
+	var pending = [];
+	var pollTimer = null;
+	function emit(meta) {
+		(window.dataLayer = window.dataLayer || []).push({ event: 'meta_capi', meta: meta });
+	}
+	function flushPending(force) {
+		var fbp = cookie('_fbp');
+		if (!fbp && !force) return false;
+		var queue = pending;
+		pending = [];
+		for (var i = 0; i < queue.length; i++) {
+			if (fbp && !queue[i].user_data.fbp) queue[i].user_data.fbp = fbp;
+			emit(queue[i]);
+		}
+		return true;
+	}
+	function waitForFbp() {
+		if (pollTimer) return;
+		pollTimer = setInterval(function () {
+			if (flushPending(Date.now() - T0 >= FBP_WAIT_MS)) { clearInterval(pollTimer); pollTimer = null; }
+		}, 50);
 	}
 
 	/* Empurra o evento no dataLayer (GTM web -> servidor -> CAPI). */
 	function pushCapi(name, eventId, customData, userData) {
 		var hasMoney = customData.value !== undefined || customData.currency !== undefined;
-		(window.dataLayer = window.dataLayer || []).push({
-			event: 'meta_capi',
-			meta: {
-				event_name: name,
-				event_id: eventId,
-				event_time: Math.floor(Date.now() / 1000),
-				event_source_url: safeUrl(),
-				action_source: 'website',
-				custom_data: hasMoney ? { value: customData.value, currency: customData.currency } : undefined,
-				user_data: buildUserData(userData)
-			}
-		});
+		var meta = {
+			event_name: name,
+			event_id: eventId,
+			event_time: Math.floor(Date.now() / 1000),
+			event_source_url: safeUrl(),
+			action_source: 'website',
+			custom_data: hasMoney ? { value: customData.value, currency: customData.currency } : undefined,
+			user_data: buildUserData(userData)
+		};
+		if (!meta.user_data.fbp && Date.now() - T0 < FBP_WAIT_MS) {
+			pending.push(meta);
+			waitForFbp();
+		} else {
+			emit(meta);
+		}
 	}
 
 	/* userData: {email, phone, firstName, lastName, gender, birthDate, city,

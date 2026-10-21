@@ -8,6 +8,7 @@
 	var COOKIE = 'aplia_consent';
 	var YEAR = 60 * 60 * 24 * 365;
 	var FBC_MAX_AGE = 60 * 60 * 24 * 90;
+	var AID_COOKIE = 'aplia_aid';
 
 	var onAplia = /(^|\.)aplia\.com\.br$/.test(location.hostname);
 	var isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
@@ -44,6 +45,26 @@
 			});
 		} catch (e) { }
 	}
+
+	/* ID anônimo persistente (UUID, cookie próprio, 90 dias, .aplia.com.br): vira o
+	   external_id dos eventos de quem ainda não é lead nem usuário. Gravado sem
+	   esperar o banner (decisão do negócio, divulgada no banner e na política). */
+	function newUuid() {
+		if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+		var b = new Uint8Array(16);
+		if (window.crypto && crypto.getRandomValues) crypto.getRandomValues(b);
+		else for (var i = 0; i < 16; i++) b[i] = Math.floor(Math.random() * 256);
+		b[6] = (b[6] & 0x0f) | 0x40; b[8] = (b[8] & 0x3f) | 0x80;
+		var h = Array.prototype.map.call(b, function (x) { return ('0' + x.toString(16)).slice(-2); }).join('');
+		return h.slice(0, 8) + '-' + h.slice(8, 12) + '-' + h.slice(12, 16) + '-' + h.slice(16, 20) + '-' + h.slice(20);
+	}
+	window.anonymousId = function () {
+		var id = read(AID_COOKIE);
+		if (!id) id = newUuid();
+		write(AID_COOKIE, id, FBC_MAX_AGE); // renova os 90 dias a cada visita
+		return id;
+	};
+	window.anonymousId();
 
 	window.marketingConsentState = choice; // 'granted' | 'denied' | null (sem escolha)
 	window.hasMarketingConsent = function () { return choice() === 'granted'; };
@@ -84,9 +105,10 @@
 		box.setAttribute('aria-live', 'polite');
 		box.setAttribute('aria-label', 'Aviso de cookies');
 		box.innerHTML =
-			'<p>Usamos cookies para medir a performance dos nossos anúncios e melhorar sua experiência. ' +
-			'Ao aceitar, compartilhamos dados de contato com a Meta para esse fim. ' +
-			'Veja a <a href="/lgpd">política de privacidade</a>.</p>' +
+			'<p>Usamos cookies para medir o resultado dos nossos anúncios. Mesmo antes da sua escolha, ' +
+			'identificadores do navegador (fbp, fbc e um ID anônimo) são usados para essa medição. ' +
+			'E-mail e telefone só são enviados à Meta se você aceitar. ' +
+			'Veja a <a href="/lgpd#cookies">política de privacidade</a>.</p>' +
 			'<div class="ac-btns"><button type="button" class="ac-no">Recusar</button>' +
 			'<button type="button" class="ac-yes">Aceitar</button></div>';
 		function pick(granted) { window.setMarketingConsent(granted); box.remove(); css.remove(); }
