@@ -7,6 +7,8 @@
    Dados pessoais só com aplia_consent=granted; sem escolha vai só fbp/fbc;
    com denied nada identificável. Lido a cada evento, então vale na hora, sem
    recarregar. Nada que indique saúde vai ao Meta (URL e nomes neutros).
+   Todo evento do Pixel (padrão, personalizado e PageView) sai TAMBÉM pelo
+   servidor (meta_capi) com o MESMO event_id do fbq (eventID), pra Meta deduplicar.
    Depende de consent.js (carregar antes). Ver aplia-web/docs/META-CAPI-GTM.md. */
 (function () {
 	/* Schedule e Search ficam DESLIGADOS (dado de saúde de terceiros). */
@@ -76,6 +78,68 @@
 
 	var rawFbq = window.fbq;
 
+	/* Lead já conhecido neste navegador (formulário enviado antes, com
+	   consentimento): completa o user_data dos eventos seguintes (ex.:
+	   InitiateCheckout). 90 dias; nunca é lido sem aplia_consent=granted. */
+	var LEAD_KEY = 'aplia_lead';
+	var LEAD_TTL = 90 * 24 * 3600 * 1000;
+	function knownLead() {
+		try {
+			if (consentState() !== 'granted') return {};
+			var l = JSON.parse(localStorage.getItem(LEAD_KEY) || 'null');
+			if (!l || !l.ts || Date.now() - l.ts > LEAD_TTL) return {};
+			return l;
+		} catch (e) { return {}; }
+	}
+	window.rememberLead = function (d) {
+		try {
+			if (consentState() !== 'granted' || !d) return;
+			localStorage.setItem(LEAD_KEY, JSON.stringify({
+				email: d.email, phone: d.phone, firstName: d.firstName, lastName: d.lastName,
+				externalId: d.externalId, ts: Date.now()
+			}));
+		} catch (e) { }
+	};
+
+	/* user_data: granted = tudo (+ lead conhecido); sem escolha = só fbp/fbc;
+	   denied = nada identificável. Lido a cada evento. */
+	function buildUserData(u) {
+		var state = consentState();
+		var ud = {};
+		if (state === 'granted') {
+			var k = knownLead();
+			u = u || {};
+			ud = pick({
+				em: clean(u.email || k.email), ph: phone(u.phone || k.phone),
+				fn: norm(u.firstName || k.firstName), ln: norm(u.lastName || k.lastName),
+				ge: clean(u.gender), db: birth(u.birthDate), ct: norm(u.city), st: norm(u.state),
+				zp: norm(u.zip), country: country(u.country || (k.email ? 'br' : undefined)),
+				external_id: u.externalId || k.externalId, subscription_id: u.subscriptionId,
+				fbp: cookie('_fbp'), fbc: cookie('_fbc')
+			}, USER_DATA_ALLOWED);
+		} else if (state === null) {
+			ud = pick({ fbp: cookie('_fbp'), fbc: cookie('_fbc') }, USER_DATA_ALLOWED);
+		}
+		return ud;
+	}
+
+	/* Empurra o evento no dataLayer (GTM web -> servidor -> CAPI). */
+	function pushCapi(name, eventId, customData, userData) {
+		var hasMoney = customData.value !== undefined || customData.currency !== undefined;
+		(window.dataLayer = window.dataLayer || []).push({
+			event: 'meta_capi',
+			meta: {
+				event_name: name,
+				event_id: eventId,
+				event_time: Math.floor(Date.now() / 1000),
+				event_source_url: safeUrl(),
+				action_source: 'website',
+				custom_data: hasMoney ? { value: customData.value, currency: customData.currency } : undefined,
+				user_data: buildUserData(userData)
+			}
+		});
+	}
+
 	/* userData: {email, phone, firstName, lastName, gender, birthDate, city,
 	   state, zip, country, externalId, subscriptionId} (sem hash). Nunca lança. */
 	window.trackMetaEvent = function (name, opts) {
@@ -83,39 +147,10 @@
 			if (BLOCKED[name]) return '';
 			opts = opts || {};
 			var customData = pick(opts.customData, CUSTOM_DATA_ALLOWED);
-			var u = opts.userData || {};
 			var eventId = opts.eventId || newId();
-
-			if (typeof rawFbq === 'function') rawFbq('track', name, customData, { eventID: eventId });
-
-			/* granted: tudo; sem escolha: só fbp/fbc; denied: nada identificável */
-			var state = consentState();
-			var ud = {};
-			if (state === 'granted') {
-				ud = pick({
-					em: clean(u.email), ph: phone(u.phone), fn: norm(u.firstName), ln: norm(u.lastName),
-					ge: clean(u.gender), db: birth(u.birthDate), ct: norm(u.city), st: norm(u.state),
-					zp: norm(u.zip), country: country(u.country),
-					external_id: u.externalId, subscription_id: u.subscriptionId,
-					fbp: cookie('_fbp'), fbc: cookie('_fbc')
-				}, USER_DATA_ALLOWED);
-			} else if (state === null) {
-				ud = pick({ fbp: cookie('_fbp'), fbc: cookie('_fbc') }, USER_DATA_ALLOWED);
-			}
-
-			var hasMoney = customData.value !== undefined || customData.currency !== undefined;
-			(window.dataLayer = window.dataLayer || []).push({
-				event: 'meta_capi',
-				meta: {
-					event_name: name,
-					event_id: eventId,
-					event_time: Math.floor(Date.now() / 1000),
-					event_source_url: safeUrl(),
-					action_source: 'website',
-					custom_data: hasMoney ? { value: customData.value, currency: customData.currency } : undefined,
-					user_data: ud
-				}
-			});
+			/* rawFbq (não o wrapper abaixo): o wrapper também empurra no dataLayer */
+			if (!opts.skipPixel && typeof rawFbq === 'function') rawFbq('track', name, customData, { eventID: eventId });
+			pushCapi(name, eventId, customData, opts.userData);
 			return eventId;
 		} catch (e) {
 			return '';
@@ -146,22 +181,37 @@
 		var lastFired = {};
 		window.fbq = function () {
 			var a = arguments;
-			var ret = rawFbq.apply(this, a);
 			try {
-				if (a[0] === 'trackCustom' && CUSTOM_TO_STANDARD[a[1]] && Date.now() - lastTrustedClick < 1500) {
-					/* duplo clique no mesmo botão = uma ação só */
-					var now = Date.now();
-					if (!lastFired[a[1]] || now - lastFired[a[1]] > 1000) {
-						lastFired[a[1]] = now;
-						window.trackMetaEvent(CUSTOM_TO_STANDARD[a[1]], { customData: a[2] || {} });
+				/* Qualquer evento do Pixel (padrão ou personalizado) ganha eventID e
+				   vai também pelo servidor, mesmo que o onclick só chame o fbq. */
+				if ((a[0] === 'track' || a[0] === 'trackCustom') && typeof a[1] === 'string') {
+					var eventId = (a[3] && a[3].eventID) || newId();
+					var ret = rawFbq.apply(this, [a[0], a[1], a[2] || {}, { eventID: eventId }]);
+					pushCapi(a[1], eventId, pick(a[2], CUSTOM_DATA_ALLOWED), undefined);
+					/* O clique também vale como o evento padrão equivalente, só se
+					   foi um clique real do usuário (isTrusted) e sem duplo clique. */
+					if (a[0] === 'trackCustom' && CUSTOM_TO_STANDARD[a[1]] && Date.now() - lastTrustedClick < 1500) {
+						var now = Date.now();
+						if (!lastFired[a[1]] || now - lastFired[a[1]] > 1000) {
+							lastFired[a[1]] = now;
+							window.trackMetaEvent(CUSTOM_TO_STANDARD[a[1]], { customData: a[2] || {} });
+						}
 					}
+					return ret;
 				}
 			} catch (e) { }
-			return ret;
+			return rawFbq.apply(this, a);
 		};
 		/* o objeto interno do Pixel (queue, loaded...) precisa continuar acessível */
 		for (var k in rawFbq) { if (Object.prototype.hasOwnProperty.call(rawFbq, k)) window.fbq[k] = rawFbq[k]; }
 	}
+
+	/* PageView: o fbq('track','PageView') está no <head> de cada página, antes
+	   deste script, com um eventID guardado em window.__apliaPvId. O mesmo id vai
+	   pelo servidor aqui; sem isso a Meta contaria o PageView em dobro. */
+	document.addEventListener('DOMContentLoaded', function () {
+		try { if (window.__apliaPvId) pushCapi('PageView', window.__apliaPvId, {}, undefined); } catch (e) { }
+	});
 
 	/* ViewContent em páginas de conteúdo (preços, funcionalidades, blog...). */
 	document.addEventListener('DOMContentLoaded', function () {

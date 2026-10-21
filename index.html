@@ -25,7 +25,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		}(window, document, 'script',
 			'https://connect.facebook.net/en_US/fbevents.js');
 		fbq('init', '1885783109455550');
-		fbq('track', 'PageView');
+		window.__apliaPvId = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : Date.now() + '-' + Math.random().toString(16).slice(2); fbq('track', 'PageView', {}, { eventID: window.__apliaPvId });
 	</script>
 	<noscript><img src="https://www.facebook.com/tr?id=1885783109455550&ev=PageView&noscript=1" height="1" width="1" style="display:none" /></noscript>
 	<!-- End Meta Pixel Code -->
@@ -3387,14 +3387,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 				const trackLeadSent = () => {
 					if (typeof trackMetaEvent === 'function') {
 						const [firstName, ...rest] = name.split(/\s+/);
+						// external_id = id do lead, gerado aqui no envio (nunca o nome/e-mail)
+						const leadId = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : Date.now() + '-' + Math.random().toString(16).slice(2);
+						const leadUser = { email, phone: whatsapp, firstName, lastName: rest.join(' '), country: 'br', externalId: leadId };
 						trackMetaEvent('Lead', {
 							customData: {
 								content_name: 'Avaliação da Operação',
 								value: volume === 'Mais de 100 pacientes/mês' ? 499 : 249,
 								currency: 'BRL'
 							},
-							userData: { email, phone: whatsapp, firstName, lastName: rest.join(' '), country: 'br' }
+							userData: leadUser
 						});
+						// Eventos seguintes (ex.: InitiateCheckout) reaproveitam esses dados, só com consentimento
+						if (typeof rememberLead === 'function') rememberLead(leadUser);
 					}
 					if (typeof gtag === 'function') {
 						gtag('event', 'generate_lead', {

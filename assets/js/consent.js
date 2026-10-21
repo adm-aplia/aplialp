@@ -53,11 +53,14 @@
 	};
 	window.readCookie = read;
 
-	/* Chegou por anúncio (?fbclid=) e o Pixel ainda não gravou _fbc: grava
-	   fb.1.<timestamp_ms>.<fbclid> em .aplia.com.br pra LP e app dividirem o clique. */
+	/* Chegou por anúncio (?fbclid=): grava _fbc = fb.1.<timestamp_ms>.<fbclid> em
+	   .aplia.com.br por 90 dias, pra LP e app dividirem o clique. Vale nos retornos
+	   também: um fbclid novo (outro clique) substitui o antigo; o mesmo fbclid
+	   mantém o timestamp original. Sem fbclid na URL, nunca apaga o _fbc. */
 	try {
 		var fbclid = new URLSearchParams(location.search).get('fbclid');
-		if (fbclid && !read('_fbc')) write('_fbc', 'fb.1.' + Date.now() + '.' + fbclid, FBC_MAX_AGE);
+		var atual = (read('_fbc') || '').split('.').slice(3).join('.');
+		if (fbclid && fbclid !== atual) write('_fbc', 'fb.1.' + Date.now() + '.' + fbclid, FBC_MAX_AGE);
 	} catch (e) { }
 
 	if (choice()) announce();
