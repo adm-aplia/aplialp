@@ -3379,11 +3379,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 					}
 				};
 
-				// Lead (Pixel + CAPI) e generate_lead só depois da resposta OK do
-				// webhook do n8n: se o envio falhar, não é lead. Um único event_id
-				// vai pro fbq (eventID) e pro dataLayer meta_capi (trackMetaEvent).
-				// O nome em texto puro não vai pro Pixel; a PII só sai com
-				// consentimento e o servidor faz o hash.
+				// Lead (Pixel + CAPI) e generate_lead saem no envio do formulário,
+				// sem depender da resposta do n8n (que só cuida do aviso por
+				// WhatsApp/e-mail). Um único event_id vai pro fbq (eventID) e pro
+				// dataLayer meta_capi (trackMetaEvent). O nome em texto puro não vai
+				// pro Pixel; a PII só sai com consentimento e o servidor faz o hash.
 				const trackLeadSent = () => {
 					if (typeof trackMetaEvent === 'function') {
 						const [firstName, ...rest] = name.split(/\s+/);
@@ -3404,6 +3404,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 					}
 				};
 
+				trackLeadSent();
+
 				// Send to n8n Webhook (não bloqueia a tela de sucesso)
 				if (N8N_WEBHOOK_URL && N8N_WEBHOOK_URL.trim() !== '') {
 					try {
@@ -3416,8 +3418,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 							body: JSON.stringify(leadData),
 							keepalive: true
 						}).then(res => {
-							if (res.ok) trackLeadSent();
-							else console.warn('Aviso: n8n webhook respondeu', res.status);
+							if (!res.ok) console.warn('Aviso: n8n webhook respondeu', res.status);
 						}).catch(err => console.warn('Aviso: n8n webhook não respondeu:', err));
 					} catch (err) {
 						console.warn('Aviso ao disparar webhook:', err);

@@ -127,7 +127,7 @@
 	   equivalente e enviado também pela CAPI. */
 	/* Botões que só abrem o modal (AbrirAvaliacao, AbrirAvaliacaoEnterprise) não
 	   estão aqui de propósito: não geram Lead nem Contact. O Lead real é o envio
-	   do formulário, depois da resposta OK do webhook (index.html). */
+	   do formulário (index.html), independente da resposta do webhook. */
 	var CUSTOM_TO_STANDARD = {
 		ClickComecar: 'InitiateCheckout',
 		EscolherPlanoEssencial: 'AddToCart',
