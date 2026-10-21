@@ -49,8 +49,29 @@
 	};
 	var country = function (v) { return v && String(v).trim().length === 2 ? String(v).trim().toLowerCase() : undefined; };
 
+	/* Lê o cookie aplia_consent direto (granted | denied; qualquer outro valor
+	   ou ausente = sem escolha), sem depender de consent.js ter carregado. Só se o
+	   cookie não responder, tenta window.marketingConsentState. Lido a cada
+	   evento, então aceitar/recusar no banner vale na hora, sem recarregar. */
+	function readCookieDirect(name) {
+		try {
+			var parts = document.cookie.split('; ');
+			for (var i = 0; i < parts.length; i++) {
+				if (parts[i].indexOf(name + '=') === 0) return decodeURIComponent(parts[i].slice(name.length + 1));
+			}
+		} catch (e) { }
+		return undefined;
+	}
 	function consentState() {
-		return typeof window.marketingConsentState === 'function' ? window.marketingConsentState() : null;
+		var v = readCookieDirect('aplia_consent');
+		if (v === 'granted' || v === 'denied') return v;
+		try {
+			if (typeof window.marketingConsentState === 'function') {
+				var f = window.marketingConsentState();
+				if (f === 'granted' || f === 'denied') return f;
+			}
+		} catch (e) { }
+		return null;
 	}
 
 	/* Só caminhos neutros vão como event_source_url / content_name. Posts do blog
@@ -69,6 +90,8 @@
 	}
 	function safeUrl() { return location.origin + safePath(); }
 	function cookie(name) {
+		var v = readCookieDirect(name);
+		if (v !== undefined) return v;
 		return typeof window.readCookie === 'function' ? window.readCookie(name) : undefined;
 	}
 	function newId() {
