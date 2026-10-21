@@ -3409,8 +3409,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 					}
 				};
 
-				trackLeadSent();
-
 				// Send to n8n Webhook (não bloqueia a tela de sucesso)
 				if (N8N_WEBHOOK_URL && N8N_WEBHOOK_URL.trim() !== '') {
 					try {
@@ -3429,6 +3427,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 						console.warn('Aviso ao disparar webhook:', err);
 					}
 				}
+
+				// Rastreamento depois do envio do aviso: um erro aqui nunca pode impedir o lead de chegar à equipe
+				try { trackLeadSent(); } catch (err) { console.warn('Aviso no rastreamento do Lead:', err); }
 
 				// WhatsApp Demo Link (Para testar o atendimento com IA)
 				const demoMessage = `Olá! Gostaria de testar o atendimento da clínica com Inteligência Artificial.`;
