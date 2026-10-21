@@ -17,3 +17,15 @@ RewriteRule ^ %1 [R=301,L]
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^(.*?)/?$ $1.html [L]
+
+# Cache: o servidor não mandava Cache-Control e navegadores mostravam versão
+# antiga da página por horas. HTML e JS/CSS próprios (sem versão no nome)
+# sempre revalidam (304 se nada mudou); imagens e fontes ficam 7 dias.
+<IfModule mod_headers.c>
+	<FilesMatch "\.(html|js|css|xml|txt)$">
+		Header set Cache-Control "no-cache, must-revalidate"
+	</FilesMatch>
+	<FilesMatch "\.(png|jpe?g|gif|webp|avif|svg|ico|woff2?|ttf)$">
+		Header set Cache-Control "public, max-age=604800"
+	</FilesMatch>
+</IfModule>
