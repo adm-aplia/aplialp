@@ -1884,6 +1884,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
 	
+	/* Celular (inclusive o navegador do Instagram, ~360x640 util): os dois
+	   botoes do heroi precisam aparecer sem rolar e acima do aviso de cookies */
+	@media (max-width: 640px) {
+		.hero { padding-top: 6.25rem; padding-bottom: 3rem; }
+		.hero h1 { margin-bottom: 0.875rem; }
+		.hero .lede { font-size: 1rem; line-height: 1.5; margin-bottom: 1.25rem; }
+		.hero-cta { gap: 0.625rem; margin-bottom: 1rem; }
+	}
+
 	/* O titulo do FAQ passava por pouco dos 44rem do bloco e quebrava em duas
 	   linhas. Nowrap no desktop, com a quebra liberada no celular. */
 	#faq .s-head { max-width: 52rem; }
