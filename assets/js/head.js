@@ -13,7 +13,25 @@
       parâmetros de campanha troca o que está guardado.
    3. Links para app.aplia.com.br levam esses parâmetros na query, para o
       cadastro e o trial ficarem atrelados ao anúncio.
+   4. Consent Mode v2 (gtag 'consent' 'default') antes do GTM, a partir do
+      cookie aplia_consent (consent.js manda o 'update' quando a pessoa escolhe).
+      Mesma regra do Meta (ver consent.js): armazenamento de medição sempre;
+      dados do usuário e personalização de anúncios só com "Aceitar".
    window.apliaAttribution() devolve o objeto guardado ({} se não houver). */
+(function () {
+	try {
+		window.dataLayer = window.dataLayer || [];
+		/* gtag só reconhece o objeto arguments, não um array */
+		var g = function () { window.dataLayer.push(arguments); };
+		var aceito = /(?:^|; )aplia_consent=granted(?:;|$)/.test(document.cookie) ? 'granted' : 'denied';
+		g('consent', 'default', {
+			ad_storage: 'granted',
+			analytics_storage: 'granted',
+			ad_user_data: aceito,
+			ad_personalization: aceito
+		});
+	} catch (e) { }
+})();
 (function () {
 	var KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'utm_id',
 		'fbclid', 'gclid', 'gbraid', 'wbraid', 'campaign_id', 'adset_id', 'ad_id', 'placement'];

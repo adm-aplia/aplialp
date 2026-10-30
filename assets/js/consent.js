@@ -70,6 +70,13 @@
 	window.hasMarketingConsent = function () { return choice() === 'granted'; };
 	window.setMarketingConsent = function (granted) {
 		write(COOKIE, granted ? 'granted' : 'denied', YEAR);
+		/* Consent Mode v2: o 'default' sai do head.js, antes do GTM */
+		try {
+			(function () { (window.dataLayer = window.dataLayer || []).push(arguments); })('consent', 'update', {
+				ad_user_data: granted ? 'granted' : 'denied',
+				ad_personalization: granted ? 'granted' : 'denied'
+			});
+		} catch (e) { }
 		announce();
 	};
 	window.readCookie = read;
@@ -86,35 +93,53 @@
 
 	if (choice()) announce();
 
+	/* Banner compacto preso embaixo. A altura dele vai para --consent-h no <html>
+	   e para o padding do <body>: o botão fixo do celular (/avaliacao) sobe junto
+	   e o fim da página não fica escondido atrás do aviso. */
 	function showBanner() {
 		if (choice() !== null || document.getElementById('aplia-consent')) return;
 		var css = document.createElement('style');
 		css.textContent =
-			'#aplia-consent{position:fixed;left:12px;right:12px;bottom:12px;z-index:2147483000;max-width:760px;margin:0 auto;' +
-			'background:#1a2641;color:#fff;border-radius:12px;padding:16px;box-shadow:0 8px 30px rgba(0,0,0,.3);' +
-			'font:14px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;display:flex;flex-wrap:wrap;gap:12px;align-items:center}' +
-			'#aplia-consent p{margin:0;flex:1 1 320px}#aplia-consent a{color:#fff;text-decoration:underline}' +
-			'#aplia-consent .ac-btns{display:flex;gap:8px}' +
-			'#aplia-consent button{cursor:pointer;border-radius:8px;padding:8px 16px;font:inherit;font-weight:600;border:1px solid #fff}' +
-			'#aplia-consent .ac-no{background:transparent;color:#fff}#aplia-consent .ac-yes{background:#fff;color:#1a2641}';
+			'#aplia-consent{position:fixed;left:8px;right:8px;bottom:8px;z-index:2147483000;max-width:720px;margin:0 auto;' +
+			'background:#1a2641;color:#fff;border-radius:12px;padding:10px 12px;box-shadow:0 6px 24px rgba(0,0,0,.25);' +
+			'font:13px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;display:flex;gap:10px;align-items:center}' +
+			'#aplia-consent p{margin:0;flex:1 1 auto;min-width:0;color:#fff;font:inherit;opacity:1}#aplia-consent a{color:#fff;text-decoration:underline}' +
+			'#aplia-consent .ac-btns{display:flex;gap:6px;flex:none}' +
+			'#aplia-consent button{cursor:pointer;border-radius:8px;padding:8px 12px;min-height:40px;font:inherit;font-weight:600;border:1px solid #fff}' +
+			'#aplia-consent .ac-no{background:transparent;color:#fff}#aplia-consent .ac-yes{background:#fff;color:#1a2641}' +
+			'@media (max-width:480px){#aplia-consent{font-size:12px;padding:8px 10px;gap:8px}#aplia-consent .ac-btns{flex-direction:column}' +
+			'#aplia-consent button{padding:6px 10px;min-height:34px}}';
 		document.head.appendChild(css);
 
 		var box = document.createElement('div');
 		box.id = 'aplia-consent';
-		box.setAttribute('role', 'dialog');
-		box.setAttribute('aria-live', 'polite');
+		box.setAttribute('role', 'region');
 		box.setAttribute('aria-label', 'Aviso de cookies');
 		box.innerHTML =
-			'<p>Usamos cookies para medir o resultado dos nossos anúncios. Mesmo antes da sua escolha, ' +
-			'identificadores do navegador (fbp, fbc e um ID anônimo) são usados para essa medição. ' +
-			'E-mail e telefone só são enviados à Meta se você aceitar. ' +
-			'Veja a <a href="/lgpd#cookies">política de privacidade</a>.</p>' +
-			'<div class="ac-btns"><button type="button" class="ac-no">Recusar</button>' +
-			'<button type="button" class="ac-yes">Aceitar</button></div>';
-		function pick(granted) { window.setMarketingConsent(granted); box.remove(); css.remove(); }
+			'<p>Usamos cookies e identificadores do navegador (fbp, fbc e um ID anônimo) para medir nossos anúncios, ' +
+			'mesmo antes da sua escolha. E-mail e telefone só vão à Meta se você aceitar. ' +
+			'<a href="/lgpd#cookies">Saiba mais</a></p>' +
+			'<div class="ac-btns"><button type="button" class="ac-yes">Aceitar</button>' +
+			'<button type="button" class="ac-no">Recusar</button></div>';
+		var root = document.documentElement;
+		var bodyPad = document.body.style.paddingBottom;
+		function reserve() {
+			var h = box.offsetHeight + 16;
+			root.style.setProperty('--consent-h', h + 'px');
+			document.body.style.paddingBottom = h + 'px';
+		}
+		function pick(granted) {
+			window.setMarketingConsent(granted);
+			box.remove(); css.remove();
+			root.style.removeProperty('--consent-h');
+			document.body.style.paddingBottom = bodyPad;
+			window.removeEventListener('resize', reserve);
+		}
 		box.querySelector('.ac-no').addEventListener('click', function () { pick(false); });
 		box.querySelector('.ac-yes').addEventListener('click', function () { pick(true); });
 		document.body.appendChild(box);
+		reserve();
+		window.addEventListener('resize', reserve);
 	}
 	if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', showBanner);
 	else showBanner();
