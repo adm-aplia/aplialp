@@ -1,0 +1,2222 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="pt-BR">
+<head>
+<!-- aplia:head (gerado de assets/js/head.js?v=9d24a8a3) -->
+<script>
+(function () {
+try {
+window.dataLayer = window.dataLayer || [];
+var g = function () { window.dataLayer.push(arguments); };
+var aceito = /(?:^|; )aplia_consent=granted(?:;|$)/.test(document.cookie) ? 'granted' : 'denied';
+g('consent', 'default', {
+ad_storage: 'granted',
+analytics_storage: 'granted',
+ad_user_data: aceito,
+ad_personalization: aceito
+});
+} catch (e) { }
+})();
+(function () {
+var KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'utm_id',
+'fbclid', 'gclid', 'gbraid', 'wbraid', 'campaign_id', 'adset_id', 'ad_id', 'placement'];
+var COOKIE = 'aplia_attr';
+var MAX_AGE = 90 * 24 * 3600;
+var isKey = function (k) { return KEYS.indexOf(k) !== -1; };
+try {
+var hash = location.hash.slice(1);
+var cut = hash.search(/[?&]/);
+var anchor = hash, hashQuery = '';
+if (cut !== -1) { anchor = hash.slice(0, cut); hashQuery = hash.slice(cut + 1); }
+else if (/^[\w-]+=/.test(hash)) { anchor = ''; hashQuery = hash; }
+if (hashQuery) {
+var fromHash = new URLSearchParams(hashQuery);
+var moved = false;
+var query = new URLSearchParams(location.search);
+fromHash.forEach(function (v, k) {
+if (isKey(k) && !query.has(k)) { query.set(k, v); moved = true; }
+});
+if (moved) {
+var qs = query.toString();
+history.replaceState(history.state, '', location.pathname + (qs ? '?' + qs : '') + (anchor ? '#' + anchor : ''));
+}
+}
+} catch (e) { }
+function readCookie() {
+try {
+var m = document.cookie.match(/(?:^|; )aplia_attr=([^;]*)/);
+return m ? JSON.parse(decodeURIComponent(m[1])) : null;
+} catch (e) { return null; }
+}
+var stored = null;
+try { stored = JSON.parse(sessionStorage.getItem(COOKIE) || 'null'); } catch (e) { }
+if (!stored) stored = readCookie();
+try {
+var params = new URLSearchParams(location.search);
+var touch = {}, has = false;
+KEYS.forEach(function (k) {
+var v = params.get(k);
+if (v) { touch[k] = v.slice(0, 150); has = true; }
+});
+if (has) {
+touch.landing_page = location.pathname;
+try {
+var ref = document.referrer && new URL(document.referrer).hostname;
+if (ref && ref !== location.hostname) touch.referrer = ref;
+} catch (e) { }
+touch.ts = Date.now();
+stored = touch;
+var parts = [COOKIE + '=' + encodeURIComponent(JSON.stringify(touch)), 'path=/', 'max-age=' + MAX_AGE, 'SameSite=Lax'];
+if (/(^|\.)aplia\.com\.br$/.test(location.hostname)) parts.push('domain=.aplia.com.br');
+if (location.protocol === 'https:') parts.push('Secure');
+document.cookie = parts.join('; ');
+}
+if (stored) sessionStorage.setItem(COOKIE, JSON.stringify(stored));
+} catch (e) { }
+window.apliaAttribution = function () {
+var out = {};
+if (stored) for (var k in stored) out[k] = stored[k];
+return out;
+};
+function decorate(a) {
+try {
+if (!stored || !a.href || a.hostname !== 'app.aplia.com.br') return;
+var url = new URL(a.href);
+KEYS.forEach(function (k) {
+if (stored[k] && !url.searchParams.has(k)) url.searchParams.set(k, stored[k]);
+});
+a.href = url.toString();
+} catch (e) { }
+}
+function decorateAll() {
+var links = document.querySelectorAll('a[href*="app.aplia.com.br"]');
+for (var i = 0; i < links.length; i++) decorate(links[i]);
+}
+document.addEventListener('click', function (e) {
+var a = e.target && e.target.closest && e.target.closest('a[href*="app.aplia.com.br"]');
+if (a) decorate(a);
+}, true);
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', decorateAll);
+else decorateAll();
+})();
+</script>
+<!-- /aplia:head -->
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PTN93NBN');</script>
+<!-- End Google Tag Manager -->
+	<meta charset="UTF-8">
+	<!-- Meta Pixel Code -->
+	<script>
+		!function (f, b, e, v, n, t, s) {
+			if (f.fbq) return; n = f.fbq = function () {
+				n.callMethod ?
+					n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+			};
+			if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+			n.queue = []; t = b.createElement(e); t.async = !0;
+			t.src = v; s = b.getElementsByTagName(e)[0];
+			s.parentNode.insertBefore(t, s)
+		}(window, document, 'script',
+			'https://connect.facebook.net/en_US/fbevents.js');
+		fbq('init', '1885783109455550');
+		window.__apliaPvId = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : Date.now() + '-' + Math.random().toString(16).slice(2); fbq('track', 'PageView', {}, { eventID: window.__apliaPvId });
+	</script>
+	<noscript><img src="https://www.facebook.com/tr?id=1885783109455550&ev=PageView&noscript=1" height="1" width="1" style="display:none" /></noscript>
+	<!-- End Meta Pixel Code -->
+
+	<!-- Google tag (gtag.js) - Google Ads -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=AW-16734679755"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+		gtag('config', 'AW-16734679755', {
+			linker: { domains: ['aplia.com.br', 'app.aplia.com.br'] }
+		});
+	</script>
+	<!-- End Google Ads tag -->
+
+	<title>Aplia: o paciente que escreve às 23h não espera até amanhã</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="A Aplia responde no WhatsApp do seu consultório na hora, marca a consulta e confirma a presença. Teste como paciente, sem cadastro.">
+	<!-- Página de anúncio: fora do Google -->
+	<meta name="robots" content="noindex, nofollow">
+	<link rel="icon" href="/assets/img/favicon.png" type="image/png" />
+	<link rel="apple-touch-icon" href="/assets/img/favicon.png" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://aplia.com.br/avaliacao" />
+	<meta property="og:title" content="O paciente que escreve às 23h não espera até amanhã" />
+	<meta property="og:description" content="A secretária de IA que atende, agenda e confirma consultas no WhatsApp do seu consultório." />
+	<meta property="og:image" content="https://aplia.com.br/assets/img/favicon-og.png" />
+	<meta property="og:locale" content="pt_BR" />
+	<meta name="facebook-domain-verification" content="pwr5oqern4vtr4bsji136u74zn3ev0" />
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+		rel="stylesheet">
+	<style>
+	/* =========================================================================
+	   APLIA . SISTEMA DE DESIGN
+	   Arquetipo: Soft Structuralism (saude / consumer). Base clara, tipografia
+	   grotesca ampla, sombras ambientais difusas, bezel duplo nas superficies.
+	   Paleta ancorada no Manual de Marca 2025: navy #172138 principal,
+	   coral #EA545F secundario e reservado a acao.
+	   ========================================================================= */
+
+	*, *::before, *::after { box-sizing: border-box; }
+
+	:root {
+		--navy: #172138;
+		--navy-900: #0f1626;
+		--navy-800: #1f2c49;
+		--coral: #EA545F;
+		--coral-600: #d8434e;
+		--coral-050: #fef3f4;
+		--go: #15803d;
+		--go-050: #f0fdf4;
+
+		--paper: #ffffff;
+		--paper-2: #fafbfc;
+		--paper-3: #f3f5f8;
+		--ink: #172138;
+		--ink-2: #4c5668;
+		--ink-3: #7b8697;
+		--line: rgba(23, 33, 56, 0.08);
+		--line-2: rgba(23, 33, 56, 0.14);
+
+		--lift-1: 0 1px 2px rgba(23,33,56,.04), 0 4px 12px rgba(23,33,56,.04);
+		--lift-2: 0 2px 4px rgba(23,33,56,.03), 0 12px 32px rgba(23,33,56,.06);
+		--lift-3: 0 4px 8px rgba(23,33,56,.04), 0 24px 64px rgba(23,33,56,.10);
+
+		/* Escala concentrica para o bezel duplo */
+		--r-shell: 28px;
+		--r-core: 22px;
+		--r-card: 18px;
+		--r-inner: 12px;
+
+		/* Curvas com massa */
+		--spring: cubic-bezier(0.32, 0.72, 0, 1);
+		--glide: cubic-bezier(0.16, 1, 0.3, 1);
+
+		--wrap: 1200px;
+		--gutter: clamp(1.25rem, 4vw, 2rem);
+	}
+
+	html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+
+	body {
+		margin: 0;
+		font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+		font-size: 1rem;
+		line-height: 1.6;
+		color: var(--ink);
+		background: var(--paper);
+		-webkit-font-smoothing: antialiased;
+		text-rendering: optimizeLegibility;
+	}
+
+	img { max-width: 100%; height: auto; display: block; }
+	a { text-decoration: none; color: inherit; }
+	ul { list-style: none; margin: 0; padding: 0; }
+
+	/* --- Tipografia --------------------------------------------------------- */
+
+	h1, h2, h3, h4 {
+		margin: 0;
+		letter-spacing: -0.035em;
+		line-height: 1.08;
+		font-weight: 700;
+		text-wrap: balance;
+	}
+
+	h1 { font-size: clamp(2.25rem, 5vw, 3.75rem); }
+	h2 { font-size: clamp(1.875rem, 3.6vw, 2.875rem); }
+	h3 { font-size: 1.0625rem; font-weight: 600; letter-spacing: -0.015em; line-height: 1.35; }
+
+	p { margin: 0; color: var(--ink-2); }
+
+	.lede {
+		font-size: clamp(1.0625rem, 1.6vw, 1.1875rem);
+		line-height: 1.55;
+		color: var(--ink-2);
+		max-width: 34rem;
+		text-wrap: pretty;
+	}
+
+	.num { font-variant-numeric: tabular-nums; font-feature-settings: 'tnum'; }
+
+	/* --- Estrutura ---------------------------------------------------------- */
+
+	.wrap {
+		max-width: var(--wrap);
+		margin-inline: auto;
+		padding-inline: var(--gutter);
+	}
+
+	section { padding-block: clamp(4.5rem, 10vw, 8.5rem); }
+
+	.s-head { max-width: 44rem; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+	.s-head h2 { margin-bottom: 1rem; }
+	.s-head p { font-size: 1.0625rem; line-height: 1.6; max-width: 36rem; }
+
+	/* Selo discreto. Racionado: no maximo 1 a cada 3 secoes. */
+	.tag {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4375rem;
+		font-size: 0.75rem;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: var(--coral-600);
+		background: var(--coral-050);
+		border: 1px solid rgba(234,84,95,.18);
+		border-radius: 999px;
+		padding: 0.3125rem 0.75rem;
+		margin-bottom: 1.25rem;
+	}
+
+	/* --- Bezel duplo: casca externa + nucleo interno ------------------------ */
+
+	.shell {
+		background: var(--paper-3);
+		border: 1px solid var(--line);
+		border-radius: var(--r-shell);
+		padding: 6px;
+	}
+
+	.core {
+		background: var(--paper);
+		border-radius: var(--r-core);
+		box-shadow: inset 0 1px 0 rgba(255,255,255,.9), var(--lift-1);
+		height: 100%;
+	}
+
+	/* --- Botoes ------------------------------------------------------------- */
+
+	.btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.625rem;
+		font-family: inherit;
+		font-size: 0.9375rem;
+		font-weight: 600;
+		letter-spacing: -0.01em;
+		line-height: 1;
+		padding: 0.9375rem 1.125rem 0.9375rem 1.5rem;
+		border: 1px solid transparent;
+		border-radius: 999px;
+		cursor: pointer;
+		white-space: nowrap;
+		transition: background-color .45s var(--spring), border-color .45s var(--spring),
+			box-shadow .45s var(--spring), transform .2s var(--spring), color .45s var(--spring);
+	}
+
+	/* Icone aninhado no proprio circulo, encostado no padding direito */
+	.btn .pip {
+		width: 26px;
+		height: 26px;
+		flex: none;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 999px;
+		background: rgba(255,255,255,.18);
+		transition: transform .45s var(--spring), background-color .45s var(--spring);
+	}
+
+	.btn:hover .pip { transform: translate(2px, -1px) scale(1.06); }
+	.btn:active { transform: scale(.985); }
+
+	.btn svg { width: 14px; height: 14px; }
+
+	.btn-solid { background: var(--coral); color: #fff; box-shadow: 0 1px 2px rgba(23,33,56,.10); }
+	.btn-solid:hover { background: var(--coral-600); box-shadow: 0 10px 28px rgba(234,84,95,.28); }
+
+	.btn-navy { background: var(--navy); color: #fff; }
+	.btn-navy:hover { background: var(--navy-800); box-shadow: 0 10px 28px rgba(23,33,56,.22); }
+
+	.btn-ghost { background: var(--paper); color: var(--ink); border-color: var(--line-2); }
+	.btn-ghost:hover { background: var(--paper-3); border-color: rgba(23,33,56,.28); }
+	.btn-ghost .pip { background: rgba(23,33,56,.06); }
+
+	.btn-light { background: #fff; color: var(--navy); }
+	.btn-light:hover { background: var(--paper-3); box-shadow: 0 10px 28px rgba(0,0,0,.18); }
+	.btn-light .pip { background: rgba(23,33,56,.08); }
+
+	/* --- Navegacao: ilha flutuante ----------------------------------------- */
+
+	.nav-outer {
+		position: fixed;
+		inset-inline: 0;
+		top: 0;
+		z-index: 100;
+		padding: 0.875rem var(--gutter);
+		transition: padding .5s var(--spring);
+	}
+
+	.nav {
+		max-width: var(--wrap);
+		margin-inline: auto;
+		height: 62px;
+		display: flex;
+		align-items: center;
+		gap: 1.5rem;
+		padding: 0 0.5rem 0 1.25rem;
+		border-radius: 999px;
+		background: rgba(255,255,255,.72);
+		border: 1px solid transparent;
+		backdrop-filter: saturate(180%) blur(20px);
+		-webkit-backdrop-filter: saturate(180%) blur(20px);
+		transition: background-color .5s var(--spring), border-color .5s var(--spring),
+			box-shadow .5s var(--spring);
+	}
+
+	.nav-outer.stuck .nav {
+		background: rgba(255,255,255,.88);
+		border-color: var(--line);
+		box-shadow: var(--lift-2);
+	}
+
+	.brand img { height: 30px; width: auto; }
+
+	.nav-links {
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
+		margin-inline: auto;
+	}
+
+	.nav-links a {
+		position: relative;
+		font-size: 0.9375rem;
+		font-weight: 500;
+		color: var(--ink-2);
+		padding: 0.5rem 0.875rem;
+		border-radius: 999px;
+		transition: color .3s var(--glide), background-color .3s var(--glide);
+	}
+
+	.nav-links a:hover { color: var(--ink); background: rgba(23,33,56,.05); }
+	.nav-links a.active { color: var(--ink); font-weight: 600; }
+
+	.nav .btn { padding: 0.75rem 0.875rem 0.75rem 1.25rem; font-size: 0.875rem; }
+	.nav .btn .pip { width: 22px; height: 22px; }
+
+	/* Hamburguer que vira X */
+	.burger {
+		display: none;
+		width: 42px;
+		height: 42px;
+		border: 0;
+		background: transparent;
+		cursor: pointer;
+		position: relative;
+		flex: none;
+	}
+
+	.burger span {
+		position: absolute;
+		left: 11px;
+		width: 20px;
+		height: 1.5px;
+		background: var(--ink);
+		border-radius: 2px;
+		transition: transform .5s var(--spring), opacity .3s var(--spring);
+	}
+
+	.burger span:nth-child(1) { top: 16px; }
+	.burger span:nth-child(2) { top: 21px; }
+	.burger span:nth-child(3) { top: 26px; }
+
+	.burger.open span:nth-child(1) { transform: translateY(5px) rotate(45deg); }
+	.burger.open span:nth-child(2) { opacity: 0; transform: scaleX(.4); }
+	.burger.open span:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+
+	/* Menu mobile em tela cheia, com revelacao escalonada */
+	.sheet {
+		position: fixed;
+		inset: 0;
+		z-index: 99;
+		background: rgba(255,255,255,.94);
+		backdrop-filter: blur(28px);
+		-webkit-backdrop-filter: blur(28px);
+		padding: 7rem var(--gutter) 2.5rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+		opacity: 0;
+		visibility: hidden;
+		transition: opacity .5s var(--spring), visibility .5s;
+	}
+
+	.sheet.open { opacity: 1; visibility: visible; }
+
+	.sheet a {
+		font-size: 1.5rem;
+		font-weight: 600;
+		letter-spacing: -0.02em;
+		padding: 0.75rem 0;
+		border-bottom: 1px solid var(--line);
+		opacity: 0;
+		transform: translateY(14px);
+		transition: opacity .5s var(--spring), transform .5s var(--spring);
+	}
+
+	.sheet.open a { opacity: 1; transform: none; }
+	.sheet.open a:nth-child(1) { transition-delay: .06s; }
+	.sheet.open a:nth-child(2) { transition-delay: .10s; }
+	.sheet.open a:nth-child(3) { transition-delay: .14s; }
+	.sheet.open a:nth-child(4) { transition-delay: .18s; }
+	.sheet.open a:nth-child(5) { transition-delay: .22s; }
+
+	.sheet .btn { margin-top: 1.75rem; justify-content: center; }
+
+	/* --- Heroi -------------------------------------------------------------- */
+
+	.hero {
+		position: relative;
+		padding-top: clamp(7.5rem, 13vw, 10rem);
+		padding-bottom: clamp(3.5rem, 7vw, 5.5rem);
+		overflow: hidden;
+	}
+
+	/* Grafismo de fundo derivado da malha do simbolo, conforme manual */
+	.hero::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background-image: radial-gradient(circle at 1px 1px, rgba(23,33,56,.08) 1px, transparent 0);
+		background-size: 40px 40px;
+		-webkit-mask-image: radial-gradient(ellipse 60% 55% at 70% 38%, #000, transparent 72%);
+		mask-image: radial-gradient(ellipse 60% 55% at 70% 38%, #000, transparent 72%);
+		pointer-events: none;
+	}
+
+	.hero .wrap { position: relative; }
+
+	.hero-grid {
+		display: grid;
+		grid-template-columns: 1.02fr 0.98fr;
+		gap: clamp(2rem, 5vw, 4rem);
+		align-items: center;
+	}
+
+	.hero h1 { margin-bottom: 1.25rem; }
+	.hero .lede { margin-bottom: 1.75rem; }
+
+	.hero-cta { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.25rem; }
+
+	/* Reversao de risco logo abaixo dos botoes, onde a duvida aparece */
+	.risk {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.375rem 1.125rem;
+		font-size: 0.8125rem;
+		color: var(--ink-3);
+	}
+
+	.risk span { display: inline-flex; align-items: center; gap: 0.375rem; }
+	.risk svg { width: 14px; height: 14px; color: #16a34a; flex: none; }
+
+	/* --- Telefone com a conversa -------------------------------------------- */
+
+	.phone {
+		width: 100%;
+		max-width: 340px;
+		margin-inline: auto;
+		background: var(--navy);
+		border-radius: 42px;
+		padding: 9px;
+		box-shadow: var(--lift-3), 0 0 0 1px rgba(23,33,56,.06);
+	}
+
+	.phone-screen {
+		background: #ECE5DD;
+		border-radius: 34px;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+		height: 520px;
+	}
+
+	.chat-top {
+		display: flex;
+		align-items: center;
+		gap: 0.625rem;
+		padding: 0.875rem 0.875rem;
+		background: #075E54;
+		color: #fff;
+		flex: none;
+	}
+
+	.chat-avatar {
+		width: 34px;
+		height: 34px;
+		border-radius: 999px;
+		background: rgba(255,255,255,.22);
+		display: grid;
+		place-items: center;
+		font-size: 0.8125rem;
+		font-weight: 700;
+		flex: none;
+	}
+
+	.chat-who { font-size: 0.875rem; font-weight: 600; line-height: 1.2; }
+	.chat-state { font-size: 0.6875rem; opacity: .8; line-height: 1.2; }
+
+	.chat-body {
+		flex: 1;
+		overflow: hidden;
+		padding: 0.875rem 0.75rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.4375rem;
+		background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,.035) 1px, transparent 0);
+		background-size: 18px 18px;
+	}
+
+	.bubble {
+		max-width: 82%;
+		padding: 0.5rem 0.6875rem;
+		border-radius: 12px;
+		font-size: 0.8125rem;
+		line-height: 1.4;
+		color: #111b21;
+		box-shadow: 0 1px 1px rgba(0,0,0,.09);
+		opacity: 0;
+		transform: translateY(8px) scale(.98);
+		transition: opacity .45s var(--spring), transform .45s var(--spring);
+	}
+
+	.bubble.in { opacity: 1; transform: none; }
+
+	.bubble.them { align-self: flex-start; background: #fff; border-top-left-radius: 3px; }
+	.bubble.us { align-self: flex-end; background: #D9FDD3; border-top-right-radius: 3px; }
+
+	.bubble time {
+		display: block;
+		font-size: 0.5625rem;
+		color: rgba(17,27,33,.45);
+		text-align: right;
+		margin-top: 2px;
+	}
+
+	/* Indicador de digitacao: sinaliza que a resposta esta sendo composta */
+	.typing {
+		align-self: flex-end;
+		display: inline-flex;
+		gap: 3px;
+		background: #D9FDD3;
+		padding: 0.5625rem 0.6875rem;
+		border-radius: 12px;
+		border-top-right-radius: 3px;
+		box-shadow: 0 1px 1px rgba(0,0,0,.09);
+		opacity: 0;
+		transition: opacity .3s var(--spring);
+	}
+
+	.typing.in { opacity: 1; }
+	.typing i { width: 5px; height: 5px; border-radius: 999px; background: rgba(17,27,33,.35); animation: blink 1.3s infinite; }
+	.typing i:nth-child(2) { animation-delay: .18s; }
+	.typing i:nth-child(3) { animation-delay: .36s; }
+
+	@keyframes blink { 0%,60%,100% { opacity:.3; transform: translateY(0); } 30% { opacity:1; transform: translateY(-2px); } }
+
+	.chat-foot {
+		flex: none;
+		padding: 0.5rem 0.75rem 0.75rem;
+		font-size: 0.6875rem;
+		color: var(--ink-3);
+		background: #ECE5DD;
+		text-align: center;
+	}
+
+	/* --- Barra de contexto sob o heroi -------------------------------------- */
+
+	.strip { border-block: 1px solid var(--line); background: var(--paper-2); padding-block: 1.75rem; }
+
+	.strip-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 1.5rem;
+	}
+
+	.strip-item { display: flex; align-items: center; gap: 0.75rem; }
+	.strip-item svg { width: 19px; height: 19px; color: var(--navy); flex: none; }
+	.strip-item span { font-size: 0.875rem; font-weight: 500; color: var(--ink-2); line-height: 1.35; }
+
+	/* --- Problema: o custo do silencio -------------------------------------- */
+
+	.problem { background: var(--paper-3); }
+
+	.problem-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: clamp(2rem, 5vw, 4.5rem);
+		align-items: center;
+	}
+
+	.clock-list { display: flex; flex-direction: column; }
+
+	.clock-row {
+		display: grid;
+		grid-template-columns: 62px 1fr;
+		gap: 1rem;
+		align-items: baseline;
+		padding: 1rem 0;
+		border-bottom: 1px solid var(--line);
+	}
+
+	.clock-row:last-child { border-bottom: 0; }
+
+	.clock-row b {
+		font-size: 0.9375rem;
+		font-weight: 700;
+		color: var(--navy);
+		letter-spacing: -0.01em;
+	}
+
+	.clock-row p { font-size: 0.9375rem; line-height: 1.5; }
+	.clock-row.lost b { color: var(--coral); }
+
+	/* --- Bento: o que ela faz ----------------------------------------------- */
+
+	.bento {
+		display: grid;
+		grid-template-columns: repeat(6, 1fr);
+		gap: 1rem;
+	}
+
+	.cell {
+		background: var(--paper);
+		border: 1px solid var(--line);
+		border-radius: var(--r-card);
+		padding: 1.75rem;
+		box-shadow: var(--lift-1);
+		transition: transform .5s var(--spring), box-shadow .5s var(--spring), border-color .5s var(--spring);
+	}
+
+	.cell:hover { transform: translateY(-3px); box-shadow: var(--lift-2); border-color: var(--line-2); }
+
+	.cell-a { grid-column: span 4; }
+	.cell-b { grid-column: span 2; }
+	.cell-c { grid-column: span 2; }
+	.cell-d { grid-column: span 2; }
+	.cell-e { grid-column: span 2; }
+
+	/* Celula ancora, em navy, para quebrar o branco sobre branco */
+	.cell.dark {
+		background: var(--navy);
+		border-color: rgba(255,255,255,.08);
+		color: #fff;
+	}
+
+	.cell.dark h3 { color: #fff; }
+	.cell.dark p { color: rgba(255,255,255,.66); }
+	.cell.dark .ico { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.14); color: #fff; }
+
+	.ico {
+		width: 40px;
+		height: 40px;
+		display: grid;
+		place-items: center;
+		border-radius: var(--r-inner);
+		background: var(--paper-3);
+		border: 1px solid var(--line);
+		color: var(--navy);
+		margin-bottom: 1.125rem;
+	}
+
+	.ico svg { width: 19px; height: 19px; }
+
+	.cell h3 { margin-bottom: 0.5rem; }
+	.cell p { font-size: 0.9375rem; line-height: 1.55; }
+
+	/* --- Secoes de objecao: layout dividido --------------------------------- */
+
+	.split {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: clamp(2rem, 5vw, 4.5rem);
+		align-items: center;
+	}
+
+	.checks { display: flex; flex-direction: column; gap: 0.875rem; margin-top: 1.75rem; }
+	.checks li { display: flex; gap: 0.75rem; font-size: 0.9375rem; line-height: 1.5; color: var(--ink-2); }
+	.checks svg { width: 18px; height: 18px; color: var(--coral); flex: none; margin-top: 2px; }
+
+	/* Cartao de transparencia: assume o limite em vez de esconder */
+	.honest {
+		background: var(--paper-3);
+		border: 1px solid var(--line);
+		border-radius: var(--r-card);
+		padding: 1.5rem;
+	}
+
+	.honest h3 { margin-bottom: 0.5rem; }
+	.honest p { font-size: 0.9375rem; line-height: 1.55; }
+
+	/* --- Passos ------------------------------------------------------------- */
+
+	.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+
+	.step { position: relative; padding-top: 1.75rem; border-top: 2px solid var(--line); }
+	.step.first { border-top-color: var(--coral); }
+	.step b {
+		display: block;
+		font-size: 0.75rem;
+		font-weight: 700;
+		color: var(--ink-3);
+		letter-spacing: 0.02em;
+		margin-bottom: 0.625rem;
+	}
+	.step h3 { margin-bottom: 0.4375rem; }
+	.step p { font-size: 0.9375rem; line-height: 1.55; }
+
+	/* --- Impacto ------------------------------------------------------------ */
+
+	.impact { background: var(--navy); color: #fff; position: relative; overflow: hidden; }
+
+	.impact::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,.07) 1px, transparent 0);
+		background-size: 40px 40px;
+		-webkit-mask-image: radial-gradient(ellipse 60% 70% at 85% 30%, #000, transparent 70%);
+		mask-image: radial-gradient(ellipse 60% 70% at 85% 30%, #000, transparent 70%);
+	}
+
+	.impact .wrap { position: relative; }
+	.impact h2 { color: #fff; }
+	.impact .s-head p { color: rgba(255,255,255,.68); }
+
+	.figs { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.5rem, 4vw, 3rem); }
+
+	.fig { border-top: 1px solid rgba(255,255,255,.16); padding-top: 1.5rem; }
+
+	.fig b {
+		display: block;
+		font-size: clamp(2.5rem, 5vw, 3.5rem);
+		font-weight: 700;
+		line-height: 1;
+		letter-spacing: -0.04em;
+		color: #fff;
+		margin-bottom: 0.75rem;
+	}
+
+	.fig p { color: rgba(255,255,255,.68); font-size: 0.9375rem; line-height: 1.5; }
+
+	.source { margin-top: 2.5rem; font-size: 0.8125rem; color: rgba(255,255,255,.45); }
+
+	/* --- Precos ------------------------------------------------------------- */
+
+	.pricing { background: var(--paper-3); }
+
+	.plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; align-items: start; }
+
+	.plan {
+		background: var(--paper);
+		border: 1px solid var(--line);
+		border-radius: var(--r-card);
+		padding: 1.75rem;
+		box-shadow: var(--lift-1);
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+	}
+
+	.plan.pick {
+		border-color: var(--coral);
+		box-shadow: var(--lift-3);
+		position: relative;
+	}
+
+	.plan-top { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin-bottom: 0.5rem; }
+	.plan h3 { font-size: 1.0625rem; }
+
+	.pill {
+		font-size: 0.6875rem;
+		font-weight: 700;
+		letter-spacing: 0.03em;
+		text-transform: uppercase;
+		color: var(--coral-600);
+		background: var(--coral-050);
+		border: 1px solid rgba(234,84,95,.22);
+		border-radius: 999px;
+		padding: 0.25rem 0.5625rem;
+		white-space: nowrap;
+	}
+
+	.plan .desc { font-size: 0.875rem; line-height: 1.5; color: var(--ink-3); min-height: 4.5em; }
+
+	.plan .money { margin: 1.5rem 0 0.375rem; }
+	.plan .money b { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.03em; color: var(--go); }
+	.plan .money small { display: block; font-size: 0.875rem; color: var(--ink-3); margin-top: 0.25rem; }
+	.plan .money small strong { color: var(--ink-2); font-weight: 600; }
+
+	.plan .btn { width: 100%; margin: 1.25rem 0 1.5rem; justify-content: center; }
+
+		/* O margin-top auto empurrava as listas curtas para o rodape do cartao e
+	   abria um vao no meio. As listas passam a comecar logo apos o botao. */
+	.plan-feats { display: flex; flex-direction: column; gap: 0.625rem; }
+	.plan-feats li { display: flex; gap: 0.625rem; font-size: 0.875rem; line-height: 1.45; color: var(--ink-2); }
+	.plan-feats svg { width: 15px; height: 15px; color: var(--coral); flex: none; margin-top: 2px; }
+
+	.plan-feats .grp {
+		font-size: 0.75rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		color: var(--ink-3);
+		padding-top: 0.25rem;
+	}
+
+	/* Reversao de risco em faixa, logo abaixo dos planos */
+	.reassure {
+		margin-top: 1.75rem;
+		background: var(--paper);
+		border: 1px solid var(--line);
+		border-radius: var(--r-card);
+		padding: 1.25rem 1.5rem;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1.25rem;
+	}
+
+	.reassure div { display: flex; gap: 0.75rem; align-items: flex-start; }
+	.reassure svg { width: 18px; height: 18px; color: #16a34a; flex: none; margin-top: 2px; }
+	.reassure b { display: block; font-size: 0.875rem; font-weight: 600; color: var(--ink); }
+	.reassure p { font-size: 0.8125rem; line-height: 1.45; color: var(--ink-3); }
+
+	/* --- FAQ ---------------------------------------------------------------- */
+
+	.faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem 1.5rem; align-items: start; }
+
+	.q {
+		border: 1px solid var(--line);
+		border-radius: var(--r-inner);
+		background: var(--paper);
+		overflow: hidden;
+		transition: border-color .4s var(--glide), box-shadow .4s var(--glide);
+	}
+
+	.q.open { border-color: var(--line-2); box-shadow: var(--lift-1); }
+
+	.q > button {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		text-align: left;
+		font-family: inherit;
+		font-size: 0.9375rem;
+		font-weight: 600;
+		letter-spacing: -0.01em;
+		color: var(--ink);
+		background: transparent;
+		border: 0;
+		padding: 1.0625rem 1.125rem;
+		cursor: pointer;
+	}
+
+	.q > button svg { width: 15px; height: 15px; color: var(--ink-3); flex: none; transition: transform .45s var(--spring); }
+	.q.open > button svg { transform: rotate(180deg); }
+
+	.q-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .45s var(--spring); }
+	.q.open .q-body { grid-template-rows: 1fr; }
+	.q-body > div { overflow: hidden; }
+	.q-body p { font-size: 0.9375rem; line-height: 1.6; padding: 0 1.125rem 1.125rem; }
+
+	/* --- Fechamento --------------------------------------------------------- */
+
+	.close-cta { background: var(--navy); color: #fff; text-align: center; }
+	.close-cta h2 { color: #fff; margin-bottom: 1rem; }
+	.close-cta p { color: rgba(255,255,255,.68); font-size: 1.0625rem; max-width: 32rem; margin: 0 auto 2rem; }
+	.close-cta .row { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
+	.close-cta .risk { justify-content: center; margin-top: 1.5rem; color: rgba(255,255,255,.55); }
+	.close-cta .risk svg { color: #4ade80; }
+
+	/* Botao destacado ao chegar por #abrir-avaliacao: pulso curto, sem abrir nada */
+	.btn.is-highlighted { animation: btn-pulse 1.4s var(--glide) 3; }
+	@keyframes btn-pulse {
+		0%, 100% { box-shadow: 0 0 0 0 rgba(234,84,95,.55); }
+		60% { box-shadow: 0 0 0 14px rgba(234,84,95,0); }
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.btn.is-highlighted { animation: none; outline: 3px solid var(--coral); outline-offset: 3px; }
+	}
+
+	/* --- Rodape -------------------------------------------------------------- */
+
+	.foot { background: var(--navy-900); color: rgba(255,255,255,.62); padding-block: clamp(3rem, 6vw, 4.5rem) 2rem; }
+	.foot-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 2.5rem; }
+	.foot img { height: 30px; width: auto; margin-bottom: 1rem; }
+	.foot p { color: rgba(255,255,255,.55); font-size: 0.875rem; line-height: 1.6; max-width: 22rem; }
+	.foot h4 { font-size: 0.8125rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem; }
+	.foot li { margin-bottom: 0.625rem; }
+	.foot a { font-size: 0.875rem; color: rgba(255,255,255,.62); transition: color .3s var(--glide); }
+	.foot a:hover { color: #fff; }
+	.foot-end { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,.1); font-size: 0.8125rem; color: rgba(255,255,255,.4); }
+
+	/* --- Foco visivel -------------------------------------------------------- */
+
+	a:focus-visible, button:focus-visible, input:focus-visible,
+	select:focus-visible, textarea:focus-visible {
+		outline: 2px solid var(--coral);
+		outline-offset: 3px;
+		border-radius: var(--r-inner);
+	}
+
+	/* --- Entrada em cena ----------------------------------------------------- */
+
+	@media (prefers-reduced-motion: no-preference) {
+		.rise { opacity: 0; transform: translateY(22px); transition: opacity .8s var(--glide), transform .8s var(--glide); }
+		.rise.visible { opacity: 1; transform: none; }
+		.rise.d1 { transition-delay: .07s; }
+		.rise.d2 { transition-delay: .14s; }
+		.rise.d3 { transition-delay: .21s; }
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		html { scroll-behavior: auto; }
+		.rise, .bubble, .typing { opacity: 1 !important; transform: none !important; }
+		*, *::before, *::after {
+			animation-duration: .01ms !important;
+			animation-iteration-count: 1 !important;
+			transition-duration: .01ms !important;
+		}
+	}
+
+	/* --- Responsivo ---------------------------------------------------------- */
+
+	@media (max-width: 1024px) {
+		.hero-grid { grid-template-columns: 1fr; gap: 3rem; }
+		.hero .lede { max-width: 38rem; }
+		.strip-grid { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+		.problem-grid, .split { grid-template-columns: 1fr; gap: 2.5rem; }
+		.bento { grid-template-columns: repeat(2, 1fr); }
+		.cell-a, .cell-b, .cell-c, .cell-d, .cell-e { grid-column: span 1; }
+		.cell-a { grid-column: span 2; }
+		.steps { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+		.plans { grid-template-columns: 1fr; max-width: 30rem; margin-inline: auto; }
+		.faq-grid { grid-template-columns: 1fr; }
+		.foot-grid { grid-template-columns: 1fr 1fr; }
+	}
+
+	@media (max-width: 860px) {
+		.nav-links { display: none; }
+		.nav > .btn { display: none; }
+		.burger { display: block; margin-inline-start: auto; }
+		.nav { padding-inline: 1rem 0.5rem; }
+	}
+
+	@media (max-width: 640px) {
+		section { padding-block: 3.5rem; }
+		.strip-grid { grid-template-columns: 1fr; gap: 1rem; }
+		.figs { grid-template-columns: 1fr; gap: 1.75rem; }
+		.bento { grid-template-columns: 1fr; }
+		.cell-a { grid-column: span 1; }
+		.steps { grid-template-columns: 1fr; }
+		.reassure { grid-template-columns: 1fr; gap: 1rem; }
+		.foot-grid { grid-template-columns: 1fr; gap: 2rem; }
+		/* Botao na largura do proprio conteudo, alinhado a esquerda. Esticado
+		   para os 390px sobrava pilula vazia demais, com ou sem o conteudo
+		   centralizado. A altura ja garante o alvo de toque. */
+		.hero-cta { flex-direction: column; align-items: flex-start; }
+		.hero-cta .btn { width: auto; justify-content: flex-start; }
+		.phone { max-width: 300px; }
+		.phone-screen { height: 470px; }
+	}
+	
+	/* --- Ajustes do heroi apos revisao visual ------------------------------- */
+
+	/* A 3.75rem o titulo quebrava em tres linhas na coluna de texto */
+	.hero h1 { font-size: clamp(2.125rem, 4vw, 3rem); }
+
+	/* Conversa ancorada embaixo, como num WhatsApp de verdade: as mensagens
+	   sobem a partir do rodape em vez de escorrer de cima. */
+	.chat-body { justify-content: flex-end; }
+
+
+	
+	/* =========================================================================
+	   APARELHO E CONVERSA . revisao
+	   Moldura no formato de iPhone: ilha dinamica, barra de status, botoes
+	   laterais, bisel fino e raios concentricos.
+	   ========================================================================= */
+
+	.phone {
+		position: relative;
+		width: 100%;
+		max-width: 328px;
+		margin-inline: auto;
+		background: linear-gradient(150deg, #33405c 0%, #172138 38%, #0d1424 100%);
+		border-radius: 52px;
+		padding: 11px;
+		box-shadow:
+			0 0 0 1px rgba(23,33,56,.55),
+			inset 0 1px 1px rgba(255,255,255,.22),
+			0 32px 70px -18px rgba(23,33,56,.42),
+			0 12px 28px -12px rgba(23,33,56,.22);
+	}
+
+	/* Botoes laterais, so o suficiente para o olho reconhecer o objeto */
+	.phone-side {
+		position: absolute;
+		width: 2px;
+		background: linear-gradient(180deg, #46536e, #26314a);
+		border-radius: 2px;
+	}
+
+	.phone-side.left { left: -2px; top: 132px; height: 34px; box-shadow: 0 54px 0 #313d58, 0 104px 0 #313d58; }
+	.phone-side.right { right: -2px; top: 168px; height: 76px; }
+
+	.phone-screen {
+		position: relative;
+		background: #ECE5DD;
+		border-radius: 42px;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+		height: 546px;
+	}
+
+	/* Barra de status com a ilha dinamica ao centro */
+	.phone-status {
+		flex: none;
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		height: 38px;
+		padding: 0 1.375rem 0 1.5rem;
+		background: #075E54;
+		color: #fff;
+		font-size: 0.75rem;
+		font-weight: 600;
+		letter-spacing: -0.01em;
+	}
+
+	.phone-island {
+		position: absolute;
+		left: 50%;
+		top: 7px;
+		transform: translateX(-50%);
+		width: 84px;
+		height: 24px;
+		background: #05100f;
+		border-radius: 999px;
+	}
+
+	.phone-meta { display: inline-flex; align-items: center; gap: 5px; }
+	.phone-meta svg { width: 15px; height: 15px; }
+
+	.chat-top {
+		display: flex;
+		align-items: center;
+		gap: 0.625rem;
+		padding: 0.5rem 0.875rem 0.75rem;
+		background: #075E54;
+		color: #fff;
+		flex: none;
+	}
+
+	.chat-avatar {
+		width: 36px;
+		height: 36px;
+		flex: none;
+		display: grid;
+		place-items: center;
+		border-radius: 999px;
+		background: #fff;
+		box-shadow: 0 1px 3px rgba(0,0,0,.2);
+	}
+
+	.chat-avatar svg { width: 19px; height: 19px; fill: var(--coral); }
+
+	.chat-id { min-width: 0; }
+
+	.chat-who {
+		font-size: 0.8125rem;
+		font-weight: 600;
+		line-height: 1.25;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.chat-state { font-size: 0.6875rem; opacity: .78; line-height: 1.25; }
+
+	.chat-body { padding: 0.875rem 0.6875rem; gap: 0.375rem; }
+
+	.chat-foot {
+		flex: none;
+		padding: 0.5rem 0.75rem 0.875rem;
+		font-size: 0.6875rem;
+		color: var(--ink-3);
+		background: #ECE5DD;
+		text-align: center;
+	}
+
+	@media (max-width: 640px) {
+		.phone { max-width: 292px; border-radius: 46px; padding: 9px; }
+		.phone-screen { height: 492px; border-radius: 38px; }
+	}
+
+	
+	/* =========================================================================
+	   TEXTURA . revisao
+	   O padrao geometrico do simbolo foi retirado. No lugar, a gramatica que
+	   Revolut, Nubank e Stripe usam: wash de luz colorida em opacidade muito
+	   baixa, malha de pontos quase imperceptivel e sombra ambiental difusa.
+	   Nada de forma reconhecivel repetida.
+	   ========================================================================= */
+
+	.hero::before {
+		content: "";
+		position: absolute;
+		inset: -20% -10% auto -10%;
+		height: 150%;
+		background:
+			radial-gradient(ellipse 48% 42% at 78% 22%, rgba(234, 84, 95, .13), transparent 62%),
+			radial-gradient(ellipse 52% 46% at 18% 12%, rgba(23, 33, 56, .07), transparent 60%),
+			radial-gradient(ellipse 60% 40% at 50% 100%, rgba(234, 84, 95, .05), transparent 65%);
+		filter: blur(12px);
+		pointer-events: none;
+		-webkit-mask-image: none;
+		mask-image: none;
+	}
+
+	/* Malha de pontos em segundo plano, so o suficiente para o fundo nao ser
+	   uma chapa branca. Desaparece antes de virar padrao. */
+	.hero::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background-image: radial-gradient(circle at 1px 1px, rgba(23, 33, 56, .16) 0.6px, transparent 0);
+		background-size: 22px 22px;
+		opacity: .5;
+		-webkit-mask-image: linear-gradient(180deg, #000 0%, rgba(0,0,0,.5) 55%, transparent 92%);
+		mask-image: linear-gradient(180deg, #000 0%, rgba(0,0,0,.5) 55%, transparent 92%);
+		pointer-events: none;
+	}
+
+	/* A secao escura ganha o mesmo tratamento, com luz fria vinda do alto */
+	.impact::before {
+		background:
+			radial-gradient(ellipse 50% 45% at 82% 8%, rgba(234, 84, 95, .18), transparent 62%),
+			radial-gradient(ellipse 45% 40% at 12% 100%, rgba(120, 160, 255, .08), transparent 60%);
+		background-size: auto;
+		-webkit-mask-image: none;
+		mask-image: none;
+		filter: blur(8px);
+	}
+
+	.close-cta { position: relative; overflow: hidden; }
+
+	.close-cta::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background: radial-gradient(ellipse 55% 70% at 50% 0%, rgba(234, 84, 95, .16), transparent 62%);
+		pointer-events: none;
+	}
+
+	.close-cta .wrap { position: relative; }
+
+	/* Sombra ambiental sob o aparelho: o objeto passa a pousar na pagina */
+	.phone::after {
+		content: "";
+		position: absolute;
+		left: 50%;
+		bottom: -34px;
+		transform: translateX(-50%);
+		width: 74%;
+		height: 44px;
+		background: radial-gradient(ellipse at center, rgba(23, 33, 56, .22), transparent 70%);
+		filter: blur(18px);
+		pointer-events: none;
+		z-index: -1;
+	}
+
+	.phone { z-index: 0; }
+
+	
+	/* =========================================================================
+	   RITMO E BENTO . revisao
+	   ========================================================================= */
+
+	/* O respiro entre secoes chegava a 272px somados. Reduzido para uma
+	   cadencia que ainda respira sem partir a leitura ao meio. */
+	section { padding-block: clamp(3.5rem, 6vw, 5.25rem); }
+
+	.s-head { margin-bottom: clamp(2rem, 3.5vw, 2.75rem); }
+
+	/* Colunas de altura desigual deixavam um vazio no pe da secao */
+	.split, .problem-grid { align-items: stretch; }
+	.split > *, .problem-grid > * { display: flex; flex-direction: column; justify-content: center; }
+
+	/* --- Bento ------------------------------------------------------------- */
+
+	.bento { grid-auto-rows: minmax(0, auto); gap: 0.875rem; }
+
+	.cell-a { grid-column: span 4; display: flex; flex-direction: column; gap: 1.25rem; }
+	.cell-b { grid-column: span 2; }
+	.cell-c { grid-column: span 2; }
+	.cell-d { grid-column: span 2; }
+	.cell-e { grid-column: span 2; }
+	.cell-f { grid-column: span 6; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+
+	.cell-copy { flex: 1; min-width: 15rem; }
+	.cell-copy .ico { margin-bottom: 1rem; }
+
+	/* Celula tingida: o coral aparece uma vez na grade, sem virar decoracao */
+	.cell.tint {
+		background: linear-gradient(160deg, var(--coral-050), var(--paper) 72%);
+		border-color: rgba(234, 84, 95, .2);
+	}
+
+	.cell.tint .ico { background: #fff; border-color: rgba(234, 84, 95, .22); color: var(--coral-600); }
+
+	/* Fragmento de conversa dentro da celula escura: o produto aparece,
+	   em vez de ser descrito */
+	.mini-chat { display: flex; flex-direction: column; gap: 0.375rem; margin-top: auto; }
+
+	.mini {
+		max-width: 88%;
+		font-size: 0.8125rem;
+		line-height: 1.4;
+		padding: 0.5rem 0.75rem;
+		border-radius: 12px;
+	}
+
+	.mini.them { align-self: flex-start; background: rgba(255,255,255,.1); color: rgba(255,255,255,.88); border-top-left-radius: 3px; }
+	.mini.us { align-self: flex-end; background: #D9FDD3; color: #111b21; border-top-right-radius: 3px; }
+
+	/* Fichas de horario e de categoria */
+	.chips { display: flex; flex-wrap: wrap; gap: 0.375rem; margin-top: 1.125rem; }
+
+	.chips span {
+		font-size: 0.75rem;
+		font-weight: 600;
+		color: var(--ink-2);
+		background: var(--paper-3);
+		border: 1px solid var(--line);
+		border-radius: 999px;
+		padding: 0.3125rem 0.625rem;
+		white-space: nowrap;
+	}
+
+	.chips span.off { color: var(--ink-3); opacity: .55; text-decoration: line-through; }
+	.chips.wide { margin-top: 0; flex: none; }
+
+	@media (max-width: 1024px) {
+		.cell-a { grid-column: span 2; }
+		.cell-f { grid-column: span 2; }
+		.cell-b, .cell-c, .cell-d, .cell-e { grid-column: span 1; }
+	}
+
+	@media (max-width: 640px) {
+		.cell-a, .cell-b, .cell-c, .cell-d, .cell-e, .cell-f { grid-column: span 1; }
+		.cell-f { align-items: flex-start; flex-direction: column; gap: 1.125rem; }
+		.chips.wide { margin-top: 0; }
+	}
+
+	
+	/* Relatorios: linha horizontal, icone junto do titulo */
+	.cell-line { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; }
+	.cell-line .ico { margin-bottom: 0; }
+	.cell-f .cell-copy { min-width: 18rem; }
+
+
+	
+	/* =========================================================================
+	   REVISAO CRITICA . celula de destaque, passos e conversa rolavel
+	   ========================================================================= */
+
+	/* O bloco navy solido dominava a grade inteira. Vira superficie clara com
+	   um halo de luz: continua sendo a celula principal, sem pesar. */
+	.cell.glow {
+		background:
+			radial-gradient(ellipse 70% 100% at 0% 0%, rgba(23, 33, 56, .05), transparent 60%),
+			radial-gradient(ellipse 60% 90% at 100% 100%, rgba(234, 84, 95, .06), transparent 62%),
+			var(--paper);
+		border-color: var(--line-2);
+	}
+
+	.cell.glow h3 { color: var(--ink); }
+	.cell.glow p { color: var(--ink-2); }
+	.cell.glow .ico { background: var(--navy); border-color: var(--navy); color: #fff; }
+
+	.cell.glow .mini.them {
+		background: var(--paper);
+		color: var(--ink);
+		border: 1px solid var(--line);
+		box-shadow: var(--lift-1);
+	}
+
+	.cell.glow .mini.us {
+		background: #D9FDD3;
+		color: #111b21;
+		border: 1px solid rgba(17,27,33,.06);
+	}
+
+	/* --- Passos: numeral em destaque e trilho ligando a sequencia ----------- */
+
+	.steps { gap: 1.25rem; }
+
+	.step {
+		position: relative;
+		border-top: 0;
+		padding-top: 0;
+		padding-inline-start: 0;
+	}
+
+	.step-n {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 44px;
+		height: 44px;
+		border-radius: 14px;
+		font-size: 0.9375rem;
+		font-weight: 700;
+		font-variant-numeric: tabular-nums;
+		letter-spacing: -0.02em;
+		color: var(--coral-600);
+		background: linear-gradient(150deg, var(--coral-050), #fff 75%);
+		border: 1px solid rgba(234, 84, 95, .22);
+		box-shadow: var(--lift-1);
+		margin-bottom: 1.125rem;
+	}
+
+	/* O quarto passo e a conclusao: numeral cheio, como um estado final */
+	.step:last-child .step-n {
+		color: #fff;
+		background: linear-gradient(150deg, var(--coral), var(--coral-600));
+		border-color: transparent;
+		box-shadow: 0 6px 18px rgba(234, 84, 95, .3);
+	}
+
+	/* Trilho horizontal ligando os numerais */
+	.step::after {
+		content: "";
+		position: absolute;
+		top: 22px;
+		left: 56px;
+		right: -1.25rem;
+		height: 1px;
+		background: linear-gradient(90deg, rgba(234,84,95,.28), rgba(23,33,56,.08));
+	}
+
+	.step:last-child::after { display: none; }
+
+	.step h3 { margin-bottom: 0.4375rem; }
+	.step p { font-size: 0.9375rem; line-height: 1.55; }
+
+	@media (max-width: 1024px) {
+		.step:nth-child(2n)::after { display: none; }
+	}
+
+	@media (max-width: 640px) {
+		.step::after { display: none; }
+		.step-n { width: 38px; height: 38px; border-radius: 12px; margin-bottom: 0.875rem; }
+	}
+
+	/* --- Conversa: rolavel depois que a encenacao termina ------------------- */
+
+	.chat-body {
+		overflow-y: hidden;
+		overscroll-behavior: contain;
+		scrollbar-width: thin;
+		scrollbar-color: rgba(17,27,33,.2) transparent;
+	}
+
+	.chat-body.done { overflow-y: auto; }
+	.chat-body.done::-webkit-scrollbar { width: 5px; }
+	.chat-body.done::-webkit-scrollbar-track { background: transparent; }
+	.chat-body.done::-webkit-scrollbar-thumb { background: rgba(17,27,33,.18); border-radius: 999px; }
+
+	
+	/* A celula principal precisa de presenca sem virar bloco de cor. Superficie
+	   levemente mais fria que o papel, com borda definida. */
+	.cell.glow {
+		background: linear-gradient(158deg, #eaeef5 0%, #f4f6fa 42%, #fdfdfe 100%);
+		border-color: rgba(23, 33, 56, .12);
+		box-shadow: var(--lift-2);
+	}
+
+	.cell.glow .mini.them {
+		background: #fff;
+		border-color: rgba(23,33,56,.10);
+	}
+
+	/* O cabecalho da secao cabia em uma linha; a restricao de largura o
+	   quebrava sem motivo */
+	#features .s-head { max-width: 52rem; }
+
+
+	
+	/* A divisao de trabalho e o argumento central da secao: ganha peso de
+	   superficie em vez de ficar como cartao pequeno ao lado do titulo. */
+	.honest, .split .shell .core { padding: 1.75rem 1.75rem 1.5rem; }
+
+	.split .clock-row { padding: 1.125rem 0; }
+	.split .clock-row:first-child { padding-top: 0; }
+
+	.split .clock-row b {
+		font-size: 0.8125rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+	}
+
+
+	
+	/* A especificacao converte o display de todo filho de flex container, entao
+	   o inline-flex do selo virava flex e ele esticava para a coluna inteira. */
+	.tag { align-self: flex-start; }
+
+	/* --- Malha de pontos na secao da objecao -------------------------------- */
+
+	#conversa { position: relative; overflow: hidden; background: var(--paper); }
+
+	#conversa::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background-image: radial-gradient(circle at center, rgba(23, 33, 56, .34) 1.6px, transparent 1.7px);
+		background-size: 40px 40px;
+		/* A malha nasce densa no miolo e se dissolve em direcao as bordas.
+		   Duas mascaras multiplicadas: uma elipse que abre do centro e um
+		   esvanecimento vertical, para o padrao nao terminar em linha reta. */
+		/* A malha cobre a secao e esvanece no topo e na base. O espaco livre
+		   do conteudo e aberto pelo veu da coluna de texto, abaixo. */
+		-webkit-mask-image: linear-gradient(180deg, transparent 0, #000 9%, #000 91%, transparent 100%);
+		mask-image: linear-gradient(180deg, transparent 0, #000 9%, #000 91%, transparent 100%);
+		pointer-events: none;
+	}
+
+	#conversa > .wrap { position: relative; z-index: 1; }
+
+
+	
+	/* Esticar o cartao espalhava o conteudo. Ele fica na altura natural e
+	   alinhado ao topo, para comecar na mesma linha do texto ao lado. */
+	.split > * { justify-content: flex-start; }
+	.split .shell { align-self: flex-start; }
+
+
+	
+	/* =========================================================================
+	   IMPACTO . faixa horizontal compacta
+	   A secao ocupava uma tela inteira para tres numeros. Vira uma banda:
+	   titulo a esquerda, numeros em linha, separados por fio vertical.
+	   ========================================================================= */
+
+	.impact { padding-block: clamp(2.75rem, 4.5vw, 4rem); }
+
+	.impact-band {
+		display: grid;
+		grid-template-columns: minmax(14rem, 0.85fr) 2fr;
+		gap: clamp(2rem, 5vw, 4rem);
+		align-items: center;
+	}
+
+	.impact-lead h2 {
+		font-size: clamp(1.5rem, 2.4vw, 2rem);
+		line-height: 1.12;
+		margin-bottom: 0.625rem;
+	}
+
+	.impact-lead .source { margin-top: 0; font-size: 0.75rem; max-width: 18rem; }
+
+	.figs { grid-template-columns: repeat(3, 1fr); gap: 0; }
+
+	.fig {
+		border-top: 0;
+		padding: 0 clamp(1rem, 2vw, 1.75rem);
+		border-inline-start: 1px solid rgba(255,255,255,.14);
+	}
+
+	.fig:first-child { padding-inline-start: 0; border-inline-start: 0; }
+
+	.fig b {
+		font-size: clamp(2rem, 3.4vw, 2.75rem);
+		margin-bottom: 0.4375rem;
+	}
+
+	.fig p { font-size: 0.875rem; line-height: 1.45; }
+
+	@media (max-width: 900px) {
+		.impact-band { grid-template-columns: 1fr; gap: 2rem; }
+		.figs { gap: 1.5rem 0; }
+	}
+
+	@media (max-width: 640px) {
+		.figs { grid-template-columns: 1fr; }
+		.fig {
+			padding: 1rem 0 0;
+			border-inline-start: 0;
+			border-top: 1px solid rgba(255,255,255,.14);
+		}
+		.fig:first-child { padding-top: 0; border-top: 0; }
+	}
+
+
+	
+	/* =========================================================================
+	   IMPACTO . faixa horizontal compacta
+	   A secao ocupava uma tela inteira para tres numeros. Vira uma banda:
+	   titulo a esquerda, numeros em linha, separados por fio vertical.
+	   ========================================================================= */
+
+	.impact { padding-block: clamp(2.75rem, 4.5vw, 4rem); }
+
+	.impact-band {
+		display: grid;
+		grid-template-columns: minmax(14rem, 0.85fr) 2fr;
+		gap: clamp(2rem, 5vw, 4rem);
+		align-items: center;
+	}
+
+	.impact-lead h2 {
+		font-size: clamp(1.5rem, 2.4vw, 2rem);
+		line-height: 1.12;
+		margin-bottom: 0.625rem;
+	}
+
+	.impact-lead .source { margin-top: 0; font-size: 0.75rem; max-width: 18rem; }
+
+	.figs { grid-template-columns: repeat(3, 1fr); gap: 0; }
+
+	.fig {
+		border-top: 0;
+		padding: 0 clamp(1rem, 2vw, 1.75rem);
+		border-inline-start: 1px solid rgba(255,255,255,.14);
+	}
+
+	.fig:first-child { padding-inline-start: 0; border-inline-start: 0; }
+
+	.fig b {
+		font-size: clamp(2rem, 3.4vw, 2.75rem);
+		margin-bottom: 0.4375rem;
+	}
+
+	.fig p { font-size: 0.875rem; line-height: 1.45; }
+
+	@media (max-width: 900px) {
+		.impact-band { grid-template-columns: 1fr; gap: 2rem; }
+		.figs { gap: 1.5rem 0; }
+	}
+
+	@media (max-width: 640px) {
+		.figs { grid-template-columns: 1fr; }
+		.fig {
+			padding: 1rem 0 0;
+			border-inline-start: 0;
+			border-top: 1px solid rgba(255,255,255,.14);
+		}
+		.fig:first-child { padding-top: 0; border-top: 0; }
+	}
+
+
+	
+	/* O veu anterior usava percentuais da secao, entao em telas largas ele
+	   errava o alvo e os pontos voltavam a cruzar o texto. Agora cada bloco
+	   de copy carrega o proprio veu, que acompanha o elemento em qualquer
+	   largura. As caixas com fundo proprio nao precisam. */
+
+	#conversa .split > div { position: relative; }
+
+	#conversa .split > div:first-child > .tag,
+	#conversa .split > div:first-child > h2,
+	#conversa .split > div:first-child > .lede,
+	#conversa .split > div:first-child > .checks {
+		position: relative;
+	}
+
+	#conversa .split > div:first-child > h2::before,
+	#conversa .split > div:first-child > .lede::before,
+	#conversa .split > div:first-child > .checks::before {
+		content: "";
+		position: absolute;
+		inset: -0.875rem -1.5rem;
+		background: var(--paper);
+		border-radius: 28px;
+		filter: blur(16px);
+		z-index: -1;
+	}
+
+
+	
+	/* Veu unico sobre a coluna de texto. Como e um bloco so, nao sobra malha
+	   entre um paragrafo e outro, que era o defeito dos veus por elemento.
+	   As caixas com fundo proprio param a malha sozinhas, e o que fica livre
+	   acima do conteudo, abaixo do cartao da direita e nas margens segue
+	   com pontos. */
+	#conversa .split > div:first-child { position: relative; }
+
+	#conversa .split > div:first-child::before {
+		content: "";
+		position: absolute;
+		inset: -1.25rem -1.75rem -1.25rem -2rem;
+		background: var(--paper);
+		border-radius: 36px;
+		filter: blur(20px);
+		z-index: -1;
+	}
+
+
+	
+	/* Ressalva sobre a integracao, em peso menor que o recurso em si */
+	.cell-note {
+		margin-top: 0.75rem;
+		font-size: 0.8125rem;
+		line-height: 1.45;
+		color: var(--ink-3);
+	}
+
+	/* O Enterprise nao tem periodo gratis: o preco dele segue em navy */
+	.plan:last-child .money b { color: var(--ink); }
+
+
+	
+	/* --- Rodape: coluna de contato ----------------------------------------- */
+
+	.foot-grid { grid-template-columns: 1.7fr 1fr 1fr 1fr; }
+
+	.foot-contact a { display: inline-flex; align-items: center; gap: 0.5rem; }
+	.foot-contact svg { width: 16px; height: 16px; flex: none; opacity: .8; }
+	.foot-contact a:hover svg { opacity: 1; }
+
+	@media (max-width: 1024px) {
+		.foot-grid { grid-template-columns: 1fr 1fr; }
+	}
+
+	@media (max-width: 640px) {
+		.foot-grid { grid-template-columns: 1fr; }
+	}
+
+
+	
+	/* O selo do heroi nomeia a categoria e traz o unico ponto de coral acima
+	   da dobra que nao e botao. O titulo segue em navy: colorir o H1
+	   inverteria a hierarquia do manual. */
+	.hero .tag { margin-bottom: 1rem; }
+
+
+	
+	/* O selo do heroi virou frase, nao rotulo: caixa-alta com espacamento de
+	   letra alargava demais e quebrava em duas linhas no celular. */
+	.hero .tag {
+		margin-bottom: 1rem;
+		text-transform: none;
+		letter-spacing: -0.005em;
+		font-size: 0.8125rem;
+		font-weight: 600;
+	}
+
+
+	
+	/* Celular (inclusive o navegador do Instagram, ~360x640 util): os dois
+	   botoes do heroi precisam aparecer sem rolar e acima do aviso de cookies */
+	@media (max-width: 640px) {
+		.hero { padding-top: 6.25rem; padding-bottom: 3rem; }
+		.hero h1 { margin-bottom: 0.875rem; }
+		.hero .lede { font-size: 1rem; line-height: 1.5; margin-bottom: 1.25rem; }
+		.hero-cta { gap: 0.625rem; margin-bottom: 1rem; }
+	}
+
+	/* O titulo do FAQ passava por pouco dos 44rem do bloco e quebrava em duas
+	   linhas. Nowrap no desktop, com a quebra liberada no celular. */
+	#faq .s-head { max-width: 52rem; }
+	#faq h2 { text-wrap: nowrap; }
+
+	@media (max-width: 640px) {
+		#faq h2 { text-wrap: balance; }
+	}
+
+
+	
+	/* Botao de largura total agrupa rotulo e icone no centro. Com
+	   space-between os dois iam para os extremos e o vao no meio fazia o
+	   botao parecer esticado, sobretudo no celular. */
+	.close-cta .btn { justify-content: center; }
+
+	@media (max-width: 640px) {
+		.close-cta .row { flex-direction: column; align-items: center; }
+		.close-cta .btn { width: auto; }
+	}
+
+
+	</style>
+
+	<style>
+	/* =========================================================================
+	   /avaliacao . pagina de anuncio
+	   Usa o sistema da home (CSS acima, copiado de index.html). Aqui so o que
+	   e proprio desta pagina. Ao mudar o sistema na home, copie o bloco
+	   <style> de la para ca.
+	   ========================================================================= */
+
+	.lp-nav { position: absolute; top: 0; left: 0; right: 0; z-index: 10; padding: 1.25rem var(--gutter); }
+	.lp-nav .wrap { display: flex; align-items: center; justify-content: space-between; }
+	.lp-nav .brand img { height: 28px; width: auto; display: block; }
+	.lp-nav a.lp-login { font-size: .875rem; font-weight: 600; color: var(--ink-2); text-decoration: none; }
+
+	.hero.lp-hero { padding-top: clamp(5.5rem, 10vw, 8rem); }
+	.lp-hero h1 { font-size: clamp(2.125rem, 4.4vw, 3.25rem); text-wrap: balance; }
+	.lp-hint { font-size: .875rem; color: var(--ink-3); margin: -.25rem 0 1.125rem; }
+
+	.benefits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+	.benefit { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-card); padding: 1.75rem; box-shadow: var(--lift-1); }
+	.benefit h3 { font-size: 1.125rem; margin: 1rem 0 .5rem; }
+	.benefit p { font-size: .9375rem; line-height: 1.55; }
+
+	.lp-price { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(1.5rem, 4vw, 3rem); align-items: center; }
+	.lp-price .money b { display: block; font-size: clamp(2.25rem, 5vw, 3rem); font-weight: 800; letter-spacing: -0.03em; color: var(--ink); line-height: 1.05; }
+	.lp-price .money small { display: block; margin-top: .375rem; font-size: 1rem; color: var(--ink-2); }
+	.lp-price .btn { margin-top: 1.5rem; }
+	.lp-price .lp-links { margin-top: 1.25rem; display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; font-size: .9375rem; }
+	.lp-price .lp-links a, .lp-more a, .lp-more button { color: var(--ink); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+	.lp-more { margin-top: 1.5rem; font-size: .9375rem; color: rgba(255,255,255,.7); }
+	.lp-more button { background: none; border: 0; padding: 0; font: inherit; color: #fff; cursor: pointer; }
+	/* Selos em frase, sem caixa-alta (como o do heroi da home) */
+	.tag { text-transform: none; letter-spacing: -0.005em; font-size: 0.8125rem; font-weight: 600; }
+	.link-btn { text-align: left; background: none; border: 0; padding: 0; font: inherit; color: var(--ink); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+
+	.lp-foot { background: var(--navy-900); color: rgba(255,255,255,.6); padding: 2rem var(--gutter); font-size: .8125rem; }
+	.lp-foot .wrap { display: flex; flex-wrap: wrap; gap: .75rem 1.5rem; justify-content: space-between; align-items: center; }
+	.lp-foot a { color: rgba(255,255,255,.75); }
+	.lp-foot nav { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+
+	/* Botao fixo no celular: aparece depois que os botoes do heroi saem da
+	   tela e some quando o fechamento (que ja tem os botoes) entra.
+	   --consent-h: sobe junto com o aviso de cookies (consent.js). */
+	.lp-sticky { display: none; }
+	@media (max-width: 640px) {
+		.lp-sticky {
+			display: block;
+			position: fixed;
+			left: 12px;
+			right: 12px;
+			bottom: calc(var(--consent-h, 0px) + 12px + env(safe-area-inset-bottom));
+			z-index: 90;
+			transform: translateY(160%);
+			transition: transform .45s var(--spring);
+		}
+		.lp-sticky.show { transform: none; }
+		.lp-sticky .btn { width: 100%; justify-content: center; box-shadow: 0 10px 30px rgba(15,22,38,.25); }
+		.lp-foot { padding-bottom: calc(6rem + env(safe-area-inset-bottom)); }
+	}
+
+	@media (max-width: 860px) {
+		.benefits { grid-template-columns: 1fr; }
+		.lp-price { grid-template-columns: 1fr; }
+	}
+	@media (max-width: 640px) {
+		.hero.lp-hero { padding-top: 4.75rem; }
+		.lp-hero .lede { font-size: 1rem; line-height: 1.5; margin-bottom: 1.25rem; }
+		.lp-hero h1 { margin-bottom: .875rem; }
+		.lp-hero .hero-cta .btn { width: 100%; justify-content: space-between; }
+	}
+	</style>
+<script src="assets/js/consent.js?v=7eacb5ee" defer></script>
+<script src="assets/js/meta-capi.js?v=f91ae90c" defer></script>
+<script src="assets/js/avaliacao-form.js?v=53a8d56c" defer></script>
+</head>
+
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PTN93NBN"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+	<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+		<defs>
+			<g id="i-arrow"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+			<g id="i-check"><path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g>
+			<g id="i-chat"><path d="M21 11.5a8.4 8.4 0 01-9 8.4 8.6 8.6 0 01-3.9-.9L3 21l2-4.1A8.4 8.4 0 0121 11.5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></g>
+			<g id="i-clock"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3.2 1.9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></g>
+			<g id="i-cal"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 10h17M8 3v4M16 3v4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></g>
+			<g id="i-bell"><path d="M18 8.5a6 6 0 10-12 0c0 6-2.2 7.5-2.2 7.5h16.4S18 14.5 18 8.5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M13.7 20a2 2 0 01-3.4 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></g>
+			<g id="i-money"><rect x="2.5" y="6" width="19" height="12.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12.25" r="2.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6 9.5v5.5M18 9.5v5.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></g>
+			<g id="i-chart"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></g>
+			<g id="i-users"><circle cx="9" cy="8" r="3.4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M2.5 20c0-3.6 2.9-6.1 6.5-6.1s6.5 2.5 6.5 6.1M17 5.2a3.4 3.4 0 010 6.6M18.5 20c0-2.2-.8-3.9-2-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></g>
+			<g id="i-shield"><path d="M12 3l7.5 3v5.6c0 4.6-3.1 8-7.5 9.4-4.4-1.4-7.5-4.8-7.5-9.4V6z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2.2 2.2L15.5 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></g>
+			<g id="i-mic"><rect x="9" y="2.5" width="6" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5 11a7 7 0 0014 0M12 18v3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></g>
+			<g id="i-down"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></g>
+			<g id="i-signal"><path d="M2 17h3v4H2zM7.5 13.5h3V21h-3zM13 10h3v11h-3zM18.5 6.5h3V21h-3z" fill="currentColor"/></g>
+			<g id="i-battery"><rect x="2" y="8.5" width="17" height="10" rx="3" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".5"/><rect x="4" y="10.5" width="11" height="6" rx="1.6" fill="currentColor"/><path d="M20.8 12v3.2a2.6 2.6 0 000-3.2z" fill="currentColor" opacity=".5"/></g>
+			<g id="i-mark"><rect x="2" y="13" width="8.5" height="9" rx="2.6"/><rect x="13.5" y="13" width="8.5" height="9" rx="2.6"/><rect x="7.75" y="2" width="8.5" height="9" rx="2.6"/></g>
+			<g id="i-ig"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/></g>
+			<g id="i-wa"><path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.39a9.86 9.86 0 004.74 1.21h.01c5.46 0 9.9-4.44 9.9-9.9 0-2.64-1.03-5.13-2.9-7A9.82 9.82 0 0012.04 2zm5.8 14.14c-.25.69-1.44 1.32-1.99 1.37-.53.05-1.02.24-3.45-.72-2.9-1.14-4.74-4.1-4.88-4.29-.14-.19-1.16-1.55-1.16-2.95 0-1.4.73-2.09.99-2.37.26-.29.57-.36.76-.36l.54.01c.17 0 .41-.07.64.49.24.58.8 2 .87 2.15.07.14.12.31.02.5-.1.19-.14.31-.29.48l-.43.5c-.14.14-.29.3-.12.59.17.29.74 1.23 1.6 1.99 1.1.98 2.03 1.29 2.32 1.43.29.15.46.12.63-.07.17-.19.73-.85.92-1.15.19-.29.39-.24.65-.14.26.09 1.67.79 1.96.93.29.14.48.22.55.34.07.12.07.69-.18 1.37z" fill="currentColor"/></g>
+		</defs>
+	</svg>
+
+	<header class="lp-nav">
+		<div class="wrap">
+			<a href="/" class="brand" aria-label="Aplia, página inicial">
+				<img src="/assets/img/aplia-logo.webp" alt="Aplia" width="103" height="28" fetchpriority="high">
+			</a>
+			<a href="https://app.aplia.com.br/" class="lp-login">Entrar</a>
+		</div>
+	</header>
+
+	<main>
+	<!-- ================= Heroi: a dor dos videos ================= -->
+	<section class="hero lp-hero" id="inicio">
+		<div class="wrap">
+			<div class="hero-grid">
+				<div>
+					<span class="tag">Secretária de IA no WhatsApp do consultório</span>
+					<h1>O paciente que escreve às 23h não espera até amanhã</h1>
+					<p class="lede">A Aplia responde na hora no WhatsApp do seu consultório, marca a consulta na
+						sua agenda e confirma a presença. De noite, no fim de semana e enquanto você atende.</p>
+					<div class="hero-cta" id="heroCta">
+						<a href="https://wa.me/551151973902?text=ol%C3%A1%20gostaria%20de%20marcar%20uma%20consulta" target="_blank" rel="noopener" class="btn btn-solid"
+							data-track="teste_paciente" data-track-location="lp_hero">
+							Testar como paciente <span class="pip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg></span>
+						</a>
+						<a href="https://app.aplia.com.br/cadastro" target="_blank" rel="noopener" class="btn btn-ghost"
+							data-track="cta_trial_click" data-track-location="lp_hero">
+							Começar 10 dias grátis <span class="pip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+						</a>
+					</div>
+					<p class="lp-hint">No teste você manda mensagem como se fosse seu paciente. Sem cadastro.</p>
+					<div class="risk">
+						<span><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg> 10 dias grátis</span>
+						<span><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg> Sem fidelidade</span>
+						<span><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg> A partir de R$ 249/mês</span>
+					</div>
+				</div>
+
+				<!-- ================= A conversa de exemplo ================= -->
+				<div class="rise d1">
+					<div class="phone" id="demoPhone">
+						<div class="phone-side left"></div>
+						<div class="phone-side right"></div>
+						<div class="phone-screen">
+							<div class="phone-status">
+								<span class="num">23:06</span>
+								<span class="phone-island"></span>
+								<span class="phone-meta">
+									<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-signal"/></svg>
+									<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-battery"/></svg>
+								</span>
+							</div>
+							<div class="chat-top">
+								<span class="chat-avatar">
+									<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mark"/></svg>
+								</span>
+								<div class="chat-id">
+									<div class="chat-who">Consultório Dra. Helena</div>
+									<div class="chat-state">online</div>
+								</div>
+							</div>
+							<div class="chat-body" id="chatBody" aria-label="Exemplo de conversa entre paciente e a Aplia às 23h"></div>
+							<div class="chat-foot">Exemplo de atendimento</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- ================= Linha do tempo ================= -->
+	<section class="problem">
+		<div class="wrap">
+			<div class="problem-grid">
+				<div class="rise">
+					<h2>Quem não é respondido, às vezes não espera.</h2>
+					<p class="lede" style="margin-top:1rem">Quem manda mensagem fora do horário vai com quem responder
+						primeiro. Você não perdeu para alguém melhor. Perdeu para um horário sem ninguém no WhatsApp.</p>
+				</div>
+				<div class="clock-list rise d1">
+					<div class="clock-row"><b>19:40</b><p>Paciente pede horário. O consultório fechou às 18h.</p></div>
+					<div class="clock-row"><b>19:52</b><p>Sem resposta, procura outra clínica no Google.</p></div>
+					<div class="clock-row lost"><b>20:05</b><p>A outra clínica responde. O horário é marcado lá.</p></div>
+					<div class="clock-row"><b>08:30</b><p>Sua secretária responde. A consulta já não existe.</p></div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- ================= Objecao: parece robo? ================= -->
+	<section id="conversa">
+		<div class="wrap">
+			<div class="split">
+				<div class="rise">
+					<span class="tag">A pergunta que todo mundo faz</span>
+					<h2>"Meu paciente vai perceber que é um robô?"</h2>
+					<p class="lede" style="margin-top:1rem">Chatbot de menu numerado irrita paciente. A Aplia conversa
+						como uma secretária atenciosa.</p>
+					<ul class="checks">
+						<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>Entende texto corrido, áudio e emoji. Sem "digite 1".</span></li>
+						<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>Usa os dados do seu consultório: horários, convênios, procedimentos.</span></li>
+						<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>Se a pergunta sai do que ela sabe, passa para um humano em vez de inventar.</span></li>
+					</ul>
+					<div class="honest" style="margin-top:1.75rem">
+						<h3>Tire a dúvida em um minuto</h3>
+						<p style="margin-bottom:1rem">Mande uma mensagem como se fosse seu paciente. Não pede cadastro.</p>
+						<a href="https://wa.me/551151973902?text=ol%C3%A1%20gostaria%20de%20marcar%20uma%20consulta" target="_blank" rel="noopener" class="btn btn-navy"
+							data-track="teste_paciente" data-track-location="lp_objecao">
+							Testar como paciente <span class="pip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg></span>
+						</a>
+					</div>
+				</div>
+				<div class="rise d1">
+					<div class="shell">
+						<div class="core" style="padding:1.75rem">
+							<h3 style="margin-bottom:1.25rem">O que ela resolve sozinha</h3>
+							<ul class="checks" style="margin-top:0">
+								<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>"Qual o valor da consulta?"</span></li>
+								<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>"Vocês atendem Unimed?"</span></li>
+								<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>"Tem horário na quinta de manhã?"</span></li>
+								<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>"Preciso remarcar para semana que vem."</span></li>
+								<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>"Onde fica o consultório?"</span></li>
+							</ul>
+							<p style="margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--line);font-size:.875rem;color:var(--ink-3)">
+								Pergunta clínica ou caso fora do combinado, ela passa para a sua equipe.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- ================= Tres beneficios ================= -->
+	<section style="background:var(--paper-3)">
+		<div class="wrap">
+			<div class="s-head rise">
+				<h2>O que muda no seu consultório</h2>
+				<p>No WhatsApp e na agenda que você já usa, sem trocar de número.</p>
+			</div>
+			<div class="benefits">
+				<div class="benefit rise">
+					<div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-clock"/></svg></div>
+					<h3>Atende 24 horas</h3>
+					<p>Responde na hora, de madrugada e no domingo, no número que seus pacientes já conhecem.</p>
+				</div>
+				<div class="benefit rise d1">
+					<div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cal"/></svg></div>
+					<h3>Agenda sozinha</h3>
+					<p>Vê seus horários livres e marca direto na agenda. Integra com o Google Agenda.</p>
+				</div>
+				<div class="benefit rise d2">
+					<div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bell"/></svg></div>
+					<h3>Confirma presença</h3>
+					<p>Lembra o paciente antes da consulta e reduz a cadeira vazia, sem você precisar lembrar.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- ================= Preco ================= -->
+	<section id="preco">
+		<div class="wrap">
+			<div class="shell rise">
+				<div class="core" style="padding:clamp(1.75rem, 4vw, 3rem)">
+					<div class="lp-price">
+						<div>
+							<h2>Teste 10 dias com pacientes de verdade</h2>
+							<div class="money" style="margin-top:1.25rem">
+								<b class="num">R$ 249<span style="font-size:.45em;font-weight:700">/mês</span></b>
+								<small>a partir de, depois do teste. Sem fidelidade, cancele quando quiser.</small>
+							</div>
+							<a href="https://app.aplia.com.br/cadastro" target="_blank" rel="noopener" class="btn btn-solid"
+							data-track="cta_trial_click" data-track-location="lp_preco">
+							Começar 10 dias grátis <span class="pip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+						</a>
+							<div class="lp-links">
+								<a href="/precos">Ver todos os planos</a>
+								<button type="button" class="link-btn js-open-consultor-modal" data-track-location="lp_preco">Clínica com vários profissionais? Avaliar minha operação</button>
+							</div>
+						</div>
+						<ul class="checks" style="margin-top:0">
+							<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>1 número de WhatsApp e agendamentos ilimitados</span></li>
+							<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>Entende áudio e emoji</span></li>
+							<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>Lembretes automáticos de consulta</span></li>
+							<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>Agenda própria, integrável ao Google Agenda</span></li>
+							<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>Ficha de pacientes e controle financeiro</span></li>
+							<li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><span>Configuração em 15 minutos, sem técnico</span></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- ================= Pergunta frequente ================= -->
+	<section id="faq" style="padding-top:0">
+		<div class="wrap">
+			<div class="s-head rise">
+				<h2>Antes de testar</h2>
+			</div>
+			<div class="faq-grid" id="faqList">
+				<div class="q rise open">
+					<button type="button" aria-expanded="true"><span>Preciso trocar de número ou entender de tecnologia?</span><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-down"/></svg></button>
+					<div class="q-body"><div><p>Não. Ela trabalha no WhatsApp do consultório. A configuração é um
+						formulário sobre o seu consultório e a leitura de um QR Code. Quem usa WhatsApp consegue fazer.</p></div></div>
+				</div>
+				<div class="q rise d1">
+					<button type="button" aria-expanded="false"><span>Posso usar junto com minha secretária?</span><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-down"/></svg></button>
+					<div class="q-body"><div><p>Sim, e é assim que funciona melhor. Ela cuida do repetitivo e do
+						fora de horário; sua equipe assume o que exige julgamento e acolhimento.</p></div></div>
+				</div>
+				<div class="q rise">
+					<button type="button" aria-expanded="false"><span>A cobrança é mensal? Tem fidelidade?</span><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-down"/></svg></button>
+					<div class="q-body"><div><p>A cobrança é sempre mensal, sem plano anual e sem fidelidade. Você
+						cancela quando quiser, sem multa.</p></div></div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- ================= Fechamento ================= -->
+	<section class="close-cta" id="fechamento">
+		<div class="wrap">
+			<h2 class="rise">Veja como ela atende antes de assinar</h2>
+			<p class="rise d1">Mande uma mensagem como se fosse seu paciente, ou comece o teste de dez dias e
+				deixe ela responder de verdade.</p>
+			<div class="row rise d2">
+				<a href="https://wa.me/551151973902?text=ol%C3%A1%20gostaria%20de%20marcar%20uma%20consulta" target="_blank" rel="noopener" class="btn btn-solid"
+							data-track="teste_paciente" data-track-location="lp_fechamento">
+							Testar como paciente <span class="pip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg></span>
+						</a>
+				<a href="https://app.aplia.com.br/cadastro" target="_blank" rel="noopener" class="btn btn-light"
+							data-track="cta_trial_click" data-track-location="lp_fechamento">
+							Começar 10 dias grátis <span class="pip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+						</a>
+			</div>
+			<p class="lp-more rise d3">Clínica com vários profissionais?
+				<button type="button" class="js-open-consultor-modal" data-track-location="lp_fechamento">Avaliar minha operação</button></p>
+		</div>
+	</section>
+	</main>
+
+	<footer class="lp-foot">
+		<div class="wrap">
+			<span>© 2026 Aplia</span>
+			<nav aria-label="Links legais">
+				<a href="https://app.aplia.com.br/termos">Termos</a>
+				<a href="https://app.aplia.com.br/privacidade">Privacidade</a>
+				<a href="/lgpd">LGPD</a>
+			</nav>
+		</div>
+	</footer>
+
+	<div class="lp-sticky" id="lpSticky" aria-hidden="true">
+		<a href="https://wa.me/551151973902?text=ol%C3%A1%20gostaria%20de%20marcar%20uma%20consulta" target="_blank" rel="noopener" class="btn btn-solid" tabindex="-1"
+			data-track="teste_paciente" data-track-location="lp_sticky">
+			Testar como paciente <span class="pip"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg></span>
+		</a>
+	</div>
+
+
+	<script>
+		const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+		/* Entrada em cena das secoes */
+		const riseObserver = new IntersectionObserver(entries => {
+			entries.forEach(entry => {
+				if (!entry.isIntersecting) return;
+				entry.target.classList.add('visible');
+				riseObserver.unobserve(entry.target);
+			});
+		}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+		document.querySelectorAll('.rise').forEach(el => {
+			if (reduceMotion) { el.classList.add('visible'); return; }
+			riseObserver.observe(el);
+		});
+
+		/* FAQ: um aberto por vez */
+		document.querySelectorAll('#faqList .q').forEach(item => {
+			const btn = item.querySelector('button');
+			btn.addEventListener('click', () => {
+				const willOpen = !item.classList.contains('open');
+				document.querySelectorAll('#faqList .q').forEach(other => {
+					other.classList.remove('open');
+					other.querySelector('button').setAttribute('aria-expanded', 'false');
+				});
+				item.classList.toggle('open', willOpen);
+				btn.setAttribute('aria-expanded', String(willOpen));
+			});
+		});
+
+		/* Conversa de exemplo: a mesma da home, as 23h. Roda uma vez, ao entrar em tela. */
+		const CHAT = [
+			{ who: 'them', text: 'Boa noite! Vocês têm horário essa semana?', at: '23:04' },
+			{ who: 'us', text: 'Boa noite! Temos sim. Quinta às 14h30 ou sexta às 9h. Alguma dessas funciona?', at: '23:04', wait: 900 },
+			{ who: 'them', text: 'Quinta fica ótimo. Vocês atendem Unimed?', at: '23:05' },
+			{ who: 'us', text: 'Atendemos Unimed sim. Deixei a quinta, 14h30, reservada no seu nome. Pode me confirmar seu nome completo?', at: '23:05', wait: 1100 },
+			{ who: 'them', text: 'Marina Bettega', at: '23:06' },
+			{ who: 'us', text: 'Pronto, Marina. Consulta confirmada para quinta às 14h30. Vou te lembrar um dia antes.', at: '23:06', wait: 1000 }
+		];
+		const chatBody = document.getElementById('chatBody');
+		function bubble(msg) {
+			const el = document.createElement('div');
+			el.className = 'bubble ' + msg.who;
+			el.textContent = msg.text;
+			const t = document.createElement('time');
+			t.textContent = msg.at;
+			el.appendChild(t);
+			chatBody.appendChild(el);
+			requestAnimationFrame(() => el.classList.add('in'));
+			chatBody.scrollTop = chatBody.scrollHeight;
+			return el;
+		}
+		function typing() {
+			const el = document.createElement('div');
+			el.className = 'typing';
+			el.innerHTML = '<i></i><i></i><i></i>';
+			chatBody.appendChild(el);
+			requestAnimationFrame(() => el.classList.add('in'));
+			chatBody.scrollTop = chatBody.scrollHeight;
+			return el;
+		}
+		const sleep = ms => new Promise(r => setTimeout(r, ms));
+		async function playChat() {
+			for (const msg of CHAT) {
+				if (msg.who === 'us') { const dots = typing(); await sleep(msg.wait || 800); dots.remove(); }
+				else await sleep(520);
+				bubble(msg);
+			}
+			chatBody.classList.add('done');
+		}
+		if (reduceMotion) {
+			CHAT.forEach(msg => bubble(msg).classList.add('in'));
+			chatBody.classList.add('done');
+		} else {
+			const chatObserver = new IntersectionObserver(entries => {
+				if (!entries.some(e => e.isIntersecting)) return;
+				chatObserver.disconnect();
+				playChat();
+			}, { threshold: 0.4 });
+			chatObserver.observe(chatBody);
+		}
+
+		/* Botao fixo do celular: so quando os botoes do heroi e do fechamento
+		   estao fora da tela */
+		const sticky = document.getElementById('lpSticky');
+		const seen = new Map();
+		const stickyObserver = new IntersectionObserver(entries => {
+			entries.forEach(e => seen.set(e.target, e.isIntersecting));
+			const show = ![...seen.values()].some(Boolean) && window.scrollY > 200;
+			sticky.classList.toggle('show', show);
+			sticky.setAttribute('aria-hidden', String(!show));
+			sticky.querySelector('a').tabIndex = show ? 0 : -1;
+		});
+		[document.getElementById('heroCta'), document.querySelector('#fechamento .row')].forEach(el => stickyObserver.observe(el));
+	</script>
+</body>
+
+</html>
