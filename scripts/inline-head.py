@@ -12,7 +12,7 @@ fonte = (raiz / "assets" / "js" / "head.js").read_text(encoding="utf-8")
 # Sem comentários nem indentação: o bloco vai em toda página
 codigo = re.sub(r"/\*.*?\*/", "", fonte, flags=re.S)
 codigo = "\n".join(l.strip() for l in codigo.splitlines() if l.strip())
-bloco = f"<!-- aplia:head (gerado de assets/js/head.js) -->\n<script>\n{codigo}\n</script>\n<!-- /aplia:head -->"
+bloco = f"<!-- aplia:head (gerado por scripts/inline-head.py) -->\n<script>\n{codigo}\n</script>\n<!-- /aplia:head -->"
 
 padrao = re.compile(r"<!-- aplia:head.*?<!-- /aplia:head -->", re.S)
 alterados = 0
