@@ -11,6 +11,7 @@
    Nada que indique saúde vai ao Meta (URL e nomes neutros).
    Todo evento do Pixel (padrão, personalizado e PageView) sai TAMBÉM pelo
    servidor (meta_capi) com o MESMO event_id do fbq (eventID), pra Meta deduplicar.
+   Cliques dos botões: window.apliaTrack / data-track (ver abaixo).
    Depende de consent.js (carregar antes). Ver aplia-web/docs/META-CAPI-GTM.md. */
 (function () {
 	/* Schedule e Search ficam DESLIGADOS (dado de saúde de terceiros). */
@@ -82,7 +83,8 @@
 	var SAFE_PAGES = {
 		'/': 'home', '/precos': 'precos', '/funcionalidades': 'funcionalidades',
 		'/integracoes': 'integracoes', '/lgpd': 'lgpd', '/blog': 'blog',
-		'/secretaria-virtual-ia': 'secretaria_virtual', '/agendamento-whatsapp': 'agendamento_whatsapp'
+		'/secretaria-virtual-ia': 'secretaria_virtual', '/agendamento-whatsapp': 'agendamento_whatsapp',
+		'/avaliacao': 'avaliacao'
 	};
 	function safePath() {
 		var path = (location.pathname || '/').replace(/\/index\.html$/, '/').replace(/\.html$/, '');
@@ -222,28 +224,7 @@
 		}
 	};
 
-	/* Os cliques já chamam fbq('trackCustom', '<Nome>') nos onclick. Em vez de
-	   reescrever cada botão, cada nome custom é traduzido pro evento padrão
-	   equivalente e enviado também pela CAPI. */
-	/* Botões que só abrem o modal (AbrirAvaliacao, AbrirAvaliacaoEnterprise) não
-	   estão aqui de propósito: não geram Lead nem Contact. O Lead real é o envio
-	   do formulário (index.html), independente da resposta do webhook. */
-	var CUSTOM_TO_STANDARD = {
-		ClickComecar: 'InitiateCheckout',
-		EscolherPlanoEssencial: 'AddToCart',
-		EscolherPlanoProfissional: 'AddToCart',
-		TesteDemo: 'Contact',
-		FaleConosco: 'Contact',
-		ClickConhecerAplia: 'ViewContent'
-	};
-
-	/* Só vale clique de verdade do usuário (isTrusted) nos últimos 1,5s: nada de
-	   evento disparado por script ou ao carregar a página. */
-	var lastTrustedClick = 0;
-	document.addEventListener('click', function (e) { if (e.isTrusted) lastTrustedClick = Date.now(); }, true);
-
 	if (typeof rawFbq === 'function') {
-		var lastFired = {};
 		window.fbq = function () {
 			var a = arguments;
 			try {
@@ -253,15 +234,6 @@
 					var eventId = (a[3] && a[3].eventID) || newId();
 					var ret = rawFbq.apply(this, [a[0], a[1], a[2] || {}, { eventID: eventId }]);
 					pushCapi(a[1], eventId, pick(a[2], CUSTOM_DATA_ALLOWED), undefined);
-					/* O clique também vale como o evento padrão equivalente, só se
-					   foi um clique real do usuário (isTrusted) e sem duplo clique. */
-					if (a[0] === 'trackCustom' && CUSTOM_TO_STANDARD[a[1]] && Date.now() - lastTrustedClick < 1500) {
-						var now = Date.now();
-						if (!lastFired[a[1]] || now - lastFired[a[1]] > 1000) {
-							lastFired[a[1]] = now;
-							window.trackMetaEvent(CUSTOM_TO_STANDARD[a[1]], { customData: a[2] || {} });
-						}
-					}
 					return ret;
 				}
 			} catch (e) { }
@@ -270,6 +242,38 @@
 		/* o objeto interno do Pixel (queue, loaded...) precisa continuar acessível */
 		for (var k in rawFbq) { if (Object.prototype.hasOwnProperty.call(rawFbq, k)) window.fbq[k] = rawFbq[k]; }
 	}
+
+	/* Eventos padronizados do site. Cada ação vai ao GA4 (gtag -> dataLayer,
+	   entregue pela Google tag do GTM) e, quando tem par na Meta, ao Pixel e à
+	   CAPI com o MESMO event_id (trackMetaEvent):
+	     teste_paciente   -> Contact   (abre o WhatsApp de teste)
+	     cta_trial_click  -> nada      ("Testar grátis" / "Começar 10 dias grátis")
+	     form_start       -> nada      (abriu o formulário de avaliação)
+	     form_step        -> nada      (etapa vista; parâmetro step 1 a 4)
+	     generate_lead    -> Lead      (sai do avaliacao-form.js, com os dados do lead)
+	   sign_up, begin_trial e purchase saem do app (app.aplia.com.br).
+	   Nos botões: data-track="<evento>" e data-track-location="<onde>". */
+	var META_PAIR = { teste_paciente: 'Contact' };
+	var lastTracked = {};
+	window.apliaTrack = function (name, params) {
+		try {
+			params = params || {};
+			/* duplo clique / toque fantasma no celular não vira dois eventos */
+			var now = Date.now();
+			if (lastTracked[name] && now - lastTracked[name] < 800 && name !== 'form_step') return;
+			lastTracked[name] = now;
+			var g = window.gtag || function () { (window.dataLayer = window.dataLayer || []).push(arguments); };
+			g('event', name, params);
+			if (META_PAIR[name]) window.trackMetaEvent(META_PAIR[name], { customData: { content_name: name } });
+		} catch (e) { }
+	};
+	document.addEventListener('click', function (e) {
+		var el = e.target && e.target.closest && e.target.closest('[data-track]');
+		if (!el) return;
+		var loc = el.getAttribute('data-track-location') || '';
+		/* event_label repete cta_location: relatórios antigos do GA4 usam event_label */
+		window.apliaTrack(el.getAttribute('data-track'), loc ? { cta_location: loc, event_label: loc } : {});
+	}, true);
 
 	/* PageView: o fbq('track','PageView') está no <head> de cada página, antes
 	   deste script, com um eventID guardado em window.__apliaPvId. O mesmo id vai
