@@ -327,7 +327,7 @@
 			if (t.type === 'checkbox') t.closest('.av-card').classList.toggle('is-checked', t.checked);
 			/* escolha única avança sozinha */
 			if (t.type === 'radio') setTimeout(function () { if (validate(current)) goTo(current + 1); }, 240);
-			else setFeedback('');
+			else if (t.type === 'checkbox') setFeedback('');
 		});
 		field('whatsapp').addEventListener('input', maskPhone);
 		['name', 'whatsapp'].forEach(function (n) {
