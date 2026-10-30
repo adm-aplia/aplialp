@@ -10,6 +10,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Copia assets/js/head.js para o <head> das páginas
+      run: python3 scripts/inline-head.py
+
     - name: Versiona scripts (?v=<hash>)
       run: python3 scripts/versionar-assets.py
     
