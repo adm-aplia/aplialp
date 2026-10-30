@@ -128,7 +128,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	<!-- End Meta Pixel Code -->
 
 	<!-- Google tag (gtag.js) - Google Ads -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=AW-16734679755"></script>
+	<!-- gtag.js do Ads carrega depois do load: não disputa a banda do primeiro
+	     paint no 4G. Os comandos abaixo ficam na fila do dataLayer até lá. -->
+	<script>addEventListener('load', function () { var s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=AW-16734679755'; document.head.appendChild(s); });</script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
 		function gtag() { dataLayer.push(arguments); }
@@ -154,10 +156,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	<meta property="og:locale" content="pt_BR" />
 	<meta name="facebook-domain-verification" content="pwr5oqern4vtr4bsji136u74zn3ev0" />
 
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-		rel="stylesheet">
+	<!-- Fonte hospedada aqui (Plus Jakarta Sans, OFL, variável 400-800, só latin):
+	     sem o CSS bloqueante do Google Fonts nem duas conexões a mais no 4G -->
+	<link rel="preload" href="/assets/fonts/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+	<style>
+	@font-face {
+		font-family: 'Plus Jakarta Sans';
+		font-style: normal;
+		font-weight: 400 800;
+		font-display: swap;
+		src: url(/assets/fonts/plus-jakarta-sans-latin.woff2) format('woff2');
+		unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+	}
+	</style>
 	<style>
 	/* =========================================================================
 	   APLIA . SISTEMA DE DESIGN
