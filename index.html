@@ -1003,6 +1003,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	.close-cta .risk { justify-content: center; margin-top: 1.5rem; color: rgba(255,255,255,.55); }
 	.close-cta .risk svg { color: #4ade80; }
 
+	/* Botao destacado ao chegar por #abrir-avaliacao: pulso curto, sem abrir nada */
+	.btn.is-highlighted { animation: btn-pulse 1.4s var(--glide) 3; }
+	@keyframes btn-pulse {
+		0%, 100% { box-shadow: 0 0 0 0 rgba(234,84,95,.55); }
+		60% { box-shadow: 0 0 0 14px rgba(234,84,95,0); }
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.btn.is-highlighted { animation: none; outline: 3px solid var(--coral); outline-offset: 3px; }
+	}
+
 	/* --- Rodape -------------------------------------------------------------- */
 
 	.foot { background: var(--navy-900); color: rgba(255,255,255,.62); padding-block: clamp(3rem, 6vw, 4.5rem) 2rem; }
@@ -2645,7 +2655,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	</section>
 
 	<!-- ================= Fechamento ================= -->
-	<section class="close-cta">
+	<section class="close-cta" id="avaliar">
 		<div class="wrap">
 			<h2 class="rise">Veja como ela atende antes de assinar</h2>
 			<p class="rise d1">Mande uma mensagem como se fosse seu paciente, ou comece o teste de dez dias e
@@ -3175,15 +3185,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			}
 		});
 
-		// Check URL hash on page load and on hash change
-		if (window.location.hash === '#abrir-avaliacao' || window.location.hash === '#abrir-formulario') {
-			setTimeout(openModal, 150);
+		// #abrir-avaliacao (anúncios antigos, links de outras páginas) NÃO abre o
+		// modal: abrir um formulário de várias etapas antes de a pessoa ver a
+		// página derrubava o engajamento para 0-2 s. Agora rola até o bloco
+		// "Avaliar minha operação" e destaca o botão; o modal só abre no clique.
+		function revealAvaliacao() {
+			const h = window.location.hash;
+			if (h !== '#abrir-avaliacao' && h !== '#abrir-formulario') return;
+			const bloco = document.getElementById('avaliar');
+			const botao = bloco && bloco.querySelector('.js-open-consultor-modal');
+			// Tira o hash da URL: recarregar a página não rola de novo
+			history.replaceState(null, '', window.location.pathname + window.location.search);
+			if (!bloco) return;
+			setTimeout(() => {
+				(botao || bloco).scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+				if (botao) {
+					botao.classList.add('is-highlighted');
+					setTimeout(() => botao.classList.remove('is-highlighted'), 4200);
+				}
+			}, 250);
 		}
-		window.addEventListener('hashchange', () => {
-			if (window.location.hash === '#abrir-avaliacao' || window.location.hash === '#abrir-formulario') {
-				openModal();
-			}
-		});
+		revealAvaliacao();
+		window.addEventListener('hashchange', revealAvaliacao);
 
 		function setFeedback(msg) {
 			if (feedbackEl) feedbackEl.textContent = msg;
